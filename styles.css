@@ -1,6 +1,7 @@
 .loginpage {
     width: 100%;
     margin: 0;
+    display: flex;
 }
 
 .loginbody {
@@ -8,7 +9,18 @@
 }
 
 .loginimg {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+}
+
+.mainlog {
+    text-align: center;
     width: 50%;
-    height:1000px;
+}
+
+.left-half {
+    width: 50%;
+    height: 100vh;
+    overflow: hidden;
 }

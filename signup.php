@@ -7,6 +7,6 @@
     <title>BradPoints</title>
 </head>
 <body class="loginbody">
-    <?php include "includes/login.html" ?>
+    <?php include "includes/signup.html" ?>
 </body>
 </html>

@@ -1,3 +1,8 @@
+<?php
+    
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +12,6 @@
     <title>BradPoints</title>
 </head>
 <body class="loginbody">
-    <?php include "includes/login.html" ?>
+    <?php include "includes/index.html" ?>
 </body>
 </html>
