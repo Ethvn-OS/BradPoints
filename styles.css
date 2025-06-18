@@ -1,0 +1,14 @@
+.loginpage {
+    width: 100%;
+    margin: 0;
+}
+
+.loginbody {
+    margin: 0;
+}
+
+.loginimg {
+    object-fit: cover;
+    width: 50%;
+    height:1000px;
+}
