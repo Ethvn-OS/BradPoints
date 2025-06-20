@@ -8,21 +8,31 @@
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //someting was posted
         $user_name = $_POST['user_name'];
-        $password = $_POST['password'];
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-        if(!empty($user_name) && !empty($password) && !is_numeric($user_name)) {
+        if(!empty($user_name) && !empty($password)) {
 
-            //checks if they are not NULL and saves to database
+            //Check if username already exists
+            $check_query = "SELECT id FROM users WHERE user_name = '$user_name' LIMIT 1";
+            $check_result = mysqli_query($con, $check_query);
 
-            $user_id = random_num(20);
-            $query = "INSERT INTO users (user_id, user_name, password) VALUES ('$user_id', '$user_name', '$password')";
+            if ($check_result && mysqli_num_rows($check_result) > 0) {
 
-            mysqli_query($con, $query);
+                //echo "Username already taken. Please choose another.";
+                $error_message = "Username already taken. Please choose another.";
+            } else {
+                //checks if they are not NULL and saves to database
 
-            header("Location: login.php");
-            die;
+                $query = "INSERT INTO users (user_name, password) VALUES ('$user_name', '$password')";
+
+                mysqli_query($con, $query);
+
+                header("Location: login.php");
+                die;
+            }
         } else {
-            echo "Please enter valid information.";
+            //echo "Please enter valid information.";
+            $error_message = "Please enter valid information.";
         }
     }
 ?>

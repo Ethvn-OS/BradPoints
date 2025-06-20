@@ -8,6 +8,9 @@
             <h4>Login</h4>
             Username: <input type="text" name="user_name"><br><br>
             Password: <input type="password" name="password"><br><br>
+            <?php if (!empty($error_message)): ?>
+                <span class="error-message" style="color: red;"><?php echo $error_message; ?></span><br><br>
+            <?php endif; ?>
             <input type="submit" value="Login"><br><br>
 
             <a href="signup.php">Sign Up</a>

@@ -21,16 +21,16 @@
 
                 $user_data = mysqli_fetch_assoc($result);
 
-                if ($user_data['password'] === $password) {
+                if (password_verify($password, $user_data['password'])) {                    //$user_data['password'] === $password
 
-                    $_SESSION['user_id'] = $user_data['user_id'];
+                    $_SESSION['id'] = $user_data['id'];
                     header("Location: index.php");
                     die;
                 }
             }
-            echo "Wrong username or password.";
+            $error_message = "Wrong username or password.";
         } else {
-            echo "Please enter valid information.";
+            $error_message = "Please enter valid information.";
         }
     }
 ?>
