@@ -27,7 +27,7 @@ session_start();
     <title>BradPoints Home</title>
 </head>
 <body>
-    <?php include "includes/landing.html" ?>
+    <?php include "includes/home.html" ?>
 
     <script src="script.js"></script>
 </body>
