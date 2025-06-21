@@ -6,8 +6,8 @@
         <h1>This is the login page</h1>
         <form method="post">
             <h4>Login</h4>
-            Username: <input type="text" name="user_name"><br><br>
-            Password: <input type="password" name="password"><br><br>
+            Username: <input type="text" name="user_name" required><br><br>
+            Password: <input type="password" name="password" required><br><br>
             <?php if (!empty($error_message)): ?>
                 <span class="error-message" style="color: red;"><?php echo $error_message; ?></span><br><br>
             <?php endif; ?>

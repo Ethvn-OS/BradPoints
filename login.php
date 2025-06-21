@@ -21,10 +21,16 @@
 
                 $user_data = mysqli_fetch_assoc($result);
 
-                if (password_verify($password, $user_data['password'])) {                    //$user_data['password'] === $password
+                if (password_verify($password, $user_data['password'])) {
 
                     $_SESSION['id'] = $user_data['id'];
-                    header("Location: index.php");
+
+                    if ($user_data['usertype_id'] == 2) {
+                        header("Location: index.php");
+                    } else if ($user_data['usertype_id'] == 1) {
+                        header("Location: cashier.php");
+                    }
+
                     die;
                 }
             }

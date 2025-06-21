@@ -4,34 +4,32 @@
     include("connection.php");
     include("functions.php");
 
-
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        //someting was posted
         $user_name = $_POST['user_name'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $password = $_POST['password'];
+        $confirm_password = $_POST['confirm-password'];
 
-        if(!empty($user_name) && !empty($password)) {
+        if(!empty($user_name) && !empty($password) && !empty($confirm_password)) {
 
-            //Check if username already exists
-            $check_query = "SELECT id FROM users WHERE user_name = '$user_name' LIMIT 1";
-            $check_result = mysqli_query($con, $check_query);
-
-            if ($check_result && mysqli_num_rows($check_result) > 0) {
-
-                //echo "Username already taken. Please choose another.";
-                $error_message = "Username already taken. Please choose another.";
+            if ($password !== $confirm_password) {
+                $error_message = "Passwords do not match.";
             } else {
-                //checks if they are not NULL and saves to database
+                //Check if username already exists
+                $check_query = "SELECT id FROM users WHERE user_name = '$user_name' LIMIT 1";
+                $check_result = mysqli_query($con, $check_query);
 
-                $query = "INSERT INTO users (user_name, password) VALUES ('$user_name', '$password')";
+                if ($check_result && mysqli_num_rows($check_result) > 0) {
+                    $error_message = "Username already taken. Please choose another.";
+                } else {
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                    $query = "INSERT INTO users (user_name, password) VALUES ('$user_name', '$hashed_password')";
+                    mysqli_query($con, $query);
 
-                mysqli_query($con, $query);
-
-                header("Location: login.php");
-                die;
+                    header("Location: login.php");
+                    die;
+                }
             }
         } else {
-            //echo "Please enter valid information.";
             $error_message = "Please enter valid information.";
         }
     }
