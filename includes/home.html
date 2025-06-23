@@ -1,6 +1,69 @@
 <a href="logout.php">Logout</a>
-<h1>This is the index page</h1>
 
-<br>
-<p>Hello, <?php echo $user_data['user_name']; ?></p>
-<p>Points: <?php echo $user_data['points']; ?></p>
+  <div class="navbar">
+    <div class="circle"></div>
+    <div class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="#">Points</a>
+      <a href="#">Rewards</a>
+      <a href="#">Notifications</a>
+    </div>
+    <a href="profile.html"><div class="circle"></div></a>
+  </div>
+
+  <div class="container">
+    <div class="welcome">Welcome back, <?php echo $user_data['user_name']; ?>!</div>
+    <p class="home-text" style="font-family: Inter;">Check your points status and see which rewards you're eligible for today.</p>
+
+    <div class="row">
+      <div class="points-card">
+        <div class="points-box">
+          <div class="big"><?php echo $user_data['points']; ?></div> points
+        </div>
+      </div>
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="font-family: Inter;">Recent Purchases</h3>
+          <a href="purchases.html" class="see-more-link">
+            <div class="see-more">See More</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="headings">Rewards</div>
+
+    <div class="rewards-section">
+      <div class="rewards-header">
+        <div style="font-family: Inter;">You have no rewards ready for availing!</div>
+        <a href="rewards.html" class="see-more-link">
+          <div class="see-more">See More</div>
+        </a>
+      </div>
+      <div class="rewards-list">
+        <div class="reward"><span class="padlock">🔒</span></div>
+        <div class="reward"><span class="padlock">🔒</span></div>
+        <div class="reward"><span class="padlock">🔒</span></div>
+        <div class="reward"><span class="padlock">🔒</span></div>
+      </div>
+    </div>
+
+    <div class="headings">Feedback</div>
+
+    <div class="feedback-section" style="margin-top:1rem;">
+      <div class="feedback-header">
+        <div style="font-family: Inter;">Recent Feedback</div>
+        <a href="feedback.html" class="see-more-link">
+          <div class="see-more">See More</div>
+        </a>
+      </div>
+      <div class="feedback-list">
+        <div class="feedback"></div>
+        <div class="feedback"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>this is the footer section</p>
+  </div>

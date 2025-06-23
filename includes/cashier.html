@@ -8,3 +8,10 @@
     ID Number: <input type="number" name="id-number"><br><br>
     <input type="submit">
 </form>
+
+<?php if (!empty($success_message)): ?>
+    <span style="color: green;"><?php echo $success_message; ?></span><br><br>
+<?php endif; ?>
+<?php if (!empty($error_message)): ?>
+    <span style="color: red;"><?php echo $error_message; ?></span><br><br>
+<?php endif; ?>
