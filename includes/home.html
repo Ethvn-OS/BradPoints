@@ -41,10 +41,9 @@
         </a>
       </div>
       <div class="rewards-list">
-        <div class="reward"><span class="padlock">🔒</span></div>
-        <div class="reward"><span class="padlock">🔒</span></div>
-        <div class="reward"><span class="padlock">🔒</span></div>
-        <div class="reward"><span class="padlock">🔒</span></div>
+        <?php foreach ($rewards as $reward): ?>
+        <div class="reward"><span class="padlock">🔒</span><span class="reward-name"><?php echo $reward['reward_name'] ?></span></div>
+        <?php endforeach ?>
       </div>
     </div>
 
@@ -67,3 +66,8 @@
   <div class="footer">
     <p>this is the footer section</p>
   </div>
+
+  <!-- Under class .rewards-list -->
+  <!-- <div class="reward"><span class="padlock">🔒 </span></div>
+        <div class="reward"><span class="padlock">🔒 </span></div>
+        <div class="reward"><span class="padlock">🔒 </span></div> -->

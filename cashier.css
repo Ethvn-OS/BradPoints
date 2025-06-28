@@ -1,0 +1,30 @@
+.card {
+    background-color: rgb(189, 184, 184);
+    width: 12vw;
+    height: 24vh;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.imgcont {
+    height: 50%;
+    width: auto;
+    background-color: red;
+    padding: 8px;
+}
+
+.prodcontainers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 25px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}

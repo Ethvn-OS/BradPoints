@@ -25,10 +25,9 @@ session_start();
         $check_result = mysqli_query($con, $check_query);
 
         if ($check_result && mysqli_num_rows($check_result) > 0) {
-            // Add 5 points
-            $update_query = "UPDATE users SET points = points + 5 WHERE id = '$target_id'";
-            mysqli_query($con, $update_query);
-            $success_message = "5 points added to user ID $target_id.";
+            $_SESSION['target_id'] = $target_id;
+            header("Location: cashierprod.php");
+            exit;
         } else {
             $error_message = "User with ID $target_id not found.";
         }
@@ -41,7 +40,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BradPoints Cashier</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cashier.css">
 </head>
 <body>
     <?php include "includes/cashier.html" ?>
@@ -49,3 +48,9 @@ session_start();
     <script src="script.js"></script>
 </body>
 </html>
+
+
+<!--Add 5 points
+            /* $update_query = "UPDATE users SET points = points + 5 WHERE id = '$target_id'";
+            mysqli_query($con, $update_query);
+            $success_message = "5 points added to user ID $target_id."; -->

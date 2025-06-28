@@ -15,6 +15,17 @@ session_start();
 
         $user_data = mysqli_fetch_assoc($result);
     }
+
+    $rewards = [];
+
+    $rewards_query = "SELECT reward_name, reward_points FROM rewards";
+
+    $rewards_result = mysqli_query($con, $rewards_query);
+    if ($rewards_result) {
+        while ($row = mysqli_fetch_assoc($rewards_result)) {
+            $rewards[] = $row;
+        }
+    }
 ?>
 
 
