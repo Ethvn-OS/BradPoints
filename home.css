@@ -284,8 +284,53 @@ body {
   cursor: pointer;
 }
 
-/* New: Reward */
+/* New: Reward (in index.php) */
 
 .reward-name {
   font-size: 10px;
+}
+
+/* New: Rewards (in rewards.php) */
+
+.reward-card {
+  background: #fdd79b;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  width: 500px;
+  height: 250px;
+  display: flex;
+}
+
+.imgplaceholder {
+  background-color: white;
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+
+.rewardscont {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.rewardtext {
+  font-size: 1.3rem;
+}
+
+.rewarddesctext {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.rewardtextcont {
+  margin-left: 15px;
+}
+
+.availbtn {
+  margin-top: 15px;
+  padding: 3px 5px;
 }

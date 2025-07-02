@@ -1,4 +1,4 @@
-<div class="loginpage">
+<!-- <div class="loginpage">
     <div class="left-half">
         <img src="assets/braddexlogin.jpg" alt="braddex products" class="loginimg">
     </div>
@@ -17,4 +17,28 @@
             <a href="login.php">Log In</a>
         </form>
     </div>
-</div>
+</div> -->
+
+<div class="main">
+    <div id="leftside">
+      <img id="logo" src="assets/Logo.png">
+    </div>
+    <div class="form-container">
+      <h2>Create Account</h2>
+      <p>Welcome! New to BradPoints? Sign up to elevate your Braddex experience!</p>
+      <form id="signupForm" method="post">
+        <input type="text" id="signupUsername" placeholder="Username" name="user_name" required>
+        <p class="note"><sup>* </sup>Username must have at least one letter, one number, and one special character</p>
+        <input type="password" id="signupPassword" placeholder="Password" name="password" required>
+        <p class="note"><sup>* </sup>Password must be at least 8 characters.</p>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" name="confirm-password" required>
+        <?php if (!empty($error_message)): ?>
+            <span class="form-message" style="color: red;"><?php echo $error_message; ?></span><br><br>
+        <?php endif; ?>
+        <button type="submit">Sign Up</button>
+      </form>
+      <p>Already have an account? <a href="login.php"><b>Login here</b></a></p>
+    </div>
+  </div>
+
+   <!-- <div id="signupMessage" class="form-message"></div> -->

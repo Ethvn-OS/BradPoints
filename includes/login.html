@@ -1,4 +1,22 @@
-<div class="loginpage">
+<div class="main">
+    <div id="leftside">
+      <img id="logo" src="assets/Logo.png">
+    </div>
+    <div class="form-container">
+      <h2>Login</h2>
+      <p>Welcome back! Please enter your credentials to access your BradPoints account.</p>
+      <form id="loginForm" method="post">
+        <input type="text" id="loginUsername" placeholder="Username" name="user_name" required>
+        <input type="password" id="loginPassword" placeholder="Password" name="password" required>
+        <div id="loginMessage" class="form-message"></div>
+        <button type="submit">Login</button>
+      </form>
+      <p>Don't have an account yet? <a href="signup.php"><b>Sign up here</b></a></p>
+    </div>
+  </div>
+
+
+<!-- <div class="loginpage">
     <div class="left-half">
         <img src="assets/braddexlogin.jpg" alt="braddex products" class="loginimg">
     </div>
@@ -16,4 +34,4 @@
             <a href="signup.php">Sign Up</a>
         </form>
     </div>
-</div>
+</div> -->

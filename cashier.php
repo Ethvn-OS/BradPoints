@@ -26,8 +26,7 @@ session_start();
 
         if ($check_result && mysqli_num_rows($check_result) > 0) {
             $_SESSION['target_id'] = $target_id;
-            header("Location: cashierprod.php");
-            exit;
+            $success_message = "ID number $target_id located. Please pick which function to use.";
         } else {
             $error_message = "User with ID $target_id not found.";
         }
@@ -48,9 +47,3 @@ session_start();
     <script src="script.js"></script>
 </body>
 </html>
-
-
-<!--Add 5 points
-            /* $update_query = "UPDATE users SET points = points + 5 WHERE id = '$target_id'";
-            mysqli_query($con, $update_query);
-            $success_message = "5 points added to user ID $target_id."; -->

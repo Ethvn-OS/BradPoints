@@ -16,3 +16,8 @@
     <span style="color: red;"><?php echo $error_message; ?></span><br><br>
 <?php endif; ?>
 <br>
+
+<?php if (!empty($success_message)): ?>
+    <button type="button" name="order" onclick="window.location.href='cashierprod.php'">Order</button><br><br>
+    <button type="button" name="redeem" onclick="window.location.href='cashierredeem.php'">Redeem</button><br><br>
+<?php endif; ?>
