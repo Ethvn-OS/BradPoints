@@ -59,3 +59,11 @@ document.querySelectorAll('.minus-btn').forEach(btn => {
 document.getElementById('orderForm').addEventListener('submit', function(e) {
     document.getElementById('orderData').value = JSON.stringify(orders);
 });
+
+//function to show the dropdown menu
+function dropDownMenu() {
+    const userIcon = document.getElementById('userIcon');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+}

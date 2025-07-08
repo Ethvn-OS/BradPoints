@@ -23,9 +23,10 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BradPoints | Home</title>
+    <title>BradPoints | Feedback</title>
     <link rel="stylesheet" href="permanent.css">
     <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="feedback-form.css">
     <link rel="stylesheet" href="pointsTally.css">
     <link rel="stylesheet" href="pointsProgress.css">
     <link href="https://fonts.cdnfonts.com/css/coolvetica-2" rel="stylesheet">
@@ -35,7 +36,7 @@ session_start();
     <?php include "includes/sidebar.html" ?>
     <div class="main-container">
         <?php include "includes/header.php" ?>
-        <?php include "includes/home.html" ?>
+        <?php include "includes/feedback.html" ?>
     </div>
 
     <script src="script.js"></script>
