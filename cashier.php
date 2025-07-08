@@ -30,7 +30,7 @@ session_start();
         } else {
             $error_message = "User with ID $target_id not found.";
         }
-    }
+    } 
 ?>
 
 <!DOCTYPE html>
