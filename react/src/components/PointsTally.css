@@ -1,0 +1,15 @@
+.points-tally-box {
+  background: #a22221;
+  color: white;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  min-width: 120px;
+  box-shadow: 0 2px 8px rgba(162,34,33,0.2);
+}
+
+.points-number {
+  font-size: 48px;
+  font-weight: bold;
+  display: block;
+}

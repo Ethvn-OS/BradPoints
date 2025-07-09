@@ -1,0 +1,172 @@
+/* code for nav sidebar and header */
+
+@import url('https://fonts.cdnfonts.com/css/coolvetica-2');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+body {
+  display: flex;
+  background: #fcfaee;
+  font-family: 'Coolvetica', sans-serif;
+  color: #333;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: 'Coolvetica', sans-serif;
+}
+
+/* Sidebar */
+nav {
+  display: flex;
+  flex-direction: column;
+  background-color: #a22221;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  flex-shrink: 0;
+  font-family: 'Coolvetica', sans-serif;
+  font-size: 20px;
+}
+
+.logo {
+  width: 200px;
+  margin: 20px auto;
+}
+
+.nav-buttons {
+  width: 100%;
+  padding: 20px 0;
+}
+
+.b-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 0;
+}
+
+.b-list li {
+  text-align: center;
+  padding: 10px 0;
+  color: #fcfaee;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.b-list li:hover {
+  background-color: #ffca7a;
+  color: #A22221;
+}
+
+/*header*/
+.main{
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 0;
+  background-color: #fcfaee;
+}
+
+.main-container{
+    flex-grow: 1;
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+    overflow: hidden;
+}
+
+/* Header inside main container */
+.site-header {
+  flex-shrink: 0;
+  background-color: #FFCA7A;
+  color: #a22221;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  width: 100%;
+  box-sizing: border-box;
+  position: sticky!important; 
+  top:0;
+  z-index:999;
+  box-shadow: 0 4px 12px -2px rgba(0,0,0,0.15);
+}
+
+.site-left {
+  font-size: 35px;
+  font-weight: 700;
+}
+
+.slogan{
+    font-family: 'Plus Jakarta Sans', sans-serif;    
+    font-size: 19.5px;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+  position: absolute;
+  right: 2rem;
+  top: 1.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.user-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: 0.3s ease;
+}
+
+.user-icon:hover {
+  transform: scale(1.05);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background-color: #fcfaee;
+  color: #a22221;
+  border: 2px solid #fdd67a;
+  border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-menu li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  transition: 0.2s;
+}
+
+.dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu li:hover {
+  background-color: #fdd67a;
+  color: #333;
+}
+
+.dropdown-menu li a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
