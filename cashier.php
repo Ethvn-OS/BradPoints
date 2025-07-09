@@ -16,6 +16,7 @@ session_start();
         $user_data = mysqli_fetch_assoc($result);
     }
 ?>
+asdasdsadasdasdsa
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +28,7 @@ session_start();
 </head>
 <body>
     <?php include "includes/cashier.html" ?>
-
+    <div>hello world</div>
     <script src="script.js"></script>
 </body>
 </html>
