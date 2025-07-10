@@ -23,10 +23,12 @@
 
                 if (password_verify($password, $user_data['password'])) {
 
+                    $_SESSION["authenticated"] = true;
                     $_SESSION['id'] = $user_data['id'];
+                    $_SESSION['user'] = $user_data;
 
                     if ($user_data['usertype_id'] == 2) {
-                        header("Location: index.php");
+                        header("Location: http://localhost:3001/");
                     } else if ($user_data['usertype_id'] == 1) {
                         header("Location: cashier.php");
                     } else {
