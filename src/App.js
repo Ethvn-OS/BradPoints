@@ -15,7 +15,7 @@ function App() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost/php-backend/check-auth.php", {
+    fetch("http://localhost/BradPoints/php-backend/check-auth.php", {
       credentials: "include",
     })
       .then((res) => res.json())

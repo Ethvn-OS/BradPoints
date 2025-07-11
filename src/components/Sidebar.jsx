@@ -9,7 +9,7 @@ const Sidebar = () => {
         <ul>
           <li><a href="#" className="active">Home</a></li>
           <li><a href="#">Points</a></li>
-          <li><a href="#">Rewards</a></li>
+          <li><a href="http://localhost/BradPoints/rewards.php">Rewards</a></li>
           <li><a href="#">Notifications</a></li>
           <li><a href="#">Feedback</a></li>
         </ul>

@@ -37,7 +37,7 @@ const Header = ({ user }) => {
             <li><a href="#">Profile</a></li>
             <li><a href="#">Edit Profile</a></li>
             <li><a href="#">User Guide</a></li>
-            <li><a href="/login">Log Out</a></li>
+            <li><a href="http://localhost/BradPoints/logout.php">Log Out</a></li>
           </ul>
         )}
       </div>

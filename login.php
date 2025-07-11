@@ -28,7 +28,7 @@
                     $_SESSION['user'] = $user_data;
 
                     if ($user_data['usertype_id'] == 2) {
-                        header("Location: http://localhost:3001/");
+                        header("Location: http://localhost:3000/");
                     } else if ($user_data['usertype_id'] == 1) {
                         header("Location: cashier.php");
                     } else {
