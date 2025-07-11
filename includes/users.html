@@ -1,0 +1,23 @@
+<div class="admindash">
+    <h1>Registered Users</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if(!empty($all_users)): ?>
+                <?php foreach($all_users as $user): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($user['id']); ?></td>
+                        <td><?php echo htmlspecialchars($user['user_name']); ?></td>
+                        <td><?php echo htmlspecialchars($user['points']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>

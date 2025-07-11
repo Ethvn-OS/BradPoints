@@ -15,8 +15,6 @@ session_start();
 
         $user_data = mysqli_fetch_assoc($result);
     }
-
-    //comments
 ?>
 
 

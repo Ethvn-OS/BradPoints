@@ -1,0 +1,25 @@
+<div class="admindash">
+    <h1>Rewards</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Reward Name</th>
+                <th>Reward Description</th>
+                <th>Reward Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if(!empty($all_rewards)): ?>
+                <?php foreach($all_rewards as $reward): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($reward['id']); ?></td>
+                        <td><?php echo htmlspecialchars($reward['reward_name']); ?></td>
+                        <td><?php echo htmlspecialchars($reward['reward_desc']); ?></td>
+                        <td><?php echo htmlspecialchars($reward['reward_points']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>

@@ -198,3 +198,14 @@ nav {
   justify-content: center;
   width: 100%;
 }
+
+/* For the admin page */
+
+.admindash {
+  padding: 20px;
+}
+
+.productform {
+  display: none;
+  margin-bottom: 20px;
+}

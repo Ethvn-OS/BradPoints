@@ -1,0 +1,27 @@
+<div class="admindash">
+    <h1>Redemptions</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Reward ID</th>
+                <th>Redemption ID</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if(!empty($all_redem)): ?>
+                <?php foreach($all_redem as $redem): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($redem['id']); ?></td>
+                        <td><?php echo htmlspecialchars($redem['user_id']); ?></td>
+                        <td><?php echo htmlspecialchars($redem['reward_id']); ?></td>
+                        <td><?php echo htmlspecialchars($redem['redemption_id']); ?></td>
+                        <td><?php echo htmlspecialchars($redem['status']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>

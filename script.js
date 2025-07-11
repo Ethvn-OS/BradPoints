@@ -67,3 +67,8 @@ function dropDownMenu() {
 
     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
 }
+
+function toggleForm() {
+    const divForm = document.getElementById('addProductForm');
+    divForm.style.display = (divForm.style.display === 'none') ? 'block' : 'none';
+}
