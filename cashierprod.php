@@ -1,5 +1,5 @@
 <?php
-session_start();
+/* session_start();
 
     include("connection.php");
     include("functions.php");
@@ -46,7 +46,7 @@ session_start();
         header("Location: cashier.php?success=1");
         exit;
     }
-}
+} */
 ?>
 
 <!DOCTYPE html>

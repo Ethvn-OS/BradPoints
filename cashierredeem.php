@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+/* session_start();
 
     include("connection.php");
     include("functions.php");
@@ -39,7 +39,7 @@ session_start();
         } else {
             $error_message = "Voucher $redeemvouch not found for User ID $target_id.";
         }
-    }
+    } */
 
 ?>
 
