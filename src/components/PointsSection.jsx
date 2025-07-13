@@ -1,6 +1,7 @@
 import React from 'react';
 import './PointsSection.css';
 import PointsTally from './PointsTally';
+import { usePoints } from '../context/PointsContext';
 
 const PointsSection = ({ user }) => {
   const currentPoints = user.points;
