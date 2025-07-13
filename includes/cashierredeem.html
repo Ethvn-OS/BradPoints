@@ -1,20 +1,22 @@
-<a href="cashier.php">Go back</a>
-
-<h1>This is the redeem page</h1>
-
+<header class="cashier-header">
+    <img src="assets/Logo.png" alt="Logo" class="logo" />
+    <h1 class="header-title">Cashier Page</h1>
+    <a href="cashier.php" class="goback-link">Go back</a>
+</header>
 <p>Hello, cashieradmin</p>
 <p>The id number is 20102109201</p>
 
-<span>Input voucher code:</span>
 
-<form method="post">
+
+<form method="post" class="center-form">
+    <span>Input voucher code:</span>
     <input type="text" name="redeemvouch"><br><br>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" class="btn">
 </form>
 
 <?php if (!empty($success_message)): ?>
-    <span style="color: green;"><?php echo $success_message; ?></span><br><br>
+    <span class="center-message" style="color: green;"><?php echo $success_message; ?></span><br><br>
 <?php endif; ?>
 <?php if (!empty($error_message)): ?>
-    <span style="color: red;"><?php echo $error_message; ?></span><br><br>
-<?php endif; ?>
+    <span class="center-message" style="color: red;"><?php echo $error_message; ?></span><br><br>
+<?php endif; ?> 

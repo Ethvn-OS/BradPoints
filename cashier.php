@@ -1,5 +1,5 @@
 <?php
-/* session_start();
+ session_start();
 
     include("connection.php");
     include("functions.php");
@@ -30,7 +30,7 @@
         } else {
             $error_message = "User with ID $target_id not found.";
         }
-    } */
+    } 
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +43,7 @@
 </head>
 <body>
     <?php include "includes/cashier.html" ?>
-
+    
     <script src="script.js"></script>
 </body>
 </html>

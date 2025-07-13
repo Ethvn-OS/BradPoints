@@ -1,23 +1,28 @@
-<a href="logout.php">Logout</a>
-<h1>This is the cashier page</h1>
-
+<header class="cashier-header">
+    <img src="assets/Logo.png" alt="Logo" class="logo" />
+    <h1 class="header-title">Cashier Page</h1>
+    <a href="logout.php" class="logout-link">Logout</a>
+</header>
 <br>
-<p>Hello, user</p>
 
-<form method="post">
+
+<form method="post" class="center-form">
+    <p>Hello, user</p>
     ID Number: <input type="number" name="id-number"><br><br>
-    <input type="submit">
+    <input class="btn" type="submit">
 </form>
 
 <?php if (!empty($success_message)): ?>
-    <span style="color: green;"><?php echo $success_message; ?></span><br><br>
+    <span class="center-message" style="color: green;"><?php echo $success_message; ?></span><br><br>
 <?php endif; ?>
 <?php if (!empty($error_message)): ?>
-    <span style="color: red;"><?php echo $error_message; ?></span><br><br>
+    <span class="center-message" style="color: red;"><?php echo $error_message; ?></span><br><br>
 <?php endif; ?>
 <br>
 
 <?php if (!empty($success_message)): ?>
-    <button type="button" name="order" onclick="window.location.href='cashierprod.php'">Order</button><br><br>
-    <button type="button" name="redeem" onclick="window.location.href='cashierredeem.php'">Redeem</button><br><br>
+<div class="action-buttons">
+ <button class="btn" type="button" name="order-btn" onclick="window.location.href='cashierprod.php'">Order</button>
+  <button class="btn" type="button" name="redeem-btn" onclick="window.location.href='cashierredeem.php'">Redeem</button>
+</div>
 <?php endif; ?>

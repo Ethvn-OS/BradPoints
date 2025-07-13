@@ -1,6 +1,6 @@
 <?php
 
-/* session_start();
+ session_start();
 
     include("connection.php");
     include("functions.php");
@@ -39,7 +39,7 @@
         } else {
             $error_message = "Voucher $redeemvouch not found for User ID $target_id.";
         }
-    } */
+    } 
 
 ?>
 
@@ -50,6 +50,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cashier Redeem</title>
+    <link rel="stylesheet" href="cashier.css">
 </head>
 <body>
     <?php include("includes/cashierredeem.html"); ?>
