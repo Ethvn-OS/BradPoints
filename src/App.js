@@ -41,17 +41,17 @@ function App() {
             <div className="app-layout">
               <Sidebar />
               <div className="main-content">
-                <Header />
+                <Header user={user} />
                 <ImageHeader />
-                <PointsSection />
+                <PointsSection user={user} />
                 <RewardsSection />
                 <FeedbackSection />
               </div>
             </div>
           } />
-                  <Route path="/rewards" element={<RewardsPage />} />
-        <Route path="/feedback" element={<FeedbackPage />} />
-        <Route path="/notifications" element={<NotificationsPage />} />
+                  <Route path="/rewards" element={<RewardsPage user={user} />} />
+        <Route path="/feedback" element={<FeedbackPage user={user} />} />
+        <Route path="/notifications" element={<NotificationsPage user={user} />} />
         </Routes>
       </Router>
     </PointsProvider>

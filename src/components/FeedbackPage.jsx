@@ -4,7 +4,7 @@ import '../App.css';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
-const FeedbackPage = () => {
+const FeedbackPage = ({ user }) => {
   const [reviews, setReviews] = useState([
     {
       id: 1,
@@ -61,7 +61,7 @@ const FeedbackPage = () => {
     <div className="app-layout">
       <Sidebar />
       <div className="main-content">
-        <Header />
+        <Header user={user} />
         <div className="feedback-page">
           <div className="feedback-page-header">
             <h1>Feedback & Reviews</h1>

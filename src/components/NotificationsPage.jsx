@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './NotificationsPage.css';
+import './Notifications.css';
 import '../App.css';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import { usePoints } from '../context/PointsContext';
 
-const NotificationsPage = () => {
+const NotificationsPage = ({ user }) => {
   const { notifications, setNotifications } = usePoints();
 
   // Mark notification as read
@@ -49,7 +49,7 @@ const NotificationsPage = () => {
     <div className="app-layout">
       <Sidebar />
       <div className="main-content">
-        <Header />
+        <Header user={user}/>
         <div className="notifications-page">
           <div className="notifications-header">
             <h1>Notifications</h1>

@@ -5,7 +5,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import { usePoints } from '../context/PointsContext';
 
-const RewardsPage = () => {
+const RewardsPage = ({ user }) => {
   const [selectedReward, setSelectedReward] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { redeemReward, isRewardRedeemed, canRedeemReward } = usePoints();
@@ -114,7 +114,7 @@ const RewardsPage = () => {
       <div className="app-layout">
         <Sidebar />
         <div className="main-content">
-          <Header />
+          <Header user={user}/>
           <div className="rewards-page">
             <div className="rewards-page-header">
               <h1>Available Rewards</h1>
