@@ -1,11 +1,27 @@
 <div class="admindash">
     <h1>Registered Users</h1>
-    <table border="1">
+
+    <?php if (!empty($success_message)): ?>
+        <div class="alert alert-success"><?php echo $success_message; ?></div>
+    <?php endif; ?>
+    <?php if (!empty($error_message)): ?>
+        <div class="alert alert-danger"><?php echo $error_message; ?></div>
+    <?php endif; ?>
+
+    <!-- Add User Form -->
+    <form method="post" class="crud-form">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="number" name="points" placeholder="Points" value="0" min="0" required>
+        <button type="submit" name="add_user">Add User</button>
+    </form>
+
+    <table class="user-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Username</th>
                 <th>Points</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -13,10 +29,38 @@
                 <?php foreach($all_users as $user): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($user['id']); ?></td>
-                        <td><?php echo htmlspecialchars($user['user_name']); ?></td>
-                        <td><?php echo htmlspecialchars($user['points']); ?></td>
+                        <td>
+                            <?php if (isset($_GET['edit']) && $_GET['edit'] == $user['id']): ?>
+                                <form method="post" class="edit-form" style="display:inline;">
+                                    <input type="hidden" name="edit_id" value="<?php echo $user['id']; ?>">
+                                    <input type="text" name="edit_username" value="<?php echo htmlspecialchars($user['user_name']); ?>" required>
+                            <?php else: ?>
+                                <?php echo htmlspecialchars($user['user_name']); ?>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if (isset($_GET['edit']) && $_GET['edit'] == $user['id']): ?>
+                                    <input type="number" name="edit_points" value="<?php echo $user['points']; ?>" min="0" required>
+                            <?php else: ?>
+                                <?php echo htmlspecialchars($user['points']); ?>
+                            <?php endif; ?>
+                        </td>
+                        <td class="actions">
+                            <?php if (isset($_GET['edit']) && $_GET['edit'] == $user['id']): ?>
+                                    <button type="submit" name="edit_user">Save</button>
+                                    <a href="users.php">Cancel</a>
+                                </form>
+                            <?php else: ?>
+                                <a href="users.php?edit=<?php echo $user['id']; ?>">Edit</a>
+                                <a href="users.php?delete=<?php echo $user['id']; ?>" onclick="return confirm('Delete this user?')">Delete</a>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4" style="text-align:center;">No users found.</td>
+                </tr>
             <?php endif; ?>
         </tbody>
     </table>

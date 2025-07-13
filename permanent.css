@@ -202,10 +202,109 @@ nav {
 /* For the admin page */
 
 .admindash {
-  padding: 20px;
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fffbe7;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
 }
 
 .productform {
   display: none;
   margin-bottom: 20px;
+}
+
+.admindash h1 {
+  margin-bottom: 1.5rem;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #e0c97f;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.user-table th {
+  background: #fdd79b;
+}
+
+.user-table tr:nth-child(even) {
+  background: #fff7e0;
+}
+
+.crud-form,
+.edit-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.crud-form input,
+.edit-form input {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #e0c97f;
+}
+
+.crud-form button,
+.edit-form button {
+  padding: 6px 18px;
+  border-radius: 4px;
+  border: none;
+  background: #fbbf24;
+  color: #a22221;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.crud-form button:hover,
+.edit-form button:hover {
+  background: #f59e42;
+}
+
+.actions a,
+.actions button {
+  margin-right: 8px;
+}
+
+.alert {
+  padding: 10px 18px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.alert-success {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.alert-danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+@media (max-width: 600px) {
+  .admindash {
+    padding: 1rem;
+  }
+
+  .crud-form,
+  .edit-form {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .user-table th,
+  .user-table td {
+    font-size: 0.95rem;
+  }
 }
