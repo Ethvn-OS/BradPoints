@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './RewardsSection.css';
+import { usePoints } from '../context/PointsContext';
 
 const RewardsSection = () => {
   const [selectedReward, setSelectedReward] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const { redeemReward, isRewardRedeemed, canRedeemReward } = usePoints();
 
   const rewards = [
     {
@@ -40,8 +44,10 @@ const RewardsSection = () => {
   };
 
   const claimReward = () => {
-    alert(`Congratulations! You've claimed: ${selectedReward.name}`);
-    closeModal();
+    const success = redeemReward(selectedReward.id, selectedReward.pointsRequired);
+    if (success) {
+      closeModal();
+    }
   };
 
   return (
@@ -50,30 +56,31 @@ const RewardsSection = () => {
         <h2 className="heading">Rewards</h2>
         <div className="rewards-container">
           {rewards.map((reward) => (
-            <div key={reward.id} className="reward-card">
-              <div 
-                className="reward-top"
-                style={{ backgroundColor: reward.color }}
-              >
+            <div
+              key={reward.id}
+              className="reward-card"
+              onClick={() => openModal(reward)}
+              role="button"
+              tabIndex={0}
+              onKeyPress={e => { if (e.key === 'Enter') openModal(reward); }}
+            >
+              <div className="reward-top" style={{ backgroundColor: reward.color }}>
                 <h3 className="voucher-name">{reward.name}</h3>
               </div>
               <div className="reward-bottom">
-                <div
-                  className="reward-bottom"
-                  onClick={() => openModal(reward)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyPress={e => { if (e.key === 'Enter') openModal(reward); }}
-                >
-                  See More
-                </div>
+                Click to See More!
               </div>
             </div>
           ))}
         </div>
+        <div className="rewards-button-container">
+          <button className="view-all-rewards-btn" onClick={() => navigate('/rewards')}>
+            View All Rewards
+          </button>
+        </div>
       </div>
 
-      {isModalOpen && (
+      {isModalOpen && selectedReward && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
@@ -85,9 +92,19 @@ const RewardsSection = () => {
               <p><strong>Points Required: {selectedReward.pointsRequired}</strong></p>
             </div>
             <div className="modal-footer">
-              <button className="claim-btn" onClick={claimReward}>
-                Claim Reward
-              </button>
+              {isRewardRedeemed(selectedReward.id) ? (
+                <button className="claim-btn redeemed" disabled>
+                  Already Redeemed
+                </button>
+              ) : !canRedeemReward(selectedReward.pointsRequired) ? (
+                <button className="claim-btn insufficient" disabled>
+                  Insufficient Points
+                </button>
+              ) : (
+                <button className="claim-btn" onClick={claimReward}>
+                  Claim Voucher 
+                </button>
+              )}
             </div>
           </div>
         </div>
