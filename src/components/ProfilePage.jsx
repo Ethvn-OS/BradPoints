@@ -12,17 +12,11 @@ const ProfilePage = () => {
   const [userData, setUserData] = useState({
     firstName: 'Yza',
     lastName: 'Alagon',
-    email: 'alagon06.yza@gmail.com',
-    phone: '09664006380',
+    username: 'yzayza',
+    password: '12345678',
     memberSince: 'January 2023',
     memberId: 'BP123456789',
-    totalPoints: 2450,
-    tier: 'Gold',
-    preferences: {
-      emailNotifications: true,
-      smsNotifications: false,
-      marketingEmails: true
-    }
+    totalPoints: 36
   });
 
   const [pointsHistory] = useState([
@@ -53,9 +47,6 @@ const ProfilePage = () => {
           <h2>{userData.firstName} {userData.lastName}</h2>
           <p className="profile-page-member-id">Member ID: {userData.memberId}</p>
           <p className="profile-page-member-since">Member since {userData.memberSince}</p>
-          <div className="profile-page-tier-badge">
-            <span className={`profile-page-tier ${userData.tier.toLowerCase()}`}>{userData.tier}</span>
-          </div>
         </div>
         <div className="profile-page-stats">
           <div className="profile-page-stat">
@@ -104,28 +95,28 @@ const ProfilePage = () => {
           </div>
           
           <div className="profile-page-form-group">
-            <label>Email Address</label>
+            <label>Username</label>
             {isEditing ? (
               <input 
-                type="email" 
-                value={userData.email}
-                onChange={(e) => setUserData({...userData, email: e.target.value})}
+                type="text" 
+                value={userData.username}
+                onChange={(e) => setUserData({...userData, username: e.target.value})}
               />
             ) : (
-              <p>{userData.email}</p>
+              <p>{userData.username}</p>
             )}
           </div>
           
           <div className="profile-page-form-group">
-            <label>Phone Number</label>
+            <label>Password</label>
             {isEditing ? (
               <input 
-                type="tel" 
-                value={userData.phone}
-                onChange={(e) => setUserData({...userData, phone: e.target.value})}
+                type="password" 
+                value={userData.password}
+                onChange={(e) => setUserData({...userData, password: e.target.value})}
               />
             ) : (
-              <p>{userData.phone}</p>
+              <p>••••••••</p>
             )}
           </div>
 
@@ -148,11 +139,6 @@ const ProfilePage = () => {
           <div className="profile-page-points-display">{userData.totalPoints}</div>
           <p>points</p>
         </div>
-        <div className="profile-page-points-card">
-          <h3>Member Tier</h3>
-          <div className="profile-page-tier-display">{userData.tier}</div>
-          <p>Current Level</p>
-        </div>
       </div>
 
       <div className="profile-page-points-history">
@@ -170,79 +156,6 @@ const ProfilePage = () => {
             </div>
           ))}
         </div>
-      </div>
-    </div>
-  );
-
-  const renderPreferencesTab = () => (
-    <div className="profile-page-preferences-tab">
-      <h3>Notification Preferences</h3>
-      
-      <div className="profile-page-preference-item">
-        <div className="profile-page-preference-info">
-          <h4>Email Notifications</h4>
-          <p>Receive updates about your points, rewards, and special offers via email</p>
-        </div>
-        <label className="profile-page-toggle">
-          <input 
-            type="checkbox" 
-            checked={userData.preferences.emailNotifications}
-            onChange={(e) => setUserData({
-              ...userData, 
-              preferences: {
-                ...userData.preferences,
-                emailNotifications: e.target.checked
-              }
-            })}
-          />
-          <span className="profile-page-slider"></span>
-        </label>
-      </div>
-
-      <div className="profile-page-preference-item">
-        <div className="profile-page-preference-info">
-          <h4>SMS Notifications</h4>
-          <p>Get text messages for important updates and promotions</p>
-        </div>
-        <label className="profile-page-toggle">
-          <input 
-            type="checkbox" 
-            checked={userData.preferences.smsNotifications}
-            onChange={(e) => setUserData({
-              ...userData, 
-              preferences: {
-                ...userData.preferences,
-                smsNotifications: e.target.checked
-              }
-            })}
-          />
-          <span className="profile-page-slider"></span>
-        </label>
-      </div>
-
-      <div className="profile-page-preference-item">
-        <div className="profile-page-preference-info">
-          <h4>Marketing Emails</h4>
-          <p>Receive promotional emails about new products and special offers</p>
-        </div>
-        <label className="profile-page-toggle">
-          <input 
-            type="checkbox" 
-            checked={userData.preferences.marketingEmails}
-            onChange={(e) => setUserData({
-              ...userData, 
-              preferences: {
-                ...userData.preferences,
-                marketingEmails: e.target.checked
-              }
-            })}
-          />
-          <span className="profile-page-slider"></span>
-        </label>
-      </div>
-
-      <div className="profile-page-preferences-actions">
-        <button className="profile-page-save-preferences-btn">Save Preferences</button>
       </div>
     </div>
   );
@@ -268,12 +181,6 @@ const ProfilePage = () => {
           </div>
           <button className="profile-page-change-password-btn">Change Password</button>
         </div>
-      </div>
-
-      <div className="profile-page-security-section">
-        <h4>Two-Factor Authentication</h4>
-        <p>Add an extra layer of security to your account</p>
-        <button className="profile-page-setup-2fa-btn">Set Up 2FA</button>
       </div>
 
       <div className="profile-page-security-section">
@@ -307,12 +214,6 @@ const ProfilePage = () => {
                 Points & History
               </button>
               <button 
-                className={`profile-page-tab ${activeTab === 'preferences' ? 'active' : ''}`}
-                onClick={() => setActiveTab('preferences')}
-              >
-                Preferences
-              </button>
-              <button 
                 className={`profile-page-tab ${activeTab === 'security' ? 'active' : ''}`}
                 onClick={() => setActiveTab('security')}
               >
@@ -323,7 +224,6 @@ const ProfilePage = () => {
             <div className="profile-page-tab-content">
               {activeTab === 'profile' && renderProfileTab()}
               {activeTab === 'points' && renderPointsTab()}
-              {activeTab === 'preferences' && renderPreferencesTab()}
               {activeTab === 'security' && renderSecurityTab()}
             </div>
           </div>
