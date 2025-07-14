@@ -1,5 +1,18 @@
+<div class="layout-container">
+    <aside class="sidebar">
+        <nav class="sidebar-nav">
+        <img src="assets/Logo.png" alt="logo" class="logo">
+            <div class="nav-buttons">
+                <ul class="b-list">
+                    
+                </ul>
+            </div>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <div class="content-container">
 <header class="cashier-header">
-    <img src="assets/Logo.png" alt="Logo" class="logo" />
+    
     <h1 class="header-title">Cashier Page</h1>
     <a href="logout.php" class="logout-link">Logout</a>
 </header>
@@ -7,10 +20,11 @@
 
 
 <form method="post" class="center-form">
-    <p>Hello, user</p>
-    ID Number: <input type="number" name="id-number"><br><br>
+    <p>Hello, cashieradmin</p>
+    <label for="id-number" class="id-label">ID Number:</label>
+    <input type="number" name="id-number" id="id-number" class="id-input"><br><br>
     <input class="btn" type="submit">
-</form>
+
 
 <?php if (!empty($success_message)): ?>
     <span class="center-message" style="color: green;"><?php echo $success_message; ?></span><br><br>
@@ -26,3 +40,6 @@
   <button class="btn" type="button" name="redeem-btn" onclick="window.location.href='cashierredeem.php'">Redeem</button>
 </div>
 <?php endif; ?>
+</form>
+</main>
+</div>

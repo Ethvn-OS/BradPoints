@@ -1,19 +1,30 @@
+<div class="layout-container">
+    <aside class="sidebar">
+        <nav class="sidebar-nav">
+        <img src="assets/Logo.png" alt="logo" class="logo">
+            <div class="nav-buttons">
+                <ul class="b-list">
+                    
+                </ul>
+            </div>
+        </nav>
+    </aside>
+    <main class="main-content">
 <header class="cashier-header">
-    <img src="assets/Logo.png" alt="Logo" class="logo" />
-    <h1 class="header-title">Cashier Page</h1>
+    <h1 class="header-title">Redeem</h1>
     <a href="cashier.php" class="goback-link">Go back</a>
 </header>
-<p>Hello, cashieradmin</p>
-<p>The id number is 20102109201</p>
-
 
 
 <form method="post" class="center-form">
+    <p>Hello, cashieradmin</p>
+<p>The id number is 20102109201</p>
     <span>Input voucher code:</span>
-    <input type="text" name="redeemvouch"><br><br>
+    <input type="text" name="redeemvouch" class="redeem"><br><br>
     <input type="submit" value="Submit" class="btn">
 </form>
-
+    </main>
+    </div>
 <?php if (!empty($success_message)): ?>
     <span class="center-message" style="color: green;"><?php echo $success_message; ?></span><br><br>
 <?php endif; ?>
