@@ -15,7 +15,6 @@ const ProfilePage = () => {
     username: 'yzayza',
     password: '12345678',
     memberSince: 'January 2023',
-    memberId: 'BP123456789',
     totalPoints: 36
   });
 
@@ -29,12 +28,11 @@ const ProfilePage = () => {
 
   const handleSave = () => {
     setIsEditing(false);
-    // In a real app, you would save to backend here
+    // backend 
   };
 
   const handleCancel = () => {
     setIsEditing(false);
-    // Reset form data if needed
   };
 
   const renderProfileTab = () => (
@@ -45,7 +43,6 @@ const ProfilePage = () => {
         </div>
         <div className="profile-page-info">
           <h2>{userData.firstName} {userData.lastName}</h2>
-          <p className="profile-page-member-id">Member ID: {userData.memberId}</p>
           <p className="profile-page-member-since">Member since {userData.memberSince}</p>
         </div>
         <div className="profile-page-stats">
