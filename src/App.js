@@ -49,10 +49,17 @@ function App() {
       })
   }, []);
 
+  const updateUserPoints = (newPoints) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      points: newPoints
+    }));
+  }
+
   const allRewards = rewards || [];
 
   return (
-    <PointsProvider>
+    <PointsProvider points={Number(user?.points)} updateUserPoints={updateUserPoints}>
       <Router>
         <Routes>
           <Route path="/" element={

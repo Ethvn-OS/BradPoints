@@ -10,8 +10,146 @@ const RewardsPage = ({ user, rewards = [] }) => {
   const [selectedReward, setSelectedReward] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { redeemReward, isRewardRedeemed, canRedeemReward } = usePoints();
+  const [isRedeemed, setIsRedeemed] = useState(false);
+  const [checkingRedeemed, setCheckingRedeemed] = useState(true);
 
-  /* const allRewards = [
+  const allRewards = rewards || [];
+
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const categories = ['All', 'Drinks', 'Side Dishes', 'Main Meals', 'Discounts', 'Combo Meals'];
+
+  const filteredRewards = selectedCategory === 'All'
+    ? rewards
+    : rewards.filter(reward => reward.reward_category === selectedCategory);
+
+  console.log('rewards:', rewards);
+  console.log('filteredRewards:', filteredRewards);
+
+  const openModal = async (rewards) => {
+    setSelectedReward(rewards);
+    setIsModalOpen(true);
+    setCheckingRedeemed(true);
+    const redeemed = await isRewardRedeemed(rewards.id);
+    setIsRedeemed(redeemed);
+    setCheckingRedeemed(false);
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedReward(null);
+  };
+
+  const claimReward = () => {
+    const success = redeemReward(selectedReward);
+    if (success) {
+      closeModal();
+    }
+  };
+
+  return (
+    <>
+      <div className="app-layout">
+        <Sidebar />
+        <div className="main-content">
+          <Header user={user}/>
+          <div className="rewards-page">
+            <div className="rewards-page-header">
+              <h1>Available Rewards</h1>
+              <p>Browse through all the amazing rewards you can redeem with BradPoints!</p>
+            </div>
+
+            <div className="category-filter">
+              {categories.map(category => (
+                <button
+                  key={category}
+                  className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
+                  onClick={() => setSelectedCategory(category)}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+
+            <div className="rewards-grid">
+              {filteredRewards.map((rewards) => (
+                <div key={rewards.id} className="reward-item">
+                  <div className="reward-left-border" style={{ backgroundColor: rewards.reward_color }}></div>
+                  <div className="reward-image-placeholder">
+                    {rewards.reward_image
+                      ? <img src={rewards.reward_image} alt={rewards.reward_name} className="reward-img" />
+                      : <span role="img" aria-label="placeholder">📷</span>
+                    }
+                  </div>
+                  <div className="reward-content">
+                    <div className="reward-header" style={{ backgroundColor: rewards.reward_color }}>
+                      <h3>{rewards.reward_name}</h3>
+                      <span className="category-tag">{rewards.reward_category}</span>
+                    </div>
+                    <div className="reward-body">
+                      <p className="reward-description">{rewards.reward_desc}</p>
+                      <div className="reward-footer">
+                        <span className="points-required">{rewards.reward_points} Points</span>
+                        <button className="redeem-btn" onClick={() => openModal(rewards)}>Redeem</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="see-more-section">
+              <p>Stay tuned for more exciting new rewards coming your way! Don't forget to check the notifications page for the hottest BradPoints updates.</p>
+            </div>
+
+            <div className="back-to-home">
+              <button onClick={() => window.history.back()} className="back-btn">
+                ← Back to Home
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {isModalOpen && selectedReward && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>{selectedReward.reward_name}</h2>
+              <button className="close-btn" onClick={closeModal}>×</button>
+            </div>
+            <div className="modal-body">
+              <p>{selectedReward.reward_desc}</p>
+              <p><strong>Points Required: {selectedReward.reward_points}</strong></p>
+            </div>
+            <div className="modal-footer">
+              {checkingRedeemed ? (
+                <button className="claim-btn" disabled>Checking...</button>
+              ) : isRedeemed ? (
+                <button className="claim-btn redeemed" disabled>
+                  Already Redeemed
+                </button>
+              ) : !canRedeemReward(selectedReward.reward_points) ? (
+                <button className="claim-btn insufficient" disabled>
+                  Insufficient Points
+                </button>
+              ) : (
+                <button className="claim-btn" onClick={claimReward}>
+                  Claim Voucher
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default RewardsPage;
+
+//Unused code
+
+/* const allRewards = [
     {
       id: 1,
       name: "FREEDRINK",
@@ -86,118 +224,11 @@ const RewardsPage = ({ user, rewards = [] }) => {
     }
   ]; */
 
-  const allRewards = rewards || [];
-
-  //console.log(rewards);
-
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const categories = ['All', 'Drinks', 'Side Dishes', 'Main Meals', 'Discounts', 'Combo Meals'];
-
-  const filteredRewards = selectedCategory === 'All'
-    ? rewards
-    : rewards.filter(reward => reward.reward_category === selectedCategory);
-
-  console.log('rewards:', rewards);
-  console.log('filteredRewards:', filteredRewards);
-
-  const openModal = (reward) => {
-    setSelectedReward(reward);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedReward(null);
-  };
-
-  const claimReward = () => {
-    const success = redeemReward(selectedReward.id, selectedReward.pointsRequired);
-    if (success) {
-      closeModal();
-    }
-  };
-
-  return (
-    <>
-      <div className="app-layout">
-        <Sidebar />
-        <div className="main-content">
-          <Header user={user}/>
-          <div className="rewards-page">
-            <div className="rewards-page-header">
-              <h1>Available Rewards</h1>
-              <p>Browse through all the amazing rewards you can redeem with BradPoints!</p>
-            </div>
-
-            <div className="category-filter">
-              {categories.map(category => (
-                <button
-                  key={category}
-                  className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory(category)}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-
-            <div className="rewards-grid">
-              {filteredRewards.map((rewards) => (
-                <div key={rewards.id} className="reward-item">
-                  <div className="reward-left-border" style={{ backgroundColor: rewards.reward_color }}></div>
-                  <div className="reward-image-placeholder">
-                    {rewards.reward_image
-                      ? <img src={rewards.reward_image} alt={rewards.reward_name} className="reward-img" />
-                      : <span role="img" aria-label="placeholder">📷</span>
-                    }
-                  </div>
-                  <div className="reward-content">
-                    <div className="reward-header" style={{ backgroundColor: rewards.reward_color }}>
-                      <h3>{rewards.reward_name}</h3>
-                      <span className="category-tag">{rewards.reward_category}</span>
-                    </div>
-                    <div className="reward-body">
-                      <p className="reward-description">{rewards.reward_desc}</p>
-                      <div className="reward-footer">
-                        <span className="points-required">{rewards.reward_points} Points</span>
-                        <button className="redeem-btn" onClick={() => openModal(rewards)}>Redeem</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="see-more-section">
-              <p>Stay tuned for more exciting new rewards coming your way! Don't forget to check the notifications page for the hottest BradPoints updates.</p>
-            </div>
-
-            <div className="back-to-home">
-              <button onClick={() => window.history.back()} className="back-btn">
-                ← Back to Home
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {isModalOpen && selectedReward && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>{selectedReward.name}</h2>
-              <button className="close-btn" onClick={closeModal}>×</button>
-            </div>
-            <div className="modal-body">
-              <p>{selectedReward.description}</p>
-              <p><strong>Points Required: {selectedReward.pointsRequired}</strong></p>
-            </div>
-            <div className="modal-footer">
-              {isRewardRedeemed(selectedReward.id) ? (
+/*isRewardRedeemed(selectedReward.id) ? (
                 <button className="claim-btn redeemed" disabled>
                   Already Redeemed
                 </button>
-              ) : !canRedeemReward(selectedReward.pointsRequired) ? (
+              ) : !canRedeemReward(selectedReward.reward_points) ? (
                 <button className="claim-btn insufficient" disabled>
                   Insufficient Points
                 </button>
@@ -205,13 +236,9 @@ const RewardsPage = ({ user, rewards = [] }) => {
                 <button className="claim-btn" onClick={claimReward}>
                   Claim Voucher
                 </button>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
+              ) */
 
-export default RewardsPage;
+  /* const openModal = (rewards) => {
+    setSelectedReward(rewards);
+    setIsModalOpen(true);
+  }; */

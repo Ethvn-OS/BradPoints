@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const PointsContext = createContext();
 
@@ -10,8 +10,13 @@ export const usePoints = () => {
   return context;
 };
 
-export const PointsProvider = ({ children }) => {
-  const [currentPoints, setCurrentPoints] = useState(36);
+export const PointsProvider = ({ children, points, updateUserPoints }) => {
+  const [currentPoints, setCurrentPoints] = useState(points);
+
+  useEffect(() => {
+    setCurrentPoints(points);
+  }, [points]);
+
   const [redeemedRewards, setRedeemedRewards] = useState(new Set());
   const [notifications, setNotifications] = useState([
     {
@@ -32,7 +37,7 @@ export const PointsProvider = ({ children }) => {
     }
   ]);
 
-  const redeemReward = (rewardId, pointsRequired) => {
+  /* const redeemReward = (rewardId, pointsRequired) => {
     // Check if user has enough points
     if (currentPoints < pointsRequired) {
       alert(`You need ${pointsRequired} points to redeem this reward. You currently have ${currentPoints} points.`);
@@ -63,10 +68,53 @@ export const PointsProvider = ({ children }) => {
     
     alert(`Congratulations! You've successfully redeemed the reward for ${pointsRequired} points.`);
     return true;
+  }; */
+
+  const redeemReward = async (reward) => {
+    const response = await fetch("http://localhost/BradPoints/php-backend/redeem-reward.php", {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        avail_reward_name: reward.reward_name,
+        avail_reward_points: reward.reward_points,
+        avail_reward_id: reward.id,
+      }),
+    });
+    const data = await response.json();
+    if (data.success) {
+      setCurrentPoints(Number(data.points)); // update points from backend
+      if (updateUserPoints) updateUserPoints(Number(data.points));
+      setNotifications((prev) => [
+        ...prev,
+        {
+          id: Date.now(),
+          type: 'redemption',
+          title: 'Reward Redeemed!',
+          message: data.message,
+          timestamp: new Date().toISOString(),
+          read: false,
+        },
+      ]);
+      alert(data.message);
+      return true;
+    } else {
+      alert(data.message);
+      return false;
+    }
   };
 
-  const isRewardRedeemed = (rewardId) => {
-    return redeemedRewards.has(rewardId);
+  const isRewardRedeemed = async (rewardId) => {
+    const response = await fetch("http://localhost/BradPoints/php-backend/check-redeem.php", {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        avail_reward_id: rewardId
+      }),
+    });
+    const data = await response.json();
+    return data.redeemed;
   };
 
   const canRedeemReward = (pointsRequired) => {
