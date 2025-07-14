@@ -33,6 +33,24 @@ function App() {
       });
   }, []);
 
+  const [rewards, setRewards] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost/BradPoints/php-backend/get-rewards.php", {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((rewardData) => {
+        if (rewardData && Array.isArray(rewardData.rewards)) {
+          setRewards(rewardData.rewards);
+        } else {
+          setRewards([]);
+        }
+      })
+  }, []);
+
+  const allRewards = rewards || [];
+
   return (
     <PointsProvider>
       <Router>
@@ -49,7 +67,7 @@ function App() {
               </div>
             </div>
           } />
-                  <Route path="/rewards" element={<RewardsPage user={user} />} />
+                  <Route path="/rewards" element={<RewardsPage user={user} rewards={allRewards} />} />
         <Route path="/feedback" element={<FeedbackPage user={user} />} />
         <Route path="/notifications" element={<NotificationsPage user={user} />} />
         </Routes>

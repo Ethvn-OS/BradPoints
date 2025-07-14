@@ -5,12 +5,13 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import { usePoints } from '../context/PointsContext';
 
-const RewardsPage = ({ user }) => {
+const RewardsPage = ({ user, rewards = [] }) => {
+  console.log(rewards);
   const [selectedReward, setSelectedReward] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { redeemReward, isRewardRedeemed, canRedeemReward } = usePoints();
-  
-  const allRewards = [
+
+  /* const allRewards = [
     {
       id: 1,
       name: "FREEDRINK",
@@ -83,14 +84,21 @@ const RewardsPage = ({ user }) => {
       category: "Combo Meals",
       image: "/voucherImg8.png"
     }
-  ];
+  ]; */
+
+  const allRewards = rewards || [];
+
+  //console.log(rewards);
 
   const [selectedCategory, setSelectedCategory] = useState('All');
   const categories = ['All', 'Drinks', 'Side Dishes', 'Main Meals', 'Discounts', 'Combo Meals'];
 
-  const filteredRewards = selectedCategory === 'All' 
-    ? allRewards 
-    : allRewards.filter(reward => reward.category === selectedCategory);
+  const filteredRewards = selectedCategory === 'All'
+    ? rewards
+    : rewards.filter(reward => reward.reward_category === selectedCategory);
+
+  console.log('rewards:', rewards);
+  console.log('filteredRewards:', filteredRewards);
 
   const openModal = (reward) => {
     setSelectedReward(reward);
@@ -134,25 +142,25 @@ const RewardsPage = ({ user }) => {
             </div>
 
             <div className="rewards-grid">
-              {filteredRewards.map((reward) => (
-                <div key={reward.id} className="reward-item">
-                  <div className="reward-left-border" style={{ backgroundColor: reward.color }}></div>
+              {filteredRewards.map((rewards) => (
+                <div key={rewards.id} className="reward-item">
+                  <div className="reward-left-border" style={{ backgroundColor: rewards.reward_color }}></div>
                   <div className="reward-image-placeholder">
-                    {reward.image
-                      ? <img src={reward.image} alt={reward.name} className="reward-img" />
+                    {rewards.reward_image
+                      ? <img src={rewards.reward_image} alt={rewards.reward_name} className="reward-img" />
                       : <span role="img" aria-label="placeholder">📷</span>
                     }
                   </div>
                   <div className="reward-content">
-                    <div className="reward-header" style={{ backgroundColor: reward.color }}>
-                      <h3>{reward.name}</h3>
-                      <span className="category-tag">{reward.category}</span>
+                    <div className="reward-header" style={{ backgroundColor: rewards.reward_color }}>
+                      <h3>{rewards.reward_name}</h3>
+                      <span className="category-tag">{rewards.reward_category}</span>
                     </div>
                     <div className="reward-body">
-                      <p className="reward-description">{reward.description}</p>
+                      <p className="reward-description">{rewards.reward_desc}</p>
                       <div className="reward-footer">
-                        <span className="points-required">{reward.pointsRequired} Points</span>
-                        <button className="redeem-btn" onClick={() => openModal(reward)}>Redeem</button>
+                        <span className="points-required">{rewards.reward_points} Points</span>
+                        <button className="redeem-btn" onClick={() => openModal(rewards)}>Redeem</button>
                       </div>
                     </div>
                   </div>
@@ -195,7 +203,7 @@ const RewardsPage = ({ user }) => {
                 </button>
               ) : (
                 <button className="claim-btn" onClick={claimReward}>
-                  Claim Voucher 
+                  Claim Voucher
                 </button>
               )}
             </div>
@@ -206,4 +214,4 @@ const RewardsPage = ({ user }) => {
   );
 };
 
-export default RewardsPage; 
+export default RewardsPage;
