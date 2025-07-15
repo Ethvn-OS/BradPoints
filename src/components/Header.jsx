@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 const Header = ({ user }) => {
@@ -34,8 +35,7 @@ const Header = ({ user }) => {
         />
         {isDropdownOpen && (
           <ul className="dropdown-menu">
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Edit Profile</a></li>
+            <li><Link to="/profile">Profile</Link></li>
             <li><a href="#">User Guide</a></li>
             <li><a href="http://localhost/BradPoints/logout.php">Log Out</a></li>
           </ul>

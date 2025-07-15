@@ -11,6 +11,7 @@ import FeedbackSection from './components/FeedbackSection';
 import RewardsPage from './components/RewardsPage';
 import FeedbackPage from './components/FeedbackPage';
 import NotificationsPage from './components/NotificationsPage';
+import ProfilePage from './components/ProfilePage';
 import { PointsProvider } from './context/PointsContext';
 
 function App() {
@@ -77,6 +78,7 @@ function App() {
                   <Route path="/rewards" element={<RewardsPage user={user} rewards={allRewards} />} />
         <Route path="/feedback" element={<FeedbackPage user={user} />} />
         <Route path="/notifications" element={<NotificationsPage user={user} />} />
+        <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </Router>
     </PointsProvider>
