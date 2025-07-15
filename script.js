@@ -72,3 +72,40 @@ function toggleForm() {
     const divForm = document.getElementById('addProductForm');
     divForm.style.display = (divForm.style.display === 'none') ? 'block' : 'none';
 }
+
+//function to sort tables in admin
+
+function sortTable(tableId, colIndex) {
+    const tableBody = document.getElementById(tableId);
+    const rows = Array.from(tableBody.querySelectorAll("tr"));
+
+    const isNumeric = !isNaN(rows[0].children[colIndex].textContent.trim());
+    const currentSorted = tableBody.getAttribute("data-sorted-col");
+    const currentOrder = tableBody.getAttribute("data-sorted-order");
+
+    const newOrder = (currentSorted == colIndex && currentOrder == "asc") ? "desc" : "asc";
+
+    const sortedRows = rows.sort((a, b) => {
+        let valA = a.children[colIndex].textContent.trim();
+        let valB = b.children[colIndex].textContent.trim();
+
+        if (isNumeric) {
+            valA = parseFloat(valA);
+            valB = parseFloat(valB);
+        }
+
+        if (valA < valB) return newOrder === "asc" ? -1 : 1;
+        if (valA > valB) return newOrder === "asc" ? 1 : -1;
+        return 0;
+    });
+
+    // Clear current rows
+    tableBody.innerHTML = "";
+
+    // Append sorted rows
+    sortedRows.forEach(row => tableBody.appendChild(row));
+
+    // Update sort attributes
+    tableBody.setAttribute("data-sorted-col", colIndex);
+    tableBody.setAttribute("data-sorted-order", newOrder);
+}

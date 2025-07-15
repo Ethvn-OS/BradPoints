@@ -1,3 +1,59 @@
-<div class="admindash">
-    <h1>This is the dashboard for admin page</h1>
+<div style="display: flex; flex-wrap: wrap;">
+    <div class="admindash">
+        <h1>Summary of Vouchers Claimed</h1>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('voucher-table', 0)">Reward ID</th>
+                    <th onclick="sortTable('voucher-table', 1)">Reward Name</th>
+                    <th onclick="sortTable('voucher-table', 2)">Number of Redemptions</th>
+                </tr>
+            </thead>
+            <tbody id="voucher-table">
+                <?php if(!empty($all_vouchredem)): ?>
+                    <?php foreach($all_vouchredem as $vouch): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($vouch['reward_id']); ?></td>
+                            <td>
+                                <?php echo htmlspecialchars($vouch['reward_name']); ?>
+                            </td>
+                            <td>
+                                <?php echo htmlspecialchars($vouch['number_of_redemptions']); ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="admindash">
+        <h1>Voucher Claim History</h1>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('redemption-table', 0)">ID</th>
+                    <th onclick="sortTable('redemption-table', 1)">User ID</th>
+                    <th onclick="sortTable('redemption-table', 2)">Cashier ID</th>
+                    <th onclick="sortTable('redemption-table', 3)">Reward ID</th>
+                    <th onclick="sortTable('redemption-table', 4)">Redemption ID</th>
+                    <th onclick="sortTable('redemption-table', 5)">Status</th>
+                </tr>
+            </thead>
+            <tbody id="redemption-table">
+                <?php if(!empty($all_redem)): ?>
+                    <?php foreach($all_redem as $redem): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($redem['id']); ?></td>
+                            <td><?php echo htmlspecialchars($redem['user_id']); ?></td>
+                            <td><?php echo htmlspecialchars($redem['cashier_id']); ?></td>
+                            <td><?php echo htmlspecialchars($redem['reward_id']); ?></td>
+                            <td><?php echo htmlspecialchars($redem['redemption_id']); ?></td>
+                            <td><?php echo htmlspecialchars($redem['status']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </div>

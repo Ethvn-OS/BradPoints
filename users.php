@@ -18,18 +18,22 @@ session_start();
 
     //Create user
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
-        $username = trim($_POST['username']);
-        $points = intval($_POST['points']);
-        if ($username !== '') {
-            $create_query = "INSERT INTO users (user_name, points, usertype_id) VALUES (?, ?, 2)";
-            $stmt = mysqli_prepare($con, $create_query);
-            mysqli_stmt_bind_param($stmt, "si", $username, $points);
-            if (mysqli_stmt_execute($stmt)) {
-                $success_message = "User added!";
-            } else {
-                $error_message = "Failed to add user.";
+        if ($_POST['usertype'] === 2) {
+            $username = trim($_POST['username']);
+            $points = intval($_POST['points']);
+            if ($username !== '') {
+                $create_query = "INSERT INTO users (user_name, points, usertype_id) VALUES (?, ?, 2)";
+                $stmt = mysqli_prepare($con, $create_query);
+                mysqli_stmt_bind_param($stmt, "si", $username, $points);
+                if (mysqli_stmt_execute($stmt)) {
+                    $success_message = "User added!";
+                } else {
+                    $error_message = "Failed to add user.";
+                }
+                mysqli_stmt_close($stmt);
             }
-            mysqli_stmt_close($stmt);
+        } else {
+            //cashier
         }
     }
 
@@ -65,12 +69,28 @@ session_start();
 
     $all_users = [];
 
-    $users_query = "SELECT id, user_name, points FROM users WHERE usertype_id = 2";
+    $users_query = "SELECT u.id, u.user_name, c.points 
+                    FROM users u
+                    LEFT JOIN customers c ON c.user_id = u.id
+                    WHERE usertype_id = 2";
     $users_results = mysqli_query($con, $users_query);
 
     if ($users_results) {
         while ($row = mysqli_fetch_assoc($users_results)) {
             $all_users[] = $row;
+        }
+    }
+
+    $all_cashiers = [];
+
+    $cashier_query = "SELECT id, user_name
+                      FROM users
+                      WHERE usertype_id = 1";
+    $cashier_results = mysqli_query($con, $cashier_query);
+
+    if ($cashier_results) {
+        while ($row = mysqli_fetch_assoc($cashier_results)) {
+            $all_cashiers[] = $row;
         }
     }
 ?>
@@ -89,8 +109,14 @@ session_start();
 </head>
 <body>
     <?php include "includes/sidebar.html" ?>
-    <div class="main-container">
-        <?php include "includes/users.html" ?>
+
+    <div class="main-containeradmin">
+        <header class="site-header">
+            <h1>Users</h1>
+        </header>
+        <main class="dashboard-content">
+            <?php include "includes/users.html" ?>
+        </main>
     </div>
 
     <script src="script.js"></script>

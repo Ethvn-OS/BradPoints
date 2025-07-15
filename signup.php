@@ -36,6 +36,11 @@
                         require_once 'email_helper.php';
                         sendWelcomeEmail($email, $user_name);
                     }
+                    $addCustomer = "INSERT INTO customers (user_id)
+                                    SELECT id
+                                    FROM users
+                                    WHERE user_name = '$user_name'";
+                    mysqli_query($con, $addCustomer);
                     header("Location: login.php");
                     die;
                 }

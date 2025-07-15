@@ -201,13 +201,48 @@ nav {
 
 /* For the admin page */
 
+.main-containeradmin {
+    flex-grow: 1;
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+    overflow-y: auto;
+    margin-left: 200px;
+}
+
+.dashboard-content {
+  padding: 2rem;
+  overflow-y: auto;
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+}
+
 .admindash {
   max-width: 700px;
   margin: 40px auto;
   background: #fffbe7;
-  padding: 2rem;
-  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  transition: 0.3s ease;
+}
+
+.admindash:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 100;
 }
 
 .productform {
@@ -250,9 +285,13 @@ nav {
 
 .crud-form input,
 .edit-form input {
-  padding: 6px 10px;
+  padding: 6px 4px;
   border-radius: 4px;
   border: 1px solid #e0c97f;
+}
+
+.inputpass {
+  padding: 6px 5px;
 }
 
 .crud-form button,

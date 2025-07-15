@@ -14,7 +14,10 @@
         if(!empty($user_name) && !empty($password) && !is_numeric($user_name)) {
 
             //read from database
-            $query = "SELECT * FROM users WHERE user_name = '$user_name' LIMIT 1";
+            $query = "SELECT u.id AS user_id, u.user_name, u.password, u.usertype_id, u.email, c.points AS points
+                      FROM users u
+                      LEFT JOIN customers c ON c.user_id = u.id
+                      WHERE u.user_name = '$user_name' LIMIT 1";
 
             $result = mysqli_query($con, $query);
 
@@ -25,8 +28,14 @@
                 if (password_verify($password, $user_data['password'])) {
 
                     $_SESSION["authenticated"] = true;
-                    $_SESSION['id'] = $user_data['id'];
-                    $_SESSION['user'] = $user_data;
+                    $_SESSION['id'] = $user_data['user_id'];
+                    $_SESSION['user'] = [
+                        'id' => $user_data['user_id'],
+                        'user_name' => $user_data['user_name'],
+                        'email' => $user_data['email'],
+                        'usertype_id' => $user_data['usertype_id'],
+                        'points' => $user_data['points']
+                    ];
 
                     if ($user_data['usertype_id'] == 2) {
                         header("Location: http://localhost:3000/");

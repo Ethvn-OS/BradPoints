@@ -30,11 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['avail_reward_name'], 
             $error_message = "You already availed $reward_name";
         } else {
             //Deduct points
-            $update_query = "UPDATE users SET points = points - $reward_points WHERE id = $userID";
+            $update_query = "UPDATE customers SET points = points - $reward_points WHERE user_id = $userID";
             mysqli_query($con, $update_query);
 
             //Refresh user data
-            $result = mysqli_query($con, "SELECT * FROM users WHERE id = $userID");
+            $result = mysqli_query($con, "SELECT u.id AS user_id, u.user_name, u.password, u.usertype_id, u.email, c.points AS points
+                                          FROM users u
+                                          JOIN customers c ON c.user_id = u.id
+                                          WHERE u.id = $userID");
             if ($result && mysqli_num_rows($result) > 0) {
                 $user_data = mysqli_fetch_assoc($result);
             }

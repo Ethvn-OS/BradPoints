@@ -50,6 +50,8 @@ function App() {
       })
   }, []);
 
+  console.log(user);
+
   const updateUserPoints = (newPoints) => {
     setUser((prevUser) => ({
       ...prevUser,
