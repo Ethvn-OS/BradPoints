@@ -194,7 +194,7 @@ const ProfilePage = ( { user }) => {
     <div className="app-layout">
       <Sidebar />
       <div className="main-content">
-        <Header />
+        <Header user={user}/>
         <div className="profile-page-container">
           <div className="profile-page-main-container">
             <div className="profile-page-tabs">
