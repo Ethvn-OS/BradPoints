@@ -16,7 +16,7 @@ body {
   align-items: center;
 }
 
-.main{
+.main {
   display: flex;
   width: 90vw;
   max-width: 900px;
@@ -38,7 +38,23 @@ body {
   display: flex;
   flex: 1;
   flex-direction: column;
-  align-items: center;
+  min-height: 0;      
+  height: 100%;      
+  overflow-y: auto!important;   
+  scrollbar-width: thin!important;
+  scrollbar-color: #f2a413 #ffe5b4!important;
+}
+
+.form-container::-webkit-scrollbar {
+  width: 10px;
+}
+.form-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #f2a413 40%, #a22221 100%);
+  border-radius: 8px;
+}
+.form-container::-webkit-scrollbar-track {
+  background: #ffe5b4;
+  border-radius: 8px;
 }
 
 .form-container h2 + p {
@@ -62,7 +78,8 @@ input {
   max-width:200px;
   margin-left: 20px;
   margin-right: 20px;
-  margin-top: 15px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Header */
@@ -80,6 +97,16 @@ form {
 }
 
 input {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+input[type="email"] {
   width: 100%;
   padding: 12px;
   margin: 12px 0;
@@ -136,5 +163,10 @@ a:hover {
 }
 
 p{
+  padding-top: 20px;
+}
+
+#leftside {
+  display: block;
   padding-top: 20px;
 }
