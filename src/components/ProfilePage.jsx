@@ -4,7 +4,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import './ProfilePage.css';
 
-const ProfilePage = () => {
+const ProfilePage = ( { user }) => {
   const [activeTab, setActiveTab] = useState('profile');
   const [isEditing, setIsEditing] = useState(false);
   
