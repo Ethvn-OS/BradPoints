@@ -1,34 +1,34 @@
 <div class="layout-container">
-    <aside class="sidebar">
+    <!-- <aside class="sidebar">
         <nav class="sidebar-nav">
         <img src="assets/Logo.png" alt="logo" class="logo">
             <div class="nav-buttons">
                 <ul class="b-list">
-                    
+
                 </ul>
             </div>
         </nav>
-    </aside>
+    </aside> -->
     <main class="main-content">
 <header class="cashier-header">
     <h1>Products</h1>
     <a href="cashier.php" class="goback-link">Go back</a>
 </header>
-<p>Hello, cashieradmin</p>
-<p>The id number is 390293029031</p>
+<br>
+<p>ID Number: <?php echo $target_id ?></p>
+<br>
 
 <form method="post" id="orderForm">
     <div class="prodcontainers">
-        <!--<?php foreach ($products as $product): ?> -->
-        <!-- Ikaw lang nya edit og make sa mga cards newin ako ray bahala og integrate sa product name, category name, ug number of points sa products -->
+        <?php foreach ($products as $product): ?>
             <div class="card">
                 <div class="imgcont">
                     <img src="img">
                 </div>
                 <div class="textcont">
-                    <p class="text">Product Name</p>
-                    <p class="text">Category Name</p>
-                    <p class="text">21 Points</p>
+                    <p class="text"><?php echo htmlspecialchars($product['prod_name']); ?></p>
+                    <p class="text"><?php echo htmlspecialchars($product['category_name']); ?></p>
+                    <p class="text"><?php echo htmlspecialchars($product['points']); ?> Points</p>
                 </div>
                 <div class="btn">
                     <button type="button" class="minus-btn" 
@@ -41,87 +41,7 @@
                             data-points="<?php echo $product['points']; ?>">+</button>
                 </div>
             </div>
-            <div class="card">
-                <div class="imgcont">
-                    <img src="img">
-                </div>
-                <div class="textcont">
-                    <p class="text">Product Name</p>
-                    <p class="text">Category Name</p>
-                    <p class="text">21 Points</p>
-                </div>
-                <div class="btn">
-                    <button type="button" class="minus-btn" 
-                            data-id="<?php echo $product['id']; ?>" 
-                            data-name="<?php echo htmlspecialchars($product['prod_name']); ?>"
-                            data-points="<?php echo $product['points']; ?>">-</button>
-                    <button type="button" class="plus-btn" 
-                            data-id="<?php echo $product['id']; ?>" 
-                            data-name="<?php echo htmlspecialchars($product['prod_name']); ?>"
-                            data-points="<?php echo $product['points']; ?>">+</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="imgcont">
-                    <img src="img">
-                </div>
-                <div class="textcont">
-                    <p class="text">Product Name</p>
-                    <p class="text">Category Name</p>
-                    <p class="text">21 Points</p>
-                </div>
-                <div class="btn">
-                    <button type="button" class="minus-btn" 
-                            data-id="<?php echo $product['id']; ?>" 
-                            data-name="<?php echo htmlspecialchars($product['prod_name']); ?>"
-                            data-points="<?php echo $product['points']; ?>">-</button>
-                    <button type="button" class="plus-btn" 
-                            data-id="<?php echo $product['id']; ?>" 
-                            data-name="<?php echo htmlspecialchars($product['prod_name']); ?>"
-                            data-points="<?php echo $product['points']; ?>">+</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="imgcont">
-                    <img src="img">
-                </div>
-                <div class="textcont">
-                    <p class="text">Product Name</p>
-                    <p class="text">Category Name</p>
-                    <p class="text">21 Points</p>
-                </div>
-                <div class="btn">
-                    <button type="button" class="minus-btn" 
-                            data-id="<?php echo $product['id']; ?>" 
-                            data-name="<?php echo htmlspecialchars($product['prod_name']); ?>"
-                            data-points="<?php echo $product['points']; ?>">-</button>
-                    <button type="button" class="plus-btn" 
-                            data-id="<?php echo $product['id']; ?>" 
-                            data-name="<?php echo htmlspecialchars($product['prod_name']); ?>"
-                            data-points="<?php echo $product['points']; ?>">+</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="imgcont">
-                    <img src="img">
-                </div>
-                <div class="textcont">
-                    <p class="text">Product Name</p>
-                    <p class="text">Category Name</p>
-                    <p class="text">21 Points</p>
-                </div>
-                <div class="btn">
-                    <button type="button" class="minus-btn" 
-                            data-id="<?php echo $product['id']; ?>" 
-                            data-name="<?php echo htmlspecialchars($product['prod_name']); ?>"
-                            data-points="<?php echo $product['points']; ?>">-</button>
-                    <button type="button" class="plus-btn" 
-                            data-id="<?php echo $product['id']; ?>" 
-                            data-name="<?php echo htmlspecialchars($product['prod_name']); ?>"
-                            data-points="<?php echo $product['points']; ?>">+</button>
-                </div>
-            </div>
-        <!--<?php endforeach; ?>-->
+        <?php endforeach; ?>
     </div>
 
     <div class="addedOrders"></div>
