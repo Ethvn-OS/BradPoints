@@ -4,7 +4,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import './ProfilePage.css';
 
-const ProfilePage = () => {
+const ProfilePage = ( { user }) => {
   const [activeTab, setActiveTab] = useState('profile');
   const [isEditing, setIsEditing] = useState(false);
   
@@ -194,7 +194,7 @@ const ProfilePage = () => {
     <div className="app-layout">
       <Sidebar />
       <div className="main-content">
-        <Header />
+        <Header user={user}/>
         <div className="profile-page-container">
           <div className="profile-page-main-container">
             <div className="profile-page-tabs">

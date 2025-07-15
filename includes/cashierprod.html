@@ -1,8 +1,22 @@
-<a href="cashier.php">Go back</a>
+<div class="layout-container">
+    <!-- <aside class="sidebar">
+        <nav class="sidebar-nav">
+        <img src="assets/Logo.png" alt="logo" class="logo">
+            <div class="nav-buttons">
+                <ul class="b-list">
 
-<h1>This is the products page for cashier</h1>
-<p>Hello, <?php echo $user_data['user_name']; ?></p>
-<p>The id number is <?php echo $target_id ?></p>
+                </ul>
+            </div>
+        </nav>
+    </aside> -->
+    <main class="main-content">
+<header class="cashier-header">
+    <h1>Products</h1>
+    <a href="cashier.php" class="goback-link">Go back</a>
+</header>
+<br>
+<p>ID Number: <?php echo $target_id ?></p>
+<br>
 
 <form method="post" id="orderForm">
     <div class="prodcontainers">
@@ -37,6 +51,8 @@
     </div>
     <input type="hidden" name="order_data" id="orderData">
     <div class="prodcontainers">
-        <input type="submit" value="Submit Order">
+        <input type="submit" value="Submit Order" class="btn">
     </div>
 </form>
+</main>
+</div>
