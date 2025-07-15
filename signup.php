@@ -6,11 +6,12 @@
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $user_name = $_POST['user_name'];
+        $email = $_POST['email'];
         $password = $_POST['password'];
         $confirm_password = $_POST['confirm-password'];
 
-        if(!empty($user_name) && !empty($password) && !empty($confirm_password)) {
-
+        if(!empty($user_name) && !empty($email) && !empty($password) && !empty($confirm_password)) {
+            
             if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).+$/', $user_name)) {
                 $error_message = "Username must include at least one letter, one number, and one special character.";
             } else if (strlen($password) < 8) {
@@ -18,17 +19,23 @@
             } else if ($password !== $confirm_password) {
                 $error_message = "Passwords do not match.";
             } else {
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $error_message = "Invalid email format.";
+                }
                 //Check if username already exists
-                $check_query = "SELECT id FROM users WHERE user_name = '$user_name' LIMIT 1";
+                $check_query = "SELECT id FROM users WHERE user_name = '$user_name' OR email = '$email' LIMIT 1";
                 $check_result = mysqli_query($con, $check_query);
 
                 if ($check_result && mysqli_num_rows($check_result) > 0) {
-                    $error_message = "Username already taken. Please choose another.";
+                    $error_message = "Username or email already taken. Please choose another.";
                 } else {
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                    $query = "INSERT INTO users (user_name, password) VALUES ('$user_name', '$hashed_password')";
-                    mysqli_query($con, $query);
-
+                    $query = "INSERT INTO users (user_name, email, password) VALUES ('$user_name', '$email', '$hashed_password')";
+                    if (mysqli_query($con, $query)) {
+                        // Send welcome email
+                        require_once 'email_helper.php';
+                        sendWelcomeEmail($email, $user_name);
+                    }
                     header("Location: login.php");
                     die;
                 }
