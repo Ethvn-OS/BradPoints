@@ -1,5 +1,5 @@
 <?php
-session_start();
+ session_start();
 
     include("connection.php");
     include("functions.php");
@@ -46,7 +46,7 @@ session_start();
         header("Location: cashier.php?success=1");
         exit;
     }
-}
+} 
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +56,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BradPoints Cashier Product List</title>
     <link rel="stylesheet" href="cashier.css">
+    <link href="https://fonts.cdnfonts.com/css/coolvetica-2" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </head>
 <body>
     <?php include "includes/cashierprod.html" ?>

@@ -1,23 +1,45 @@
-<a href="logout.php">Logout</a>
-<h1>This is the cashier page</h1>
+<div class="layout-container">
+    <!-- <aside class="sidebar">
+        <nav class="sidebar-nav">
+        <img src="assets/Logo.png" alt="logo" class="logo">
+            <div class="nav-buttons">
+                <ul class="b-list">
 
+                </ul>
+            </div>
+        </nav>
+    </aside> -->
+    <main class="main-content">
+        <div class="content-container">
+<header class="cashier-header">
+
+    <h1 class="header-title">Cashier Page</h1>
+    <a href="logout.php" class="logout-link">Logout</a>
+</header>
 <br>
-<p>Hello, <?php echo $user_data['user_name']; ?></p>
 
-<form method="post">
-    ID Number: <input type="number" name="id-number"><br><br>
-    <input type="submit">
-</form>
+
+<form method="post" class="center-form">
+    <p>ID Number:</p>
+    <br>
+    <input type="number" name="id-number" id="id-number" class="id-input"><br><br>
+    <input class="btn" type="submit">
+
 
 <?php if (!empty($success_message)): ?>
-    <span style="color: green;"><?php echo $success_message; ?></span><br><br>
+    <span class="center-message" style="color: green;"><?php echo $success_message; ?></span><br><br>
 <?php endif; ?>
 <?php if (!empty($error_message)): ?>
-    <span style="color: red;"><?php echo $error_message; ?></span><br><br>
+    <span class="center-message" style="color: red;"><?php echo $error_message; ?></span><br><br>
 <?php endif; ?>
 <br>
 
 <?php if (!empty($success_message)): ?>
-    <button type="button" name="order" onclick="window.location.href='cashierprod.php'">Order</button><br><br>
-    <button type="button" name="redeem" onclick="window.location.href='cashierredeem.php'">Redeem</button><br><br>
+<div class="action-buttons">
+ <button class="btn" type="button" name="order-btn" onclick="window.location.href='cashierprod.php'">Order</button>
+  <button class="btn" type="button" name="redeem-btn" onclick="window.location.href='cashierredeem.php'">Redeem</button>
+</div>
 <?php endif; ?>
+</form>
+</main>
+</div>

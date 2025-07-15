@@ -1,20 +1,32 @@
-<a href="cashier.php">Go back</a>
+<div class="layout-container">
+    <!-- <aside class="sidebar">
+        <nav class="sidebar-nav">
+        <img src="assets/Logo.png" alt="logo" class="logo">
+            <div class="nav-buttons">
+                <ul class="b-list">
+                    
+                </ul>
+            </div>
+        </nav>
+    </aside> -->
+    <main class="main-content">
+<header class="cashier-header">
+    <h1 class="header-title">Redeem</h1>
+    <a href="cashier.php" class="goback-link">Go back</a>
+</header>
 
-<h1>This is the redeem page</h1>
 
-<p>Hello, <?php echo $user_data['user_name']; ?></p>
-<p>The id number is <?php echo $target_id ?></p>
-
-<span>Input voucher code:</span>
-
-<form method="post">
-    <input type="text" name="redeemvouch"><br><br>
-    <input type="submit" value="Submit">
+<form method="post" class="center-form">
+<p>ID Number: <?php echo $target_id ?></p>
+    <span>Input voucher code:</span>
+    <input type="text" name="redeemvouch" class="redeem"><br><br>
+    <input type="submit" value="Submit" class="btn">
 </form>
-
+    </main>
+    </div>
 <?php if (!empty($success_message)): ?>
-    <span style="color: green;"><?php echo $success_message; ?></span><br><br>
+    <span class="center-message" style="color: green;"><?php echo $success_message; ?></span><br><br>
 <?php endif; ?>
 <?php if (!empty($error_message)): ?>
-    <span style="color: red;"><?php echo $error_message; ?></span><br><br>
-<?php endif; ?>
+    <span class="center-message" style="color: red;"><?php echo $error_message; ?></span><br><br>
+<?php endif; ?> 

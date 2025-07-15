@@ -1,5 +1,5 @@
 .card {
-    background-color: rgb(189, 184, 184);
+    background-color: #ffca7a;
     width: 12vw;
     height: 24vh;
     border-radius: 8px;
@@ -7,6 +7,12 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 16px;
+}
+
+.card .btn {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
 }
 
 .imgcont {
@@ -24,7 +30,205 @@
 }
 
 .btn {
+    background-color: #a22221;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 24px;
+    font-family: coolvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    margin-bottom: 10px;
+}
+
+.btn:hover {
+    background-color: #7a1818;
+    transform: translateY(-2px) scale(1.05);
+}
+
+.action-buttons {
     display: flex;
+    gap: 150px;
+    margin-bottom: 20px;
     justify-content: center;
-    gap: 25px;
+}
+
+body{
+    background-color: #fcfaee;
+    margin: 0;
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+.cashier-header{
+    display: flex;
+    background-color: #ffca7a;
+    text-align: center;
+    padding: 0px;
+    margin: 0;
+    align-items: center;
+    color: #a22221;
+    height: 100px;
+}
+
+.logo {
+    width: 200px;
+    margin: 20px auto; 
+}
+
+.logout-link {
+    font-family: coolvetica, sans-serif;
+    color: #a22221;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+
+.goback-link {
+    font-family: coolvetica, sans-serif;
+    color: #a22221;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+
+h1{
+    font-family: coolvetica, sans-serif;
+    margin: 10px;
+    font-size: 35px;
+    font-weight: 700;
+}
+
+.center-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto;
+    width: fit-content;
+    background-color: bisque; /* or any color you like */
+    border-radius: 18px;       /* optional: for curvy edges */
+    padding: 24px 32px;        /* optional: for spacing inside */
+}
+
+p {
+    font-family: coolvetica, sans-serif;
+    font-size: 1.2rem;
+    color: #a22221;
+    margin: 0;
+    text-align: center;
+}
+
+.center-message {
+    display: block;
+    text-align: center;
+    margin: 10px auto;
+}
+
+#totalPoints {
+    font-family: coolvetica, sans-serif;
+    font-size: 1.5rem;
+    color: #a22221;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.addedOrders {
+    font-family: coolvetica, sans-serif;
+    font-size: 1.2rem;
+    color: #a22221;
+    text-align: left;
+    padding: 4px 8px; /* Reduced padding */
+    margin-top: 8px;
+    min-height: 60px;      /* Ensures space is always reserved */
+    max-height: 120px;     /* Optional: limits how tall it can get */
+    overflow-y: auto;      /* Adds scroll if content exceeds max-height */
+}
+
+.id-input {
+    border: 2px solid #a22221;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 1rem;
+    font-family: coolvetica, sans-serif;
+    margin-bottom: 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #fff8e1;
+    color: #a22221;
+}
+
+.id-input:focus {
+    border-color: #7a1818;
+    background-color: #fff6e6;
+    box-shadow: 0 0 4px #a22221;
+}
+
+.redeem {
+    border: 2px solid #a22221;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 1rem;
+    font-family: coolvetica, sans-serif;
+    margin-bottom: 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #fff8e1;
+    color: #a22221;
+}
+
+.redeem:focus {
+    border-color: #7a1818;
+    background-color: #fff6e6;
+    box-shadow: 0 0 4px #a22221;
+}
+
+.layout-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    background-color: #a22221;
+    height: 100vh;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    flex-shrink: 0;
+    font-family: 'Coolvetica', sans-serif;
+    font-size: 20px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    padding: 0 0 20px;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 0; /* Same as sidebar width */
+}
+
+/* Update your existing header to remove the fixed positioning if any */
+.cashier-header {
+    display: flex;
+    background-color: #ffca7a;
+    text-align: center;
+    padding: 0px;
+    margin: 0;
+    align-items: center;
+    color: #a22221;
+    height: 100px;
+    width: 100%; /* Ensure it takes full width of main content */
 }
