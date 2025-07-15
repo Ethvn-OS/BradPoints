@@ -19,6 +19,9 @@
 
     $target_id = isset($_SESSION['target_id']) ? intval($_SESSION['target_id']) : 0;
 
+    $success_message = '';
+    $error_message = '';
+
     if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['redeemvouch'])) {
         $redeemvouch = $_POST['redeemvouch'];
 
@@ -39,7 +42,7 @@
         } else {
             $error_message = "Voucher $redeemvouch not found for User ID $target_id.";
         }
-    } 
+    }
 
 ?>
 

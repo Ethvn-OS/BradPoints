@@ -17,9 +17,16 @@
 
 <form method="post" class="center-form">
 <p>ID Number: <?php echo $target_id ?></p>
-    <span>Input voucher code:</span>
+<br>
+    <p>Input voucher code:</p>
     <input type="text" name="redeemvouch" class="redeem"><br><br>
     <input type="submit" value="Submit" class="btn">
+    <?php if (!empty($success_message)): ?>
+        <span class="center-message" style="color: green;"><?php echo $success_message; ?></span><br><br>
+    <?php endif; ?>
+    <?php if (!empty($error_message)): ?>
+        <span class="center-message" style="color: red;"><?php echo $error_message; ?></span><br><br>
+    <?php endif; ?> 
 </form>
     </main>
     </div>
