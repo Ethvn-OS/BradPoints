@@ -21,7 +21,7 @@
     // Fetch products from database
     $products = [];
 
-    $product_query = "SELECT p.*, category_name, points
+    $product_query = "SELECT p.*, category_name, points, p.isDeleted
                       FROM products p
                       JOIN category c ON c.id = p.category_id";
 
@@ -40,7 +40,7 @@
     }
     // Update points for the customer
     if ($totalPoints > 0 && $target_id > 0) {
-        $update_query = "UPDATE users SET points = points + $totalPoints WHERE id = $target_id";
+        $update_query = "UPDATE customers SET points = points + $totalPoints WHERE user_id = $target_id";
         mysqli_query($con, $update_query);
         // Optionally, redirect or show a success message
         header("Location: cashier.php?success=1");

@@ -60,7 +60,7 @@ session_start();
     <?php include "includes/sidebar.html" ?>
     <div class="main-containeradmin">
         <header class="site-header">
-            <h1>Admin Dashboard</h1>
+            <h1>Dashboard</h1>
         </header>
         <main class="dashboard-content">
             <?php include "includes/admin.html" ?>

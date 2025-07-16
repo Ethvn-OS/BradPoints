@@ -37,7 +37,19 @@
             } else {
                 $redeem_query = "UPDATE redemption SET status = 'Claimed' WHERE redemption_id = '$redeemvouch'";
                 mysqli_query($con, $redeem_query);
-                $success_message = "Voucher $redeemvouch has been claimed by User ID $target_id.";
+
+                $cashier_query = "SELECT cashier_id FROM cashiers WHERE user_id = ?";
+                $stmt = mysqli_prepare($con, $cashier_query);
+                mysqli_stmt_bind_param($stmt, "i", $id);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+
+                if ($row = mysqli_fetch_assoc($result)) {
+                    $cashier_id = $row['cashier_id'];
+                    $redeem_cash = "UPDATE redemption SET cashier_id = $cashier_id WHERE redemption_id = '$redeemvouch' AND user_id = $target_id";
+                    mysqli_query($con, $redeem_cash);
+                    $success_message = "Voucher $redeemvouch has been claimed by User ID $target_id.";
+                }
             }
         } else {
             $error_message = "Voucher $redeemvouch not found for User ID $target_id.";

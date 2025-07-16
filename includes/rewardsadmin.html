@@ -1,12 +1,28 @@
 <div class="admindash">
     <h1>Rewards</h1>
-    <table border="1">
+
+    <?php if (!empty($success_message)): ?>
+        <div class="alert alert-success"><?php echo $success_message; ?></div>
+    <?php endif; ?>
+    <?php if (!empty($error_message)): ?>
+        <div class="alert alert-danger"><?php echo $error_message; ?></div>
+    <?php endif; ?>
+
+    <form method="post" class="crud-form">
+        <input type="text" name="rewardName" placeholder="Reward" required>
+        <input type="text" name="desc" placeholder="Description" required>
+        <input type="number" name="points" placeholder="Points" required>
+        <button type="submit" name="add_reward">Add Reward</button>
+    </form>
+
+    <table class="user-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Reward Name</th>
                 <th>Reward Description</th>
                 <th>Reward Points</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -17,6 +33,16 @@
                         <td><?php echo htmlspecialchars($reward['reward_name']); ?></td>
                         <td><?php echo htmlspecialchars($reward['reward_desc']); ?></td>
                         <td><?php echo htmlspecialchars($reward['reward_points']); ?></td>
+                        <td class="actions">
+                            <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
+                                <button type="submit" name="edit_user">Save</button>
+                                <a href="rewardsadmin.php">Cancel</a>
+                                </form>
+                            <?php else: ?>
+                                <a href="rewardsadmin.php?edit=<?php echo $prod['id']; ?>">Edit</a>
+                                <a href="rewardsadmin.php?delete=<?php echo $prod['id']; ?>" onclick="return confirm('Delete this user?')">Delete</a>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>

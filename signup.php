@@ -11,7 +11,7 @@
         $confirm_password = $_POST['confirm-password'];
 
         if(!empty($user_name) && !empty($email) && !empty($password) && !empty($confirm_password)) {
-            
+
             if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).+$/', $user_name)) {
                 $error_message = "Username must include at least one letter, one number, and one special character.";
             } else if (strlen($password) < 8) {
@@ -23,7 +23,7 @@
                     $error_message = "Invalid email format.";
                 }
                 //Check if username already exists
-                $check_query = "SELECT id FROM users WHERE user_name = '$user_name' OR email = '$email' LIMIT 1";
+                $check_query = "SELECT id FROM users WHERE (user_name = '$user_name' OR email = '$email') AND isDeleted = 0 LIMIT 1";
                 $check_result = mysqli_query($con, $check_query);
 
                 if ($check_result && mysqli_num_rows($check_result) > 0) {

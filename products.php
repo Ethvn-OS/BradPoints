@@ -16,6 +16,67 @@ session_start();
         $user_data = mysqli_fetch_assoc($result);
     }
 
+    $success_message = '';
+    $error_message = '';
+
+    //Create product
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
+        $prodname = trim($_POST['prodname']);
+        $prodcategory = (int)$_POST['prodCategory'];
+
+            //Check if product already exists
+            $check_query = "SELECT id FROM products WHERE prod_name = '$prodname' AND isDeleted = 0 LIMIT 1";
+            $check_result = mysqli_query($con, $check_query);
+
+            if ($check_result && mysqli_num_rows($check_result) > 0) {
+                $error_message = "Product already exists.";
+            } else {
+                $create_query = "INSERT INTO products (prod_name, category_id) VALUES (?, ?)";
+                $stmt = mysqli_prepare($con, $create_query);
+                mysqli_stmt_bind_param($stmt, "si", $prodname, $prodcategory);
+                if (mysqli_stmt_execute($stmt)) {
+                    $success_message = "Product added!";
+                } else {
+                    $error_message = "Failed to add product.";
+                }
+                mysqli_stmt_close($stmt);
+            }
+    }
+
+    //Update product
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_user'])) {
+
+        $edit_id = intval($_POST['edit_id']);
+        $edit_product = trim($_POST['edit_product']);
+        $edit_category = (int)$_POST['edit_prodCategory'];
+
+        $edit_query = "UPDATE products SET prod_name = ?, category_id=? WHERE id=?";
+        $stmt = mysqli_prepare($con, $edit_query);
+        mysqli_stmt_bind_param($stmt, "ssi", $edit_product, $edit_category, $edit_id);
+        if (mysqli_stmt_execute($stmt)) {
+            $success_message = "Product updated!";
+        } else {
+            $error_message = "Failed to update product.";
+        }
+        mysqli_stmt_close($stmt);
+    }
+
+    //Delete product
+    if (isset($_GET['delete'])) {
+        $delete_id = intval($_GET['delete']);
+        $delete_query = "UPDATE products
+                         SET isDeleted = 1
+                         WHERE id = ?";
+        $stmt = mysqli_prepare($con, $delete_query);
+        mysqli_stmt_bind_param($stmt, "i", $delete_id);
+        if (mysqli_stmt_execute($stmt)) {
+            $success_message = "Product deleted!";
+        } else {
+            $error_message = "Failed to delete user.";
+        }
+        mysqli_stmt_close($stmt);
+    }
+
     $all_prod = [];
 
     $prod_query = "SELECT * FROM products";
@@ -24,28 +85,6 @@ session_start();
     if ($result_query) {
         while ($row = mysqli_fetch_assoc($result_query)) {
             $all_prod[] = $row;
-        }
-    }
-
-    $success_message = '';
-    $error_message = '';
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
-        $prod_name = trim($_POST['prod_name']);
-        $category_id = intval($_POST['prodCategory']);
-
-        if (!empty($prod_name) && $category_id > 0) {
-            $insert_query = "INSERT INTO products (prod_name, category_id) VALUES (?, ?)";
-            $stmt = mysqli_prepare($con, $insert_query);
-
-            mysqli_stmt_bind_param($stmt, "si", $prod_name, $category_id);
-
-            if (mysqli_stmt_execute($stmt)) {
-                $success_message = "Product added successfully!";
-            } else {
-                $error_message = "Failed to add product.";
-            }
-            mysqli_stmt_close($stmt);
         }
     }
 
@@ -65,8 +104,13 @@ session_start();
 </head>
 <body>
     <?php include "includes/sidebar.html" ?>
-    <div class="main-container">
-        <?php include "includes/products.html" ?>
+    <div class="main-containeradmin">
+        <header class="site-header">
+            <h1>Products</h1>
+        </header>
+        <main class="dashboard-content">
+            <?php include "includes/products.html" ?>
+        </main>
     </div>
 
     <script src="script.js"></script>

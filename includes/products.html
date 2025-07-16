@@ -1,48 +1,75 @@
 <div class="admindash">
     <h1>Products</h1>
 
-    <button type="button" onclick="toggleForm()">Add Product</button><br><br>
+        <?php if (!empty($success_message)): ?>
+            <div class="alert alert-success"><?php echo $success_message; ?></div>
+        <?php endif; ?>
+        <?php if (!empty($error_message)): ?>
+            <div class="alert alert-danger"><?php echo $error_message; ?></div>
+        <?php endif; ?>
 
-    <div id="addProductForm" class="productform">
-        <form method="post">
-            <label>
-                Product Name:
-                <input type="text" name="prod_name" required />
-            </label><br>
-            Category ID: <br>
+    <form method="post" class="crud-form">
+        <input type="text" name="prodname" placeholder="Product" required>
+        Category ID: <br>
             <input type=radio id="riceMeals" name="prodCategory" value="1" required />
             <label for="riceMeals">1 (Rice Meals and Soup)</label><br>
             <input type=radio id="rolls" name="prodCategory" value="2" required />
             <label for="riceMeals">2 (Rolls)</label><br>
             <input type=radio id="others" name="prodCategory" value="3" required />
             <label for="others">3 (Other Side Dishes)</label><br>
-            <input type="submit" name="add_product" />
-        </form>
+        <button type="submit" name="add_product">Add Product</button>
+    </form>
 
-        <?php if (!empty($success_message)): ?>
-            <div style="color: green;"><?php echo $success_message; ?></div>
-        <?php endif; ?>
-        <?php if (!empty($error_message)): ?>
-            <div style="color: red;"><?php echo $error_message; ?></div>
-        <?php endif; ?>
-    </div>
-
-    <table border="1">
+    <table class="user-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Product Name</th>
                 <th>Category ID</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <?php if(!empty($all_prod)): ?>
                 <?php foreach($all_prod as $prod): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($prod['id']); ?></td>
-                        <td><?php echo htmlspecialchars($prod['prod_name']); ?></td>
-                        <td><?php echo htmlspecialchars($prod['category_id']); ?></td>
-                    </tr>
+                    <?php if ($prod['isDeleted'] == 0): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($prod['id']); ?></td>
+                            <td>
+                                <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
+                                    <form method="post" class="edit-form" style="display:inline;">
+                                    <input type="hidden" name="edit_id" value="<?php echo $prod['id']; ?>">
+                                    <input type="text" name="edit_product" value="<?php echo htmlspecialchars($prod['prod_name']); ?>" required>
+                                <?php else: ?>
+                                    <?php echo htmlspecialchars($prod['prod_name']); ?>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
+                                    <form method="post" class="edit-form" style="display:inline;">
+                                    <input type="hidden" name="edit_id" value="<?php echo $prod['id']; ?>">
+                                    <input type=radio id="riceMeals" name="edit_prodCategory" value="1" required />
+                                    <label for="riceMeals">1 (Rice Meals and Soup)</label><br>
+                                    <input type=radio id="rolls" name="edit_prodCategory" value="2" required />
+                                    <label for="riceMeals">2 (Rolls)</label><br>
+                                    <input type=radio id="others" name="edit_prodCategory" value="3" required />
+                                    <label for="others">3 (Other Side Dishes)</label><br>
+                                <?php else: ?>
+                                    <?php echo htmlspecialchars($prod['category_id']); ?>
+                                <?php endif; ?>
+                            </td>
+                            <td class="actions">
+                                <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
+                                    <button type="submit" name="edit_user">Save</button>
+                                    <a href="products.php">Cancel</a>
+                                    </form>
+                                <?php else: ?>
+                                    <a href="products.php?edit=<?php echo $prod['id']; ?>">Edit</a>
+                                    <a href="products.php?delete=<?php echo $prod['id']; ?>" onclick="return confirm('Delete this user?')">Delete</a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </tbody>
