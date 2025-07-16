@@ -245,3 +245,37 @@ p {
     color: #28a745;
     font-weight: 500;
 }
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    object-fit: cover; /* Ensures the image covers the container without distortion */
+}
+
+.text{
+    font-family: coolvetica, sans-serif;
+    font-size: 12px;
+    color: #a22221;
+    margin: 0;
+    text-align: center;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px; /* Adjusts space between buttons */
+}
+
+.minus-btn, .plus-btn {
+    background-color: #a22221;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 24px;
+    font-family: coolvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}

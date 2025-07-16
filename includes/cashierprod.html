@@ -30,14 +30,14 @@
         <?php foreach ($products as $product): ?>
             <div class="card">
                 <div class="imgcont">
-                    <img src="img">
+                    <img src="https://placehold.co/150x80" alt="Product Image" class="product-image">
                 </div>
                 <div class="textcont">
                     <p class="text"><?php echo htmlspecialchars($product['prod_name']); ?></p>
                     <p class="text"><?php echo htmlspecialchars($product['category_name']); ?></p>
                     <p class="text"><?php echo htmlspecialchars($product['points']); ?> Points</p>
                 </div>
-                <div class="btn">
+                <div class="btn-container">
                     <button type="button" class="minus-btn" 
                             data-id="<?php echo $product['id']; ?>" 
                             data-name="<?php echo htmlspecialchars($product['prod_name']); ?>"
