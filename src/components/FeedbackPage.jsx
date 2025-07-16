@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './FeedbackPage.css';
 import '../App.css';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
 const FeedbackPage = ({ user }) => {
-  const [reviews, setReviews] = useState([
-    {
+  const [reviews, setReviews] = useState([]);
+    /* {
       id: 1,
       rating: 4,
       content: "Amazing food and great service! The batchoy was delicious and the staff was very friendly. Will definitely come back again!",
@@ -23,10 +23,16 @@ const FeedbackPage = ({ user }) => {
       rating: 3,
       content: "Good food but the service was a bit slow during peak hours. The rice meals are tasty though!",
       date: "November 10, 2024"
-    }
-  ]);
+    } */
 
-  const handleSubmitReview = (e) => {
+  useEffect(() => {
+      fetch('http://localhost/BradPoints/php-backend/fetch-feedback.php')
+      .then(res => res.json())
+      .then(data => setReviews(data))
+      .catch(err => console.error('Error fetching feedback:', err));
+  }, []);
+
+  const handleSubmitReview = async (e) => {
     e.preventDefault();
     
     const formData = new FormData(e.target);
@@ -36,6 +42,10 @@ const FeedbackPage = ({ user }) => {
     if (!rating || !content.trim()) {
       alert("Please provide both a rating and review content!");
       return;
+    }
+
+    try {
+      const response = await fetch('http://localhost/BradPoints/php-backend/save-feedback.php')
     }
 
     const review = {
