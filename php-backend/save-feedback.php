@@ -17,7 +17,7 @@ session_start();
         $content = trim($_POST['feedback']);
 
         if ($user_id && $rating && $content) {
-            $stmt = mysqli_prepare($con, "INSERT INTO feedback (user_id, rating, content) VALUES (?, ?, ?, NOW())");
+            $stmt = mysqli_prepare($con, "INSERT INTO feedback (user_id, rating, content) VALUES (?, ?, ?)");
             mysqli_stmt_bind_param($stmt, "iis", $user_id, $rating, $content);
 
             if (mysqli_stmt_execute($stmt)) {
