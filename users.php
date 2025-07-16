@@ -18,22 +18,55 @@ session_start();
 
     //Create user
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
-        if ($_POST['usertype'] === 2) {
+        if ((int)$_POST['usertype'] === 2) {
             $username = trim($_POST['username']);
-            $points = intval($_POST['points']);
-            if ($username !== '') {
-                $create_query = "INSERT INTO users (user_name, points, usertype_id) VALUES (?, ?, 2)";
-                $stmt = mysqli_prepare($con, $create_query);
-                mysqli_stmt_bind_param($stmt, "si", $username, $points);
-                if (mysqli_stmt_execute($stmt)) {
-                    $success_message = "User added!";
-                } else {
-                    $error_message = "Failed to add user.";
+            $password = $_POST['password'];
+            $email = trim($_POST['email']);
+            //$points = intval($_POST['points']);
+
+            if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).+$/', $username)) {
+                $error_message1 = "Username must include at least one letter, one number, and one special character.";
+            } else if (strlen($password) < 8) {
+                $error_message1 = "Password must be at least 8 characters.";
+            } else {
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $error_message1 = "Invalid email format.";
                 }
-                mysqli_stmt_close($stmt);
+                //Check if username already exists
+                $check_query = "SELECT id FROM users WHERE (user_name = '$username' OR email = '$email') AND isDeleted = 0 LIMIT 1";
+                $check_result = mysqli_query($con, $check_query);
+
+                if ($check_result && mysqli_num_rows($check_result) > 0) {
+                    $error_message1 = "Username or email already taken. Please choose another.";
+                } else {
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                    $create_query = "INSERT INTO users (user_name, email, password, usertype_id) VALUES (?, ?, ?, ?)";
+                    $stmt = mysqli_prepare($con, $create_query);
+                    $usertype = 2;
+                    mysqli_stmt_bind_param($stmt, "sssi", $username, $email, $hashed_password, $usertype);
+
+                    if (mysqli_stmt_execute($stmt)) {
+                        //Send welcome email
+                        require_once 'email_helper.php';
+                        sendWelcomeEmail($email, $username);
+                        $new_user_id = mysqli_insert_id($con); // ✅ Get the ID directly
+
+                        // Now insert into customers using the new user's ID
+                        $customer_query = "INSERT INTO customers (user_id) VALUES (?)";
+                        $stmt2 = mysqli_prepare($con, $customer_query);
+                        mysqli_stmt_bind_param($stmt2, "i", $new_user_id);
+                        mysqli_stmt_execute($stmt2);
+                        mysqli_stmt_close($stmt2);
+
+                        $success_message1 = "User added!";
+                    } else {
+                        $error_message1 = "Failed to add user.";
+                    }
+                    mysqli_stmt_close($stmt);
+                }
             }
         } else {
-            //cashier
+            //insert cashier code here
         }
     }
 
@@ -69,7 +102,7 @@ session_start();
 
     $all_users = [];
 
-    $users_query = "SELECT u.id, u.user_name, c.points 
+    $users_query = "SELECT u.id, u.user_name, u.email, c.points, u.isDeleted
                     FROM users u
                     LEFT JOIN customers c ON c.user_id = u.id
                     WHERE usertype_id = 2";
@@ -83,7 +116,7 @@ session_start();
 
     $all_cashiers = [];
 
-    $cashier_query = "SELECT id, user_name
+    $cashier_query = "SELECT id, user_name, email
                       FROM users
                       WHERE usertype_id = 1";
     $cashier_results = mysqli_query($con, $cashier_query);
