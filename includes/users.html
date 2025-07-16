@@ -127,7 +127,7 @@
                                 <?php if (isset($_GET['edit']) && $_GET['edit'] == $cashier['id']): ?>
                                     <form method="post" class="edit-form" style="display:inline;">
                                         <input type="hidden" name="edit_id" value="<?php echo $cashier['id']; ?>">
-                                        <input type="text" name="edit_username" value="<?php echo htmlspecialchars($cashier['email']); ?>" required>
+                                        <input type="text" name="edit_email" value="<?php echo htmlspecialchars($cashier['email']); ?>" required>
                                 <?php else: ?>
                                     <?php echo htmlspecialchars($cashier['email']); ?>
                                 <?php endif; ?>

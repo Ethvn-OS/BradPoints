@@ -75,13 +75,19 @@ session_start();
         $edit_id = intval($_POST['edit_id']);
         $edit_username = trim($_POST['edit_username']);
         $edit_points = intval($_POST['edit_points']);
-        $edit_query = "UPDATE users SET user_name=?, points=? WHERE id=?";
+
+        $edit_query = "UPDATE users SET user_name = ? WHERE id=?";
         $stmt = mysqli_prepare($con, $edit_query);
-        mysqli_stmt_bind_param($stmt, "sii", $edit_username, $edit_points, $edit_id);
+        mysqli_stmt_bind_param($stmt, "si", $edit_username, $edit_id);
         if (mysqli_stmt_execute($stmt)) {
-            $success_message = "User updated!";
+            $updatecust_query = "UPDATE customers SET points=? WHERE user_id=?";
+            $stmt2 = mysqli_prepare($con, $updatecust_query);
+            mysqli_stmt_bind_param($stmt2, "ii", $edit_points, $edit_id);
+            mysqli_stmt_execute($stmt2);
+            mysqli_stmt_close($stmt2);
+            $success_message1 = "User updated!";
         } else {
-            $error_message = "Failed to update user.";
+            $error_message1 = "Failed to update user.";
         }
         mysqli_stmt_close($stmt);
     }
@@ -89,13 +95,24 @@ session_start();
     //Delete user
     if (isset($_GET['delete'])) {
         $delete_id = intval($_GET['delete']);
-        $delete_query = "DELETE FROM users WHERE id=?";
+        $delete_query = "UPDATE users
+                         SET isDeleted = 1
+                         WHERE id = ?";
         $stmt = mysqli_prepare($con, $delete_query);
         mysqli_stmt_bind_param($stmt, "i", $delete_id);
         if (mysqli_stmt_execute($stmt)) {
-            $success_message = "User deleted!";
+            $deletecust_query = "UPDATE customers
+                                 SET isDeleted = 1
+                                 WHERE user_id = ?";
+            $stmt2 = mysqli_prepare($con, $deletecust_query);
+            mysqli_stmt_bind_param($stmt2, "i", $delete_id);
+
+            if (mysqli_stmt_execute($stmt2)) {
+                $success_message1 = "User deleted!";
+            }
+            mysqli_stmt_close($stmt2);
         } else {
-            $error_message = "Failed to delete user.";
+            $error_message1 = "Failed to delete user.";
         }
         mysqli_stmt_close($stmt);
     }
