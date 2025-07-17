@@ -20,24 +20,25 @@ session_start();
     $error_message = '';
 
     //Create reward
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
-        $prodname = trim($_POST['prodname']);
-        $prodcategory = (int)$_POST['prodCategory'];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_reward'])) {
+        $rewardname = trim($_POST['rewardName']);
+        $rewarddesc = trim($_POST['desc']);
+        $rewardpoints = (int)$_POST['points'];
 
             //Check if product already exists
-            $check_query = "SELECT id FROM products WHERE prod_name = '$prodname' AND isDeleted = 0 LIMIT 1";
+            $check_query = "SELECT id FROM rewards WHERE reward_name = '$rewardname' AND isDeleted = 0 LIMIT 1";
             $check_result = mysqli_query($con, $check_query);
 
             if ($check_result && mysqli_num_rows($check_result) > 0) {
-                $error_message = "Product already exists.";
+                $error_message = "Reward already exists.";
             } else {
-                $create_query = "INSERT INTO products (prod_name, category_id) VALUES (?, ?)";
+                $create_query = "INSERT INTO rewards (reward_name, reward_desc, reward_points) VALUES (?, ?, ?)";
                 $stmt = mysqli_prepare($con, $create_query);
-                mysqli_stmt_bind_param($stmt, "si", $prodname, $prodcategory);
+                mysqli_stmt_bind_param($stmt, "ssi", $rewardname, $rewarddesc, $rewardpoints);
                 if (mysqli_stmt_execute($stmt)) {
-                    $success_message = "Product added!";
+                    $success_message = "Reward added!";
                 } else {
-                    $error_message = "Failed to add product.";
+                    $error_message = "Failed to add reward.";
                 }
                 mysqli_stmt_close($stmt);
             }
@@ -47,16 +48,17 @@ session_start();
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_user'])) {
 
         $edit_id = intval($_POST['edit_id']);
-        $edit_product = trim($_POST['edit_product']);
-        $edit_category = (int)$_POST['edit_prodCategory'];
+        $edit_rewardname = trim($_POST['edit_rewardname']);
+        $edit_rewarddesc = trim($_POST['edit_rewarddesc']);
+        $edit_rewardpoints = (int)$_POST['edit_rewardpoints'];
 
-        $edit_query = "UPDATE products SET prod_name = ?, category_id=? WHERE id=?";
+        $edit_query = "UPDATE rewards SET reward_name = ?, reward_desc=?, reward_points=? WHERE id=?";
         $stmt = mysqli_prepare($con, $edit_query);
-        mysqli_stmt_bind_param($stmt, "ssi", $edit_product, $edit_category, $edit_id);
+        mysqli_stmt_bind_param($stmt, "ssii", $edit_rewardname, $edit_rewarddesc, $edit_rewardpoints, $edit_id);
         if (mysqli_stmt_execute($stmt)) {
-            $success_message = "Product updated!";
+            $success_message = "Reward updated!";
         } else {
-            $error_message = "Failed to update product.";
+            $error_message = "Failed to update reward.";
         }
         mysqli_stmt_close($stmt);
     }
@@ -64,22 +66,22 @@ session_start();
     //Delete reward
     if (isset($_GET['delete'])) {
         $delete_id = intval($_GET['delete']);
-        $delete_query = "UPDATE products
+        $delete_query = "UPDATE rewards
                          SET isDeleted = 1
                          WHERE id = ?";
         $stmt = mysqli_prepare($con, $delete_query);
         mysqli_stmt_bind_param($stmt, "i", $delete_id);
         if (mysqli_stmt_execute($stmt)) {
-            $success_message = "Product deleted!";
+            $success_message = "Reward deleted!";
         } else {
-            $error_message = "Failed to delete user.";
+            $error_message = "Failed to delete reward.";
         }
         mysqli_stmt_close($stmt);
     }
 
     $all_rewards = [];
 
-    $rewards_query = "SELECT id, reward_name, reward_desc, reward_points FROM rewards";
+    $rewards_query = "SELECT id, reward_name, reward_desc, reward_points, isDeleted FROM rewards";
     $reward_results = mysqli_query($con, $rewards_query);
 
     if ($reward_results) {

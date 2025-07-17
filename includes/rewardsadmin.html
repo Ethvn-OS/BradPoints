@@ -28,22 +28,47 @@
         <tbody>
             <?php if(!empty($all_rewards)): ?>
                 <?php foreach($all_rewards as $reward): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($reward['id']); ?></td>
-                        <td><?php echo htmlspecialchars($reward['reward_name']); ?></td>
-                        <td><?php echo htmlspecialchars($reward['reward_desc']); ?></td>
-                        <td><?php echo htmlspecialchars($reward['reward_points']); ?></td>
-                        <td class="actions">
-                            <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
-                                <button type="submit" name="edit_user">Save</button>
-                                <a href="rewardsadmin.php">Cancel</a>
-                                </form>
-                            <?php else: ?>
-                                <a href="rewardsadmin.php?edit=<?php echo $prod['id']; ?>">Edit</a>
-                                <a href="rewardsadmin.php?delete=<?php echo $prod['id']; ?>" onclick="return confirm('Delete this user?')">Delete</a>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
+                    <?php if ($reward['isDeleted'] == 0): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($reward['id']); ?></td>
+                            <td>
+                                <?php if (isset($_GET['edit']) && $_GET['edit'] == $reward['id']): ?>
+                                    <form method="post" class="edit-form" style="display:inline;">
+                                    <input type="hidden" name="edit_id" value="<?php echo $reward['id']; ?>">
+                                    <input type="text" name="edit_rewardname" value="<?php echo htmlspecialchars($reward['reward_name']); ?>" required>
+                                <?php else: ?>
+                                    <?php echo htmlspecialchars($reward['reward_name']); ?>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if (isset($_GET['edit']) && $_GET['edit'] == $reward['id']): ?>
+                                    <form method="post" class="edit-form" style="display:inline;">
+                                    <input type="hidden" name="edit_id" value="<?php echo $reward['id']; ?>">
+                                    <input type="text" name="edit_rewarddesc" value="<?php echo htmlspecialchars($reward['reward_desc']); ?>" required>
+                                <?php else: ?>
+                                    <?php echo htmlspecialchars($reward['reward_desc']); ?>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if (isset($_GET['edit']) && $_GET['edit'] == $reward['id']): ?>
+                                    <form method="post" class="edit-form" style="display:inline;">
+                                    <input type="hidden" name="edit_id" value="<?php echo $reward['id']; ?>">
+                                    <input type="text" name="edit_rewardpoints" value="<?php echo htmlspecialchars($reward['reward_points']); ?>" required>
+                                <?php else: ?>
+                                    <?php echo htmlspecialchars($reward['reward_points']); ?></td>
+                                <?php endif; ?>
+                            <td class="actions">
+                                <?php if (isset($_GET['edit']) && $_GET['edit'] == $reward['id']): ?>
+                                    <button type="submit" name="edit_user">Save</button>
+                                    <a href="rewardsadmin.php">Cancel</a>
+                                    </form>
+                                <?php else: ?>
+                                    <a href="rewardsadmin.php?edit=<?php echo $reward['id']; ?>">Edit</a>
+                                    <a href="rewardsadmin.php?delete=<?php echo $reward['id']; ?>" onclick="return confirm('Delete this user?')">Delete</a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </tbody>

@@ -13,7 +13,7 @@
 
     $rewards = [];
 
-    $rewards_query = "SELECT * FROM rewards";
+    $rewards_query = "SELECT * FROM rewards WHERE isDeleted = 0";
 
     $rewards_result = mysqli_query($con, $rewards_query);
     if ($rewards_result) {
