@@ -76,36 +76,51 @@ function toggleForm() {
 //function to sort tables in admin
 
 function sortTable(tableId, colIndex) {
-    const tableBody = document.getElementById(tableId);
-    const rows = Array.from(tableBody.querySelectorAll("tr"));
+    const table = document.getElementById(tableId);
+    if (!table) return;
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
 
-    const isNumeric = !isNaN(rows[0].children[colIndex].textContent.trim());
-    const currentSorted = tableBody.getAttribute("data-sorted-col");
-    const currentOrder = tableBody.getAttribute("data-sorted-order");
+    // Determine if column is numeric
+    const isNumeric = rows.length > 0 && !isNaN(rows[0].children[colIndex].textContent.trim());
+    const currentSorted = tbody.getAttribute('data-sorted-col');
+    const currentOrder = tbody.getAttribute('data-sorted-order');
+    const newOrder = (currentSorted == colIndex && currentOrder == 'asc') ? 'desc' : 'asc';
 
-    const newOrder = (currentSorted == colIndex && currentOrder == "asc") ? "desc" : "asc";
+    // Remove sort indicators from all headers
+    const ths = table.querySelectorAll('th');
+    ths.forEach((th, i) => {
+        const icon = th.querySelector('i.fas');
+        if (icon) {
+            icon.classList.remove('fa-sort-up', 'fa-sort-down');
+            icon.classList.add('fa-sort');
+        }
+    });
+    // Add sort indicator to the active header
+    const activeTh = ths[colIndex];
+    const activeIcon = activeTh.querySelector('i.fas');
+    if (activeIcon) {
+        activeIcon.classList.remove('fa-sort');
+        activeIcon.classList.add(newOrder === 'asc' ? 'fa-sort-up' : 'fa-sort-down');
+    }
 
     const sortedRows = rows.sort((a, b) => {
         let valA = a.children[colIndex].textContent.trim();
         let valB = b.children[colIndex].textContent.trim();
-
         if (isNumeric) {
             valA = parseFloat(valA);
             valB = parseFloat(valB);
         }
-
-        if (valA < valB) return newOrder === "asc" ? -1 : 1;
-        if (valA > valB) return newOrder === "asc" ? 1 : -1;
+        if (valA < valB) return newOrder === 'asc' ? -1 : 1;
+        if (valA > valB) return newOrder === 'asc' ? 1 : -1;
         return 0;
     });
 
     // Clear current rows
-    tableBody.innerHTML = "";
-
+    tbody.innerHTML = '';
     // Append sorted rows
-    sortedRows.forEach(row => tableBody.appendChild(row));
-
+    sortedRows.forEach(row => tbody.appendChild(row));
     // Update sort attributes
-    tableBody.setAttribute("data-sorted-col", colIndex);
-    tableBody.setAttribute("data-sorted-order", newOrder);
+    tbody.setAttribute('data-sorted-col', colIndex);
+    tbody.setAttribute('data-sorted-order', newOrder);
 }

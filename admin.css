@@ -977,3 +977,10 @@ textarea:focus {
 .product-name-cell {
   padding-left: 1.5rem;
 } 
+
+/* Rewards table description column: narrower and wraps text */
+#reward-table td:nth-child(3), #reward-table th:nth-child(3) {
+  max-width: 180px;
+  white-space: normal;
+  word-break: break-word;
+} 

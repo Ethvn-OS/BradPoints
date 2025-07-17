@@ -11,33 +11,6 @@
                     <p>Total Rewards</p>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-coins"></i>
-                </div>
-                <div class="stat-content">
-                    <h3><?php 
-                        $total_points = 0;
-                        foreach($all_rewards as $reward) {
-                            $total_points += $reward['reward_points'];
-                        }
-                        echo number_format($total_points);
-                    ?></h3>
-                    <p>Total Points Value</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <div class="stat-content">
-                    <h3><?php 
-                        $avg_points = count($all_rewards) > 0 ? $total_points / count($all_rewards) : 0;
-                        echo number_format($avg_points, 0);
-                    ?></h3>
-                    <p>Average Points</p>
-                </div>
-            </div>
         </div>
     </div>
 

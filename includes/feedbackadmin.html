@@ -1,28 +1,35 @@
-<div class="admindash">
-    <h1>Customer Feedback</h1>
-
-    <table class="user-table">
+<div class="admin-dashboard">
+  <div class="dashboard-section">
+    <div class="section-header">
+      <h2><i class="fas fa-comment-dots"></i> Feedback</h2>
+    </div>
+    <div class="table-container">
+      <table class="admin-table" id="feedback-table">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>User ID</th>
-                <th>Rating</th>
-                <th>Content</th>
-                <th>Date Created</th>
-            </tr>
+          <tr>
+            <th onclick="sortTable('feedback-table', 0)">ID <i class="fas fa-sort"></i></th>
+            <th onclick="sortTable('feedback-table', 1)">User ID <i class="fas fa-sort"></i></th>
+            <th onclick="sortTable('feedback-table', 2)">Rating <i class="fas fa-sort"></i></th>
+            <th onclick="sortTable('feedback-table', 3)">Content <i class="fas fa-sort"></i></th>
+            <th onclick="sortTable('feedback-table', 4)">Date Created <i class="fas fa-sort"></i></th>
+          </tr>
         </thead>
         <tbody>
-            <?php if(!empty($all_feedback)): ?>
-                <?php foreach($all_feedback as $feed): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($feed['id']); ?></td>
-                        <td><?php echo htmlspecialchars($feed['user_id']); ?></td>
-                        <td><?php echo htmlspecialchars($feed['rating']); ?></td>
-                        <td><?php echo htmlspecialchars($feed['content']); ?></td>
-                        <td><?php echo htmlspecialchars($feed['created_at']); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
+          <?php if(!empty($all_feedback)): ?>
+            <?php foreach($all_feedback as $feed): ?>
+              <tr>
+                <td><?php echo htmlspecialchars($feed['id']); ?></td>
+                <td><?php echo htmlspecialchars($feed['user_id']); ?></td>
+                <td><?php echo htmlspecialchars($feed['rating']); ?></td>
+                <td><?php echo htmlspecialchars($feed['content']); ?></td>
+                <td><?php echo htmlspecialchars($feed['created_at']); ?></td>
+              </tr>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <tr><td colspan="5" class="no-data">No feedback found.</td></tr>
+          <?php endif; ?>
         </tbody>
-    </table>
+      </table>
+    </div>
+  </div>
 </div>

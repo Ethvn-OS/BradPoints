@@ -51,6 +51,9 @@
                     <button class="entries-btn" data-entries="25">25</button>
                     <button class="entries-btn" data-entries="50">50</button>
                 </div>
+                <button class="btn-primary" id="show-customer-form-btn" type="button" style="margin-left: 1rem;">
+                    <i class="fas fa-plus"></i> Add Customer
+                </button>
             </div>
         </div>
         
@@ -193,6 +196,9 @@
                     <button class="entries-btn" data-entries="25">25</button>
                     <button class="entries-btn" data-entries="50">50</button>
                 </div>
+                <button class="btn-primary" id="show-cashier-form-btn" type="button" style="margin-left: 1rem;">
+                    <i class="fas fa-plus"></i> Add Cashier
+                </button>
             </div>
         </div>
         
@@ -314,3 +320,20 @@
         </div>
     </div>
 </div>
+<script>
+// Toggle add customer/cashier forms
+const showCustomerFormBtn = document.getElementById('show-customer-form-btn');
+const customerForm = document.getElementById('customer-form');
+if (showCustomerFormBtn && customerForm) {
+    showCustomerFormBtn.addEventListener('click', () => {
+        customerForm.style.display = customerForm.style.display === 'none' ? 'block' : 'none';
+    });
+}
+const showCashierFormBtn = document.getElementById('show-cashier-form-btn');
+const cashierForm = document.getElementById('cashier-form');
+if (showCashierFormBtn && cashierForm) {
+    showCashierFormBtn.addEventListener('click', () => {
+        cashierForm.style.display = cashierForm.style.display === 'none' ? 'block' : 'none';
+    });
+}
+</script>
