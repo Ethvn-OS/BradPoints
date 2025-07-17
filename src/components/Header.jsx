@@ -24,7 +24,7 @@ const Header = ({ user }) => {
     <div className="header-bar">
       <div className="header-left">
         <div className="welcome-message">Welcome back, {user.user_name}!</div>
-        <div className="slogan">It's a good day to visit your nearest Braddex.</div>
+        <div className="slogan">User ID: {user.id}</div>
       </div>
       <div className="profile-dropdown">
         <img 
