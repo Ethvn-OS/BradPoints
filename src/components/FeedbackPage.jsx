@@ -45,7 +45,10 @@ const FeedbackPage = ({ user }) => {
     }
 
     try {
-      const response = await fetch('http://localhost/BradPoints/php-backend/save-feedback.php')
+      const response = await fetch('http://localhost/BradPoints/php-backend/save-feedback.php');
+    }catch(err){
+      console.error("Submission error:", err);
+      alert("An error occurred while submitting feedback.");
     }
 
     const review = {

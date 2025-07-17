@@ -233,22 +233,24 @@ session_start();
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="admin-body">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BradPoints Admin | Users</title>
     <link rel="stylesheet" href="permanent.css">
     <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="admin.css">
     <link href="https://fonts.cdnfonts.com/css/coolvetica-2" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="admin-body">
     <?php include "includes/sidebar.html" ?>
 
     <div class="main-containeradmin">
         <header class="site-header">
-            <h1>Users</h1>
+            <h1><i class="fas fa-users"></i> Users</h1>
         </header>
         <main class="dashboard-content">
             <?php include "includes/users.html" ?>
@@ -256,5 +258,6 @@ session_start();
     </div>
 
     <script src="script.js"></script>
+    <script src="users-pagination.js"></script>
 </body>
 </html>
