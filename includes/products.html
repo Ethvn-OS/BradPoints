@@ -1,77 +1,202 @@
-<div class="admindash">
-    <h1>Products</h1>
+<div class="admin-dashboard">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="stat-content">
+                    <h3><?php echo count(array_filter($all_prod, function($prod) { return $prod['isDeleted'] == 0; })); ?></h3>
+                    <p>Total Products</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div class="stat-content">
+                    <h3><?php echo count(array_filter($all_prod, function($prod) { return $prod['isDeleted'] == 0 && $prod['category_id'] == 1; })); ?></h3>
+                    <p>Rice Meals & Soup</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-drumstick-bite"></i>
+                </div>
+                <div class="stat-content">
+                    <h3><?php echo count(array_filter($all_prod, function($prod) { return $prod['isDeleted'] == 0 && $prod['category_id'] == 2; })); ?></h3>
+                    <p>Rolls</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-carrot"></i>
+                </div>
+                <div class="stat-content">
+                    <h3><?php echo count(array_filter($all_prod, function($prod) { return $prod['isDeleted'] == 0 && $prod['category_id'] == 3; })); ?></h3>
+                    <p>Side Dishes</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <?php if (!empty($success_message)): ?>
-            <div class="alert alert-success"><?php echo $success_message; ?></div>
-        <?php endif; ?>
-        <?php if (!empty($error_message)): ?>
-            <div class="alert alert-danger"><?php echo $error_message; ?></div>
-        <?php endif; ?>
-
-    <form method="post" class="crud-form">
-        <input type="text" name="prodname" placeholder="Product" required>
-        Category ID: <br>
-            <input type=radio id="riceMeals" name="prodCategory" value="1" required />
-            <label for="riceMeals">1 (Rice Meals and Soup)</label><br>
-            <input type=radio id="rolls" name="prodCategory" value="2" required />
-            <label for="riceMeals">2 (Rolls)</label><br>
-            <input type=radio id="others" name="prodCategory" value="3" required />
-            <label for="others">3 (Other Side Dishes)</label><br>
-        <button type="submit" name="add_product">Add Product</button>
-    </form>
-
-    <table class="user-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Product Name</th>
-                <th>Category ID</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if(!empty($all_prod)): ?>
-                <?php foreach($all_prod as $prod): ?>
-                    <?php if ($prod['isDeleted'] == 0): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($prod['id']); ?></td>
-                            <td>
-                                <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
-                                    <form method="post" class="edit-form" style="display:inline;">
-                                    <input type="hidden" name="edit_id" value="<?php echo $prod['id']; ?>">
-                                    <input type="text" name="edit_product" value="<?php echo htmlspecialchars($prod['prod_name']); ?>" required>
-                                <?php else: ?>
-                                    <?php echo htmlspecialchars($prod['prod_name']); ?>
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
-                                    <form method="post" class="edit-form" style="display:inline;">
-                                    <input type="hidden" name="edit_id" value="<?php echo $prod['id']; ?>">
-                                    <input type=radio id="riceMeals" name="edit_prodCategory" value="1" required />
-                                    <label for="riceMeals">1 (Rice Meals and Soup)</label><br>
-                                    <input type=radio id="rolls" name="edit_prodCategory" value="2" required />
-                                    <label for="riceMeals">2 (Rolls)</label><br>
-                                    <input type=radio id="others" name="edit_prodCategory" value="3" required />
-                                    <label for="others">3 (Other Side Dishes)</label><br>
-                                <?php else: ?>
-                                    <?php echo htmlspecialchars($prod['category_id']); ?>
-                                <?php endif; ?>
-                            </td>
-                            <td class="actions">
-                                <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
-                                    <button type="submit" name="edit_user">Save</button>
-                                    <a href="products.php">Cancel</a>
-                                    </form>
-                                <?php else: ?>
-                                    <a href="products.php?edit=<?php echo $prod['id']; ?>">Edit</a>
-                                    <a href="products.php?delete=<?php echo $prod['id']; ?>" onclick="return confirm('Delete this user?')">Delete</a>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </tbody>
-    </table>
+    <!-- Products Section -->
+    <div class="dashboard-section">
+        <div class="section-header">
+            <h2>Products</h2>
+            <button class="btn-primary" id="show-add-form-btn" type="button">
+                <i class="fas fa-plus"></i> Add Product
+            </button>
+        </div>
+        <!-- Add Product Form -->
+        <div id="add-product-form" class="add-form" style="display: none; margin-bottom: 2rem;">
+            <form method="post" class="form-grid">
+                <div class="form-group">
+                    <label for="prodname">Product Name:</label>
+                    <input type="text" id="prodname" name="prodname" required>
+                </div>
+                <div class="form-group">
+                    <label>Category:</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="prodCategory" value="1" required>
+                            <span class="radio-custom"></span>
+                            Rice Meals and Soup
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="prodCategory" value="2" required>
+                            <span class="radio-custom"></span>
+                            Rolls
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="prodCategory" value="3" required>
+                            <span class="radio-custom"></span>
+                            Other Side Dishes
+                        </label>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" name="add_product" class="btn-success">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                    <button type="button" id="cancel-add-form-btn" class="btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="table-container">
+        
+        <table class="admin-table" id="product-table">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('product-table', 0)">
+                        ID <i class="fas fa-sort"></i>
+                    </th>
+                    <th onclick="sortTable('product-table', 1)">
+                        Product Name <i class="fas fa-sort"></i>
+                    </th>
+                    <th onclick="sortTable('product-table', 2)">
+                        Category <i class="fas fa-sort"></i>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if(!empty($all_prod)): ?>
+                    <?php foreach($all_prod as $prod): ?>
+                        <?php if ($prod['isDeleted'] == 0): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($prod['id']); ?></td>
+                                <td class="product-name-cell">
+                                    <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
+                                        <form method="post" class="edit-form" style="display:inline;">
+                                        <input type="hidden" name="edit_id" value="<?php echo $prod['id']; ?>">
+                                        <input type="text" name="edit_product" value="<?php echo htmlspecialchars($prod['prod_name']); ?>" required>
+                                    <?php else: ?>
+                                        <?php echo htmlspecialchars($prod['prod_name']); ?>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
+                                        <div class="radio-group">
+                                            <label class="radio-label">
+                                                <input type="radio" name="edit_prodCategory" value="1" <?php echo ($prod['category_id'] == 1) ? 'checked' : ''; ?> required>
+                                                <span class="radio-custom"></span>
+                                                Rice Meals and Soup
+                                            </label>
+                                            <label class="radio-label">
+                                                <input type="radio" name="edit_prodCategory" value="2" <?php echo ($prod['category_id'] == 2) ? 'checked' : ''; ?> required>
+                                                <span class="radio-custom"></span>
+                                                Rolls
+                                            </label>
+                                            <label class="radio-label">
+                                                <input type="radio" name="edit_prodCategory" value="3" <?php echo ($prod['category_id'] == 3) ? 'checked' : ''; ?> required>
+                                                <span class="radio-custom"></span>
+                                                Other Side Dishes
+                                            </label>
+                                        </div>
+                                    <?php else: ?>
+                                        <span class="category-badge category-<?php echo $prod['category_id']; ?>">
+                                            <?php 
+                                                switch($prod['category_id']) {
+                                                    case 1: echo 'Rice Meals & Soup'; break;
+                                                    case 2: echo 'Rolls'; break;
+                                                    case 3: echo 'Side Dishes'; break;
+                                                    default: echo 'Unknown'; break;
+                                                }
+                                            ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="actions">
+                                    <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
+                                        <button type="submit" name="edit_user" class="btn-success">
+                                            <i class="fas fa-save"></i> Save
+                                        </button>
+                                        <a href="products.php" class="btn-secondary">
+                                            <i class="fas fa-times"></i> Cancel
+                                        </a>
+                                        </form>
+                                    <?php else: ?>
+                                        <a href="products.php?edit=<?php echo $prod['id']; ?>" class="btn-edit">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <a href="products.php?delete=<?php echo $prod['id']; ?>" 
+                                           onclick="return confirm('Are you sure you want to delete this product?')" 
+                                           class="btn-delete">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </a>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4" class="no-data">No products found.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+        
+        </div>
+    </div>
 </div>
+<script>
+// Toggle add product form
+const showAddFormBtn = document.getElementById('show-add-form-btn');
+const addProductForm = document.getElementById('add-product-form');
+const cancelAddFormBtn = document.getElementById('cancel-add-form-btn');
+if (showAddFormBtn && addProductForm) {
+    showAddFormBtn.addEventListener('click', () => {
+        addProductForm.style.display = addProductForm.style.display === 'none' ? 'block' : 'none';
+    });
+}
+if (cancelAddFormBtn && addProductForm) {
+    cancelAddFormBtn.addEventListener('click', () => {
+        addProductForm.style.display = 'none';
+    });
+}
+</script>

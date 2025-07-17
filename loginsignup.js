@@ -82,4 +82,21 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
+
+    // Forgot Password Modal logic
+    const forgotLink = document.getElementById('forgotPasswordLink');
+    const modal = document.getElementById('forgotPasswordModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+  
+    if (forgotLink && modal && closeModalBtn) {
+      forgotLink.onclick = function() {
+        modal.classList.add('show');
+      };
+      closeModalBtn.onclick = function() {
+        modal.classList.remove('show');
+      };
+      modal.onclick = function(e) {
+        if (e.target === modal) modal.classList.remove('show');
+      };
+    }
 });

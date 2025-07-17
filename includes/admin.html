@@ -1,59 +1,123 @@
-<div style="display: flex; flex-wrap: wrap;">
-    <div class="admindash">
-        <h1>Summary of Vouchers Claimed</h1>
-        <table class="user-table">
-            <thead>
-                <tr>
-                    <th onclick="sortTable('voucher-table', 0)">Reward ID</th>
-                    <th onclick="sortTable('voucher-table', 1)">Reward Name</th>
-                    <th onclick="sortTable('voucher-table', 2)">Number of Redemptions</th>
-                </tr>
-            </thead>
-            <tbody id="voucher-table">
-                <?php if(!empty($all_vouchredem)): ?>
-                    <?php foreach($all_vouchredem as $vouch): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($vouch['reward_id']); ?></td>
-                            <td>
-                                <?php echo htmlspecialchars($vouch['reward_name']); ?>
-                            </td>
-                            <td>
-                                <?php echo htmlspecialchars($vouch['number_of_redemptions']); ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
-        </table>
+<div class="admin-dashboard">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="stat-content">
+                    <h3><?php echo count($all_vouchredem); ?></h3>
+                    <p>Active Rewards</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <div class="stat-content">
+                    <h3><?php echo count($all_redem); ?></h3>
+                    <p>Total Redemptions</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="admindash">
-        <h1>Voucher Claim History</h1>
-        <table class="user-table">
-            <thead>
-                <tr>
-                    <th onclick="sortTable('redemption-table', 0)">ID</th>
-                    <th onclick="sortTable('redemption-table', 1)">User ID</th>
-                    <th onclick="sortTable('redemption-table', 2)">Cashier ID</th>
-                    <th onclick="sortTable('redemption-table', 3)">Reward ID</th>
-                    <th onclick="sortTable('redemption-table', 4)">Redemption ID</th>
-                    <th onclick="sortTable('redemption-table', 5)">Status</th>
-                </tr>
-            </thead>
-            <tbody id="redemption-table">
-                <?php if(!empty($all_redem)): ?>
-                    <?php foreach($all_redem as $redem): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($redem['id']); ?></td>
-                            <td><?php echo htmlspecialchars($redem['user_id']); ?></td>
-                            <td><?php echo htmlspecialchars($redem['cashier_id']); ?></td>
-                            <td><?php echo htmlspecialchars($redem['reward_id']); ?></td>
-                            <td><?php echo htmlspecialchars($redem['redemption_id']); ?></td>
-                            <td><?php echo htmlspecialchars($redem['status']); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
-        </table>
+    <!-- Summary of Vouchers Claimed Section -->
+    <div class="dashboard-section">
+        <div class="section-header">
+            <h2>Summary of Vouchers Claimed</h2>
+            <div class="table-controls">
+                <div class="entries-selector">
+                    <span>Show:</span>
+                    <button class="entries-btn active" data-entries="5">5</button>
+                    <button class="entries-btn" data-entries="10">10</button>
+                    <button class="entries-btn" data-entries="20">20</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table class="admin-table" id="voucher-summary-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable('voucher-summary-table', 0)">Reward ID</th>
+                        <th onclick="sortTable('voucher-summary-table', 1)">Reward Name</th>
+                        <th onclick="sortTable('voucher-summary-table', 2)">Number of Redemptions</th>
+                    </tr>
+                </thead>
+                <tbody id="voucher-summary-tbody">
+                    <?php if(!empty($all_vouchredem)): ?>
+                        <?php foreach($all_vouchredem as $vouch): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($vouch['reward_id']); ?></td>
+                                <td><?php echo htmlspecialchars($vouch['reward_name']); ?></td>
+                                <td><?php echo htmlspecialchars($vouch['number_of_redemptions']); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+            
+            <div class="pagination" id="voucher-pagination">
+                <button class="pagination-btn" onclick="previousPage('voucher')">Previous</button>
+                <span class="page-info" id="voucher-page-info">Page 1 of 1</span>
+                <button class="pagination-btn" onclick="nextPage('voucher')">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voucher Claim History Section -->
+    <div class="dashboard-section">
+        <div class="section-header">
+            <h2>Voucher Claim History</h2>
+            <div class="table-controls">
+                <div class="entries-selector">
+                    <span>Show:</span>
+                    <button class="entries-btn active" data-entries="5">5</button>
+                    <button class="entries-btn" data-entries="10">10</button>
+                    <button class="entries-btn" data-entries="20">20</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table class="admin-table" id="redemption-history-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable('redemption-history-table', 0)">ID</th>
+                        <th onclick="sortTable('redemption-history-table', 1)">User ID</th>
+                        <th onclick="sortTable('redemption-history-table', 2)">Cashier ID</th>
+                        <th onclick="sortTable('redemption-history-table', 3)">Reward ID</th>
+                        <th onclick="sortTable('redemption-history-table', 4)">Redemption ID</th>
+                        <th onclick="sortTable('redemption-history-table', 5)">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="redemption-history-tbody">
+                    <?php if(!empty($all_redem)): ?>
+                        <?php foreach($all_redem as $redem): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($redem['id']); ?></td>
+                                <td><?php echo htmlspecialchars($redem['user_id']); ?></td>
+                                <td><?php echo htmlspecialchars($redem['cashier_id']); ?></td>
+                                <td><?php echo htmlspecialchars($redem['reward_id']); ?></td>
+                                <td><?php echo htmlspecialchars($redem['redemption_id']); ?></td>
+                                <td>
+                                    <span class="status-badge status-<?php echo strtolower($redem['status']); ?>">
+                                        <?php echo htmlspecialchars($redem['status']); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+            
+            <div class="pagination" id="redemption-pagination">
+                <button class="pagination-btn" onclick="previousPage('redemption')">Previous</button>
+                <span class="page-info" id="redemption-page-info">Page 1 of 1</span>
+                <button class="pagination-btn" onclick="nextPage('redemption')">Next</button>
+            </div>
+        </div>
     </div>
 </div>

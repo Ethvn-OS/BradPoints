@@ -170,3 +170,78 @@ p{
   display: block;
   padding-top: 20px;
 }
+
+/* Forgot Password link styling */
+.forgot-password {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding-top: 0;
+}
+
+#forgotPasswordLink {
+  color: #a22221;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.2s;
+  display: inline;
+}
+
+#forgotPasswordLink:hover {
+  color: #a22221;
+  text-decoration: underline;
+}
+
+/* Modal overlay */
+#forgotPasswordModal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+#forgotPasswordModal.show {
+  display: flex; /* Show when .show class is added */
+}
+
+/* Modal content box */
+#forgotPasswordModal > div {
+  background: #fff;
+  padding: 24px 32px;
+  border-radius: 12px;
+  min-width: 300px;
+  max-width: 90vw;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+#forgotPasswordModal h2 {
+  color: #a22221;
+  margin-bottom: 12px;
+}
+
+#forgotPasswordModal button {
+  width: auto;
+  min-width: 180px;
+  margin: 12px 0 0 0;
+  padding: 10px 18px;
+  background: #a22221;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#forgotPasswordModal button:hover {
+  background: #a22221;
+}
