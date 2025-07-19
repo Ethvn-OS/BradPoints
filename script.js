@@ -125,11 +125,8 @@ function sortTable(tableId, colIndex) {
     tbody.setAttribute('data-sorted-order', newOrder);
 }
 
-const handleSubmit = (e) => {
-    e.preventDefault();
-}
-
 document.addEventListener("DOMContentLoaded", () => {
+
     const form = document.getElementById("signupForm");
 
     form.addEventListener("submit", function (e) {
