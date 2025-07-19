@@ -63,5 +63,7 @@
 </head>
 <body class="loginbody">
     <?php include "includes/signup.html" ?>
+
+    <script src="script.js"></script>
 </body>
 </html>

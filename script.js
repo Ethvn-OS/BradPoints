@@ -124,3 +124,33 @@ function sortTable(tableId, colIndex) {
     tbody.setAttribute('data-sorted-col', colIndex);
     tbody.setAttribute('data-sorted-order', newOrder);
 }
+
+const handleSubmit = (e) => {
+    e.preventDefault();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("signupForm");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault(); // 🛑 Stop the form from submitting no matter what
+
+        const username = document.getElementById("signupUsername").value;
+        const email = document.getElementById("signupEmail").value;
+        const password = document.getElementById("signupPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        const isValidUsername = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).+$/.test(username);
+        const isValidPassword = password.length >= 8;
+        const isMatch = password === confirmPassword;
+        const isValidEmail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+
+        if (isValidUsername && isValidPassword && isMatch && isValidEmail) {
+            // Submit the form manually since we prevented it earlier
+            form.submit(); // ✅ Let it submit if everything is valid
+        } else {
+            // You can also add code here to show error messages if needed
+            console.log("Form has validation errors.");
+        }
+    })
+})
