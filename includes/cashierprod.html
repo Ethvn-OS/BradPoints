@@ -53,6 +53,11 @@
         <?php endforeach; ?>
     </div>
 
+    <div class="modal" id="imageModal">
+    <span class="close-btn" id="closeModal">&times;</span>
+    <img class="modal-image" id="expandedImage" alt="Expanded view">
+    </div>
+
     <div class="addedOrders"></div>
 
     <div class="prodcontainers">
@@ -80,6 +85,27 @@ function updateClock() {
 // Update immediately and then every second
 updateClock();
 setInterval(updateClock, 1000);
+
+const modal = document.getElementById('imageModal');
+const expandedImage = document.getElementById('expandedImage');
+
+// Add click event to all product images
+document.querySelectorAll('.product-image').forEach(image => {
+    image.addEventListener('click', function() {
+        modal.classList.add('show');
+        expandedImage.src = this.src;
+        expandedImage.alt = this.alt;
+    });
+});
+
+// Close modal when clicking X or outside image
+document.getElementById('closeModal').addEventListener('click', () => {
+    modal.classList.remove('show');
+});
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('show');
+});
 </script>
 </main>
 </div>
