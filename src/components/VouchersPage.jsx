@@ -1,92 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './VouchersPage.css';
 import '../App.css';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import { usePoints } from '../context/PointsContext';
 
-const VouchersPage = () => {
+const VouchersPage = ({ user, rewards = [] }) => {
   const [selectedVoucher, setSelectedVoucher] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { redeemedRewards } = usePoints();
+  const [redeemedVouchers, setRedeemedVouchers] = useState([]);
+  const [claimedStatuses, setClaimedStatuses] = useState({});
+  const { isRewardRedeemed } = usePoints();
+  const { isRewardClaimed } = usePoints();
 
-  const allRewards = [
-    {
-      id: 1,
-      name: "FREEDRINK",
-      description: "Get a free drink of any choice from any Braddex location!",
-      pointsRequired: 25,
-      color: "#FF6B6B",
-      category: "Drinks",
-      image: "/voucherImg1.png" 
-    },
-    {
-      id: 2,
-      name: "SIDEDISH50",
-      description: "Get Php 50 off any side dish order at any Braddex location!",
-      pointsRequired: 50,
-      color: "#fa9c1b",
-      category: "Side Dishes",
-      image: "/voucherImg2.png"
-    },
-    {
-      id: 3,
-      name: "BUYROLLSTAKE1",
-      description: "Receive a Buy 1 Take 1 promo for any rolls meal orders at any Braddex location!",
-      pointsRequired: 75,
-      color: "#FF7F50",
-      category: "Main Meals",
-      image: "/voucherImg3.png"
-    },
-    {
-      id: 4,
-      name: "FREERICEMEAL",
-      description: "Get a free rice meal of your choice from any Braddex location!",
-      pointsRequired: 100,
-      color: "#ffca7a",
-      category: "Main Meals",
-      image: "/voucherImg4.png"
-    },
-    {
-      id: 5,
-      name: "FREESIOMAI",
-      description: "Receive one free order of Braddex siomai!",
-      pointsRequired: 125,
-      color: "#FF6B6B",
-      category: "Main Meals",
-      image: "/voucherImg5.png"
-    },
-    {
-      id: 6,
-      name: "10PERCENT",
-      description: "Get a voucher for 10% off your next order (minimum spend Php 150) at any Braddex location!",
-      pointsRequired: 150,
-      color: "#fa9c1b",
-      category: "Discounts",
-      image: "/voucherImg6.png"
-    },
-    {
-      id: 7,
-      name: "BATCHOYLOVE",
-      description: "Receive a free order of batchoy at any Braddex location!",
-      pointsRequired: 175,
-      color: "#FF7F50",
-      category: "Main Meals",
-      image: "/voucherImg7.png"
-    },
-    {
-      id: 8,
-      name: "PARTYPACK200",
-      description: "Php 200 off the next group order! (Group orders apply only to groups of 4 and above).",
-      pointsRequired: 200,
-      color: "#ffca7a",
-      category: "Combo Meals",
-      image: "/voucherImg8.png"
-    }
-  ];
+  const allRewards = rewards || [];
 
   // Only show vouchers that have been redeemed (claimed)
-  const redeemedVouchers = allRewards.filter(reward => redeemedRewards.has(reward.id));
+  useEffect(() => {
+    const fetchRedeemedVouchers = async () => {
+      const redeemed = [];
+      const claims = {};
+
+      for (const reward of allRewards) {
+        try {
+          const isRedeemed = await isRewardRedeemed(reward.id);
+          if (isRedeemed) {
+            redeemed.push(reward);
+            const isClaimed = await isRewardClaimed(reward.id);
+            claims[reward.id] = isClaimed;
+          }
+        } catch (err) {
+          console.error(`Error checking reward ${reward.id}:`, err);
+        }
+      }
+
+      setRedeemedVouchers(redeemed);
+      setClaimedStatuses(claims);
+    };
+
+    fetchRedeemedVouchers();
+  }, [allRewards]);
+
+  console.log('Redeemed Vouchers:', redeemedVouchers);
+
+  console.log(rewards);
 
   const openModal = (voucher) => {
     setSelectedVoucher(voucher);
@@ -103,7 +60,7 @@ const VouchersPage = () => {
       <div className="app-layout">
         <Sidebar />
         <div className="main-content">
-          <Header />
+          <Header user={user} />
           <div className="rewards-page">
             <div className="rewards-page-header">
               <h1>Redeemed Vouchers</h1>
@@ -120,25 +77,25 @@ const VouchersPage = () => {
               ) : (
                 redeemedVouchers.map((voucher) => (
                   <div key={voucher.id} className="reward-item" onClick={() => openModal(voucher)} style={{ cursor: 'pointer' }}>
-                    <div className="reward-left-border" style={{ backgroundColor: voucher.color }}></div>
+                    <div className="reward-left-border" style={{ backgroundColor: voucher.reward_color }}></div>
                     <div className="reward-image-placeholder">
-                      {voucher.image
-                        ? <img src={voucher.image} alt={voucher.name} className="reward-img" />
+                      {voucher.reward_image
+                        ? <img src={voucher.reward_image} alt={voucher.reward_name} className="reward-img" />
                         : <span role="img" aria-label="placeholder">📷</span>
                       }
                     </div>
                     <div className="reward-content">
-                      <div className="reward-header" style={{ backgroundColor: voucher.color }}>
-                        <h3>{voucher.name}</h3>
-                        <span className="category-tag">{voucher.category}</span>
+                      <div className="reward-header" style={{ backgroundColor: voucher.reward_color }}>
+                        <h3>{voucher.reward_name}</h3>
+                        <span className="category-tag">{voucher.reward_category}</span>
                       </div>
                       <div className="reward-body">
-                        <p className="reward-description">{voucher.description}</p>
+                        <p className="reward-description">{voucher.reward_desc}</p>
                         <div className="reward-footer">
-                          <span className="points-required">{voucher.pointsRequired} Points</span>
+                          <span className="points-required">{voucher.reward_points} Points</span>
                           <button className="redeem-btn" disabled>Redeemed</button>
                           <span className="reward-status-text">
-                            STATUS: UNCLAIMED REWARD
+                            STATUS: {claimedStatuses[voucher.id] ? 'CLAIMED REWARD' : 'UNCLAIMED REWARD'}
                           </span>
                         </div>
                       </div>
@@ -159,15 +116,15 @@ const VouchersPage = () => {
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>{selectedVoucher.name}</h2>
+              <h2>{selectedVoucher.reward_name}</h2>
               <button className="close-btn" onClick={closeModal}>×</button>
             </div>
             <div className="modal-body">
-              <p>{selectedVoucher.description}</p>
+              <p>{selectedVoucher.reward_desc}</p>
               <div style={{ color: '#a22221', fontWeight: 'bold', fontSize: '1rem', margin: '10px 0', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
-                This voucher is redeemed, but the reward has not yet been claimed. Please claim your reward in-store soon!
+                {claimedStatuses[selectedVoucher.id] ? 'This voucher has been claimed!' : 'This voucher is redeemed, but the reward has not yet been claimed. Please claim your reward in-store soon!'}
               </div>
-              <p><strong>Points Required: {selectedVoucher.pointsRequired}</strong></p>
+              <p><strong>Points Required: {selectedVoucher.reward_points}</strong></p>
             </div>
             <div className="modal-footer">
               <button className="claim-btn redeemed" disabled>

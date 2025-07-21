@@ -37,39 +37,6 @@ export const PointsProvider = ({ children, points, updateUserPoints }) => {
     }
   ]);
 
-  /* const redeemReward = (rewardId, pointsRequired) => {
-    // Check if user has enough points
-    if (currentPoints < pointsRequired) {
-      alert(`You need ${pointsRequired} points to redeem this reward. You currently have ${currentPoints} points.`);
-      return false;
-    }
-
-    // Check if reward was already redeemed
-    if (redeemedRewards.has(rewardId)) {
-      alert('You have already redeemed this reward!');
-      return false;
-    }
-
-    // Deduct points and mark reward as redeemed
-    setCurrentPoints(prev => prev - pointsRequired);
-    setRedeemedRewards(prev => new Set([...prev, rewardId]));
-    
-    // Create notification for reward redemption
-    const newNotification = {
-      id: Date.now(),
-      type: 'redemption',
-      title: 'Reward Redeemed!',
-      message: `You successfully redeemed a reward for ${pointsRequired} points.`,
-      timestamp: new Date().toISOString(),
-      read: false
-    };
-    
-    setNotifications(prev => [newNotification, ...prev]);
-    
-    alert(`Congratulations! You've successfully redeemed the reward for ${pointsRequired} points.`);
-    return true;
-  }; */
-
   const redeemReward = async (reward) => {
     const response = await fetch("http://localhost/BradPoints/php-backend/redeem-reward.php", {
       method: 'POST',
@@ -104,6 +71,19 @@ export const PointsProvider = ({ children, points, updateUserPoints }) => {
     }
   };
 
+  const isRewardClaimed = async (rewardId) => {
+    const response = await fetch("http://localhost/BradPoints/php-backend/check-claim.php", {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        reward_id: rewardId
+      }),
+    });
+    const data = await response.json();
+    return data.claimed;
+  }
+
   const isRewardRedeemed = async (rewardId) => {
     const response = await fetch("http://localhost/BradPoints/php-backend/check-redeem.php", {
       method: 'POST',
@@ -126,6 +106,7 @@ export const PointsProvider = ({ children, points, updateUserPoints }) => {
     setCurrentPoints,
     redeemReward,
     isRewardRedeemed,
+    isRewardClaimed,
     canRedeemReward,
     redeemedRewards,
     notifications,
@@ -137,4 +118,37 @@ export const PointsProvider = ({ children, points, updateUserPoints }) => {
       {children}
     </PointsContext.Provider>
   );
-}; 
+};
+
+/* const redeemReward = (rewardId, pointsRequired) => {
+    // Check if user has enough points
+    if (currentPoints < pointsRequired) {
+      alert(`You need ${pointsRequired} points to redeem this reward. You currently have ${currentPoints} points.`);
+      return false;
+    }
+
+    // Check if reward was already redeemed
+    if (redeemedRewards.has(rewardId)) {
+      alert('You have already redeemed this reward!');
+      return false;
+    }
+
+    // Deduct points and mark reward as redeemed
+    setCurrentPoints(prev => prev - pointsRequired);
+    setRedeemedRewards(prev => new Set([...prev, rewardId]));
+    
+    // Create notification for reward redemption
+    const newNotification = {
+      id: Date.now(),
+      type: 'redemption',
+      title: 'Reward Redeemed!',
+      message: `You successfully redeemed a reward for ${pointsRequired} points.`,
+      timestamp: new Date().toISOString(),
+      read: false
+    };
+    
+    setNotifications(prev => [newNotification, ...prev]);
+    
+    alert(`Congratulations! You've successfully redeemed the reward for ${pointsRequired} points.`);
+    return true;
+  }; */

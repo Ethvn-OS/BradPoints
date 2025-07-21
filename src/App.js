@@ -82,7 +82,7 @@ function App() {
         <Route path="/feedback" element={<FeedbackPage user={user} />} />
         <Route path="/notifications" element={<NotificationsPage user={user} />} />
         <Route path="/profile" element={<ProfilePage user={user} />} />
-        <Route path="/vouchers" element={<VouchersPage />} />
+        <Route path="/vouchers" element={<VouchersPage user={user} rewards={allRewards} />} />
         </Routes>
       </Router>
     </PointsProvider>
