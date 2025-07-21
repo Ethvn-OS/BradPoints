@@ -3,40 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import './RewardsSection.css';
 import { usePoints } from '../context/PointsContext';
 
-const RewardsSection = () => {
+const RewardsSection = ({ sectionRewards = [] }) => {
   const [selectedReward, setSelectedReward] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const { redeemReward, isRewardRedeemed, canRedeemReward } = usePoints();
+  const [isRedeemed, setIsRedeemed] = useState(false);
+  const [checkingRedeemed, setCheckingRedeemed] = useState(true);
 
-  const rewards = [
-    {
-      id: 1,
-      name: "FREEDRINK",
-      description: "Get a free drink of any choice from any Braddex location!",
-      pointsRequired: 25,
-      color: "#FF6B6B"
-    },
-    {
-      id: 2,
-      name: "SIDEDISH50",
-      description: "Get Php 50 off any side dish order at any Braddex location!",
-      pointsRequired: 50,
-      color: "#fa9c1b"
-    },
-    {
-      id: 3,
-      name: "BUYROLLSTAKE1",
-      description: "Receive a Buy 1 Take 1 promo for any rolls meal orders at any Braddex location!",
-      pointsRequired: 75,
-      color: "#ffca7a"
-    }
-  ];
+  const rewards = sectionRewards || [];
 
-  const openModal = (reward) => {
+  const openModal = async (reward) => {
     setSelectedReward(reward);
     setIsModalOpen(true);
-  };
+    setCheckingRedeemed(true);
+    const redeemed = await isRewardRedeemed(reward.id);
+    setIsRedeemed(redeemed);
+    setCheckingRedeemed(false);
+  }
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -44,7 +28,7 @@ const RewardsSection = () => {
   };
 
   const claimReward = () => {
-    const success = redeemReward(selectedReward.id, selectedReward.pointsRequired);
+    const success = redeemReward(selectedReward);
     if (success) {
       closeModal();
     }
@@ -55,7 +39,7 @@ const RewardsSection = () => {
       <div className="section">
         <h2 className="heading">Rewards</h2>
         <div className="rewards-container">
-          {rewards.map((reward) => (
+          {rewards.slice(0, 3).map((reward) => (
             <div
               key={reward.id}
               className="reward-card"
@@ -64,8 +48,8 @@ const RewardsSection = () => {
               tabIndex={0}
               onKeyPress={e => { if (e.key === 'Enter') openModal(reward); }}
             >
-              <div className="reward-top" style={{ backgroundColor: reward.color }}>
-                <h3 className="voucher-name">{reward.name}</h3>
+              <div className="reward-top" style={{ backgroundColor: reward.reward_color }}>
+                <h3 className="voucher-name">{reward.reward_name}</h3>
               </div>
               <div className="reward-bottom">
                 Click to See More!
@@ -84,25 +68,27 @@ const RewardsSection = () => {
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>{selectedReward.name}</h2>
+              <h2>{selectedReward.reward_name}</h2>
               <button className="close-btn" onClick={closeModal}>×</button>
             </div>
             <div className="modal-body">
-              <p>{selectedReward.description}</p>
-              <p><strong>Points Required: {selectedReward.pointsRequired}</strong></p>
+              <p>{selectedReward.reward_desc}</p>
+              <p><strong>Points Required: {selectedReward.reward_points}</strong></p>
             </div>
             <div className="modal-footer">
-              {isRewardRedeemed(selectedReward.id) ? (
+              {checkingRedeemed ? (
+                <button className="claim-btn" disabled>Checking...</button>
+              ) : isRedeemed ? (
                 <button className="claim-btn redeemed" disabled>
                   Already Redeemed
                 </button>
-              ) : !canRedeemReward(selectedReward.pointsRequired) ? (
+              ) : !canRedeemReward(selectedReward.reward_points) ? (
                 <button className="claim-btn insufficient" disabled>
                   Insufficient Points
                 </button>
               ) : (
                 <button className="claim-btn" onClick={claimReward}>
-                  Claim Voucher 
+                  Claim Voucher
                 </button>
               )}
             </div>
