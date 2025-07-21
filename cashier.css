@@ -67,12 +67,13 @@ body{
 .cashier-header{
     display: flex;
     background-color: #ffca7a;
-    text-align: center;
     padding: 0px;
     margin: 0;
     align-items: center;
     color: #a22221;
     height: 100px;
+    width: 100%; /* Ensure it takes full width of main content */
+    justify-content: space-between; /* Space between logo and title */
 }
 
 .logo {
@@ -85,8 +86,7 @@ body{
     color: #a22221;
     text-decoration: none;
     font-weight: bold;
-    margin-left: auto;
-    margin-right: 10px;
+    margin-right: 50px; /* Keep original right margin */
 }
 
 
@@ -95,8 +95,7 @@ body{
     color: #a22221;
     text-decoration: none;
     font-weight: bold;
-    margin-left: auto;
-    margin-right: 10px;
+    margin-right: 50px; /* Keep original right margin */
 }
 
 
@@ -237,13 +236,22 @@ input[type="number"] {
 .cashier-header {
     display: flex;
     background-color: #ffca7a;
-    text-align: center;
-    padding: 0px;
+    padding: 0px 20px; /* Add left padding for title spacing */
     margin: 0;
     align-items: center;
     color: #a22221;
     height: 100px;
-    width: 100%; /* Ensure it takes full width of main content */
+    width: 100%;
+    justify-content: space-between; /* Align content to the left */
+}
+
+.header-title {
+    font-family: coolvetica, sans-serif;
+    font-size: 35px;
+    font-weight: 700;
+    margin: 0; /* Remove margins */
+    text-align: left; /* Align text to the left */
+    flex-shrink: 0; /* Prevent title from shrinking */
 }
 
 .username-container {
