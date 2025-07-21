@@ -13,6 +13,7 @@ const Sidebar = () => {
           <li><Link to="/rewards" className={location.pathname === '/rewards' ? 'active' : ''}>Rewards</Link></li>
           <li><Link to="/notifications" className={location.pathname === '/notifications' ? 'active' : ''}>Notifications</Link></li>
           <li><Link to="/feedback" className={location.pathname === '/feedback' ? 'active' : ''}>Feedback</Link></li>
+          <li><Link to="/vouchers" className={location.pathname === '/vouchers' ? 'active' : ''}>Vouchers</Link></li>
         </ul>
       </nav>
     </div>

@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $is_ajax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 
 include("connection.php");
