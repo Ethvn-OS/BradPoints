@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const loginForm = document.getElementById('loginForm');
   const loginMessage = document.getElementById('loginMessage');
 
-  if (loginForm) {
+  /*if (loginForm) {
     loginForm.addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loginMessage.style.color = "red";
       });
     });
-  }
+  }*/
 
     // Forgot Password Modal logic
     const forgotLink = document.getElementById('forgotPasswordLink');

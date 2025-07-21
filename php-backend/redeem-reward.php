@@ -60,6 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['avail_reward_name'], 
             $update_stmt = mysqli_query($con, $update_redem_query);
 
             $success_message = "You have successfully availed $reward_name! Your voucher code is $redemption_id. Show this to the cashier to claim your prize.";
+
+            $notif_query = "INSERT INTO notifications (message, customer_id) VALUES (?, ?)";
+            $stmt2 = mysqli_prepare($con, $notif_query);
+            mysqli_stmt_bind_param($stmt2, "si", $success_message, $userID);
+            mysqli_stmt_execute($stmt2);
         }
     } else {
         $error_message = "You do not have enough points to avail $reward_name.";

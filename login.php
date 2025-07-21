@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$is_ajax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+//$is_ajax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 
 include("connection.php");
 include("functions.php");
@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if(!empty($user_name) && !empty($password) && !is_numeric($user_name)) {
         $query = "SELECT u.id AS user_id, u.user_name, u.password, u.usertype_id, u.email, c.points AS points
                   FROM users u
-                  LEFT JOIN customers c ON c.user_id = u.id
-                  WHERE u.user_name = '$user_name' LIMIT 1";
+                  LEFT JOIN customers c ON c.user_id = u.id AND c.isDeleted = 0
+                  WHERE u.user_name = '$user_name' AND u.isDeleted = 0 LIMIT 1";
         $result = mysqli_query($con, $query);
 
         if($result && mysqli_num_rows($result) > 0) {
@@ -31,12 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     'points' => $user_data['points']
                 ];
 
-                if ($is_ajax) {
+                /*if ($is_ajax) {
                     $redirect = ($user_data['usertype_id'] == 2) ? "http://localhost:3000/" :
                                 (($user_data['usertype_id'] == 1) ? "cashier.php" : "admin.php");
                     echo json_encode(['success' => true, 'redirect' => $redirect]);
                     exit;
-                }
+                }*/
 
                 if ($user_data['usertype_id'] == 2) {
                     header("Location: http://localhost:3000/");
@@ -46,17 +46,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     header("Location: admin.php");
                 }
                 exit;
+            } else {
+                $error_message = "Wrong password.";
             }
+        } else {
+            $error_message = "Wrong username or password.";
         }
-        $error_message = "Wrong username or password.";
     } else {
         $error_message = "Please enter valid information.";
     }
 
-    if ($is_ajax) {
+    /*if ($is_ajax) {
         echo json_encode(['success' => false, 'error' => $error_message]);
         exit;
-    }
+    }*/
 }
 ?>
 
@@ -72,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 <body class="loginbody">
     <?php include "includes/login.html" ?>
+
+    <script src="loginsignup.js"></script>
 </body>
-<script src="loginsignup.js"></script>
 </html>

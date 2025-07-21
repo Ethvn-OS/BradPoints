@@ -18,24 +18,34 @@ export const PointsProvider = ({ children, points, updateUserPoints }) => {
   }, [points]);
 
   const [redeemedRewards, setRedeemedRewards] = useState(new Set());
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      type: 'redemption',
-      title: 'Reward Redeemed!',
-      message: 'You successfully redeemed FREEDRINK for 25 points.',
-      timestamp: '2024-12-15T10:30:00',
-      read: false
-    },
-    {
-      id: 2,
-      type: 'new_reward',
-      title: 'New Reward Available!',
-      message: 'PARTYPACK200 is now available! Get Php 200 off group orders of 4+ people.',
-      timestamp: '2024-12-14T15:45:00',
-      read: false
-    }
-  ]);
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const response = await fetch("http://localhost/BradPoints/php-backend/get-notifs.php", {
+          credentials: 'include'
+        });
+
+        const data = await response.json();
+
+        const formatted = data.map(n => ({
+          id: n.id,
+          type: 'redemption',
+          title: 'Reward Redeemed!',
+          message: n.message,
+          timestamp: n.date_created,
+          read: false
+        }));
+
+        setNotifications(formatted);
+      } catch (err) {
+        console.error("Failed to fetch notifications:", err);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
 
   const redeemReward = async (reward) => {
     const response = await fetch("http://localhost/BradPoints/php-backend/redeem-reward.php", {
@@ -152,3 +162,20 @@ export const PointsProvider = ({ children, points, updateUserPoints }) => {
     alert(`Congratulations! You've successfully redeemed the reward for ${pointsRequired} points.`);
     return true;
   }; */
+
+  /*{
+      id: 1,
+      type: 'redemption',
+      title: 'Reward Redeemed!',
+      message: 'You successfully redeemed FREEDRINK for 25 points.',
+      timestamp: '2024-12-15T10:30:00',
+      read: false
+    },
+    {
+      id: 2,
+      type: 'new_reward',
+      title: 'New Reward Available!',
+      message: 'PARTYPACK200 is now available! Get Php 200 off group orders of 4+ people.',
+      timestamp: '2024-12-14T15:45:00',
+      read: false
+    }*/
