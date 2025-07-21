@@ -340,3 +340,9 @@ input[type="number"] {
     font-size: 40px;
     cursor: pointer;
 }
+
+.datetime-display {
+    font-family: coolvetica, sans-serif;
+    color: #a22221;
+    font-size: 1.2rem;
+}
