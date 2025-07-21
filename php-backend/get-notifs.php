@@ -15,7 +15,7 @@
     $userID = (int)$user_data['id'];
 
     $notifs = [];
-    $notifs_query = "SELECT * FROM notifications WHERE customer_id = $userID ORDER BY date_created DESC";
+    $notifs_query = "SELECT * FROM notifications WHERE customer_id = $userID";
 
     $notifs_result = mysqli_query($con, $notifs_query);
     if ($notifs_result) {

@@ -9,14 +9,14 @@ const ProfilePage = ( { user }) => {
   const [isEditing, setIsEditing] = useState(false);
   
   // Local storage user data 
-  const [userData, setUserData] = useState({
+  /*const [userData, setUserData] = useState({
     firstName: 'Yza',
     lastName: 'Alagon',
     username: 'yzayza',
     password: '12345678',
     memberSince: 'January 2023',
     totalPoints: 36
-  });
+  });*/
 
   const [pointsHistory] = useState([
     { date: '2024-01-15', description: 'Coffee Purchase', points: 50, type: 'earned' },
@@ -42,12 +42,12 @@ const ProfilePage = ( { user }) => {
           <img src="/userProfile.png" alt="Profile" />
         </div>
         <div className="profile-page-info">
-          <h2>{userData.firstName} {userData.lastName}</h2>
-          <p className="profile-page-member-since">Member since {userData.memberSince}</p>
+          <h2>{user.user_name}</h2>
+          <p className="profile-page-member-since">ID Number: {user.id}</p>
         </div>
         <div className="profile-page-stats">
           <div className="profile-page-stat">
-            <span className="profile-page-stat-value">{userData.totalPoints}</span>
+            <span className="profile-page-stat-value">{user.points}</span>
             <span className="profile-page-stat-label">Total Points</span>
           </div>
         </div>
@@ -70,11 +70,11 @@ const ProfilePage = ( { user }) => {
               {isEditing ? (
                 <input 
                   type="text" 
-                  value={userData.firstName}
-                  onChange={(e) => setUserData({...userData, firstName: e.target.value})}
+                  //value={userData.firstName}
+                  //onChange={(e) => setUserData({...userData, firstName: e.target.value})}
                 />
               ) : (
-                <p>{userData.firstName}</p>
+                <p>Hey mamas</p>//<p>{userData.firstName}</p>
               )}
             </div>
             <div className="profile-page-form-group">
@@ -82,11 +82,11 @@ const ProfilePage = ( { user }) => {
               {isEditing ? (
                 <input 
                   type="text" 
-                  value={userData.lastName}
-                  onChange={(e) => setUserData({...userData, lastName: e.target.value})}
+                  //value={userData.lastName}
+                  //onChange={(e) => setUserData({...userData, lastName: e.target.value})}
                 />
               ) : (
-                <p>{userData.lastName}</p>
+                <p>Hey mamas</p>//<p>{userData.lastName}</p>
               )}
             </div>
           </div>
@@ -96,11 +96,11 @@ const ProfilePage = ( { user }) => {
             {isEditing ? (
               <input 
                 type="text" 
-                value={userData.username}
-                onChange={(e) => setUserData({...userData, username: e.target.value})}
+                //value={userData.username}
+                //onChange={(e) => setUserData({...userData, username: e.target.value})}
               />
             ) : (
-              <p>{userData.username}</p>
+              <p>Hey mamas</p>//<p>{userData.username}</p>
             )}
           </div>
           
@@ -109,8 +109,8 @@ const ProfilePage = ( { user }) => {
             {isEditing ? (
               <input 
                 type="password" 
-                value={userData.password}
-                onChange={(e) => setUserData({...userData, password: e.target.value})}
+                //value={userData.password}
+                //onChange={(e) => setUserData({...userData, password: e.target.value})}
               />
             ) : (
               <p>••••••••</p>
@@ -133,7 +133,7 @@ const ProfilePage = ( { user }) => {
       <div className="profile-page-points-summary">
         <div className="profile-page-points-card">
           <h3>Current Balance</h3>
-          <div className="profile-page-points-display">{userData.totalPoints}</div>
+          <div className="profile-page-points-display">{user.points}</div>
           <p>points</p>
         </div>
       </div>

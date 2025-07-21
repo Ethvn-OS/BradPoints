@@ -68,7 +68,7 @@ const NotificationsPage = ({ user }) => {
                 <p>You'll see notifications here when you redeem rewards or when new rewards become available.</p>
               </div>
             ) : (
-              notifications.map((notification) => (
+              [...notifications].reverse().map((notification) => (
                 <div 
                   key={notification.id} 
                   className={`notification-item ${!notification.read ? 'unread' : ''}`}
