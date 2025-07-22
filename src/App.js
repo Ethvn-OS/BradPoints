@@ -72,7 +72,7 @@ function App() {
               <div className="main-content">
                 <Header user={user} />
                 <ImageHeader />
-                <PointsSection user={user} />
+                <PointsSection user={user} rewards={allRewards} />
                 <RewardsSection sectionRewards={allRewards}/>
                 <FeedbackSection />
               </div>

@@ -69,8 +69,8 @@ const NotificationsPage = ({ user }) => {
               </div>
             ) : (
               [...notifications].reverse().map((notification) => (
-                <div 
-                  key={notification.id} 
+                <div
+                  key={notification.id}
                   className={`notification-item ${!notification.read ? 'unread' : ''}`}
                   onClick={() => markAsRead(notification.id)}
                 >
