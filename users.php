@@ -16,6 +16,11 @@ session_start();
         $user_data = mysqli_fetch_assoc($result);
     }
 
+    $success_message = '';
+    $error_message = '';
+    $success_message1 = '';
+    $error_message1 = '';
+
     //Create user
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
         if ((int)$_POST['usertype'] === 2) {

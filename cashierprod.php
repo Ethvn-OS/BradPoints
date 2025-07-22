@@ -62,6 +62,15 @@
 <body>
     <?php include "includes/cashierprod.html" ?>
 
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modalcash" style="display: none;">
+    <div class="modal-content">
+        <p>Are you sure you want to submit the order?</p>
+        <button id="confirmYes">Yes</button>
+        <button id="confirmNo">No</button>
+    </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

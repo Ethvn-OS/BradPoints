@@ -151,3 +151,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 })
+
+document.getElementById("orderForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Prevent immediate submission
+
+    const modal = document.getElementById("confirmModal");
+    modal.style.display = "flex";
+
+    // If user clicks "Yes"
+    document.getElementById("confirmYes").onclick = () => {
+        modal.style.display = "none";
+        alert("Order successful!"); // This appears first
+        e.target.submit(); // Then submit the form
+    };
+
+    // If user clicks "No"
+    document.getElementById("confirmNo").onclick = () => {
+        modal.style.display = "none";
+    };
+});
