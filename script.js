@@ -170,3 +170,22 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
         modal.style.display = "none";
     };
 });
+
+document.getElementById("redeemForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Prevent immediate submission
+
+    const modal = document.getElementById("confirmModalRedeem");
+    modal.style.display = "flex";
+
+    // If user clicks "Yes"
+    document.getElementById("confirmYesRedeem").onclick = () => {
+        modal.style.display = "none";
+        alert("Order successful!"); // This appears first
+        e.target.submit(); // Then submit the form
+    };
+
+    // If user clicks "No"
+    document.getElementById("confirmNoRedeem").onclick = () => {
+        modal.style.display = "none";
+    };
+});

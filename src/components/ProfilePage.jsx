@@ -52,8 +52,58 @@ const ProfilePage = ( { user }) => {
           </div>
         </div>
       </div>
+    </div>
+  );
 
-      <div className="profile-page-details">
+  const renderPointsTab = () => (
+    <div className="profile-page-points-tab">
+      <div className="profile-page-points-summary">
+        <div className="profile-page-points-card">
+          <h3>Current Balance</h3>
+          <div className="profile-page-points-display">{user.points}</div>
+          <p>points</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="app-layout">
+      <Sidebar />
+      <div className="main-content">
+        <Header user={user}/>
+        <div className="profile-page-container">
+          <div className="profile-page-main-container">
+            <div className="profile-page-tabs">
+              <button 
+                className={`profile-page-tab ${activeTab === 'profile' ? 'active' : ''}`}
+                onClick={() => setActiveTab('profile')}
+              >
+                Profile
+              </button>
+              <button 
+                className={`profile-page-tab ${activeTab === 'points' ? 'active' : ''}`}
+                onClick={() => setActiveTab('points')}
+              >
+                Points
+              </button>
+            </div>
+
+            <div className="profile-page-tab-content">
+              {activeTab === 'profile' && renderProfileTab()}
+              {activeTab === 'points' && renderPointsTab()}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProfilePage; 
+
+/*
+<div className="profile-page-details">
         <div className="profile-page-section-header">
           <h3>Personal Information</h3>
           {!isEditing && (
@@ -62,8 +112,8 @@ const ProfilePage = ( { user }) => {
             </button>
           )}
         </div>
-        
-        <div className="profile-page-form-section">
+      </div>
+<div className="profile-page-form-section">
           <div className="profile-page-form-row">
             <div className="profile-page-form-group">
               <label>First Name</label>
@@ -124,19 +174,6 @@ const ProfilePage = ( { user }) => {
             </div>
           )}
         </div>
-      </div>
-    </div>
-  );
-
-  const renderPointsTab = () => (
-    <div className="profile-page-points-tab">
-      <div className="profile-page-points-summary">
-        <div className="profile-page-points-card">
-          <h3>Current Balance</h3>
-          <div className="profile-page-points-display">{user.points}</div>
-          <p>points</p>
-        </div>
-      </div>
 
       <div className="profile-page-points-history">
         <h3>Points History</h3>
@@ -154,8 +191,7 @@ const ProfilePage = ( { user }) => {
           ))}
         </div>
       </div>
-    </div>
-  );
+
 
   const renderSecurityTab = () => (
     <div className="profile-page-security-tab">
@@ -190,44 +226,12 @@ const ProfilePage = ( { user }) => {
     </div>
   );
 
-  return (
-    <div className="app-layout">
-      <Sidebar />
-      <div className="main-content">
-        <Header user={user}/>
-        <div className="profile-page-container">
-          <div className="profile-page-main-container">
-            <div className="profile-page-tabs">
-              <button 
-                className={`profile-page-tab ${activeTab === 'profile' ? 'active' : ''}`}
-                onClick={() => setActiveTab('profile')}
-              >
-                Profile
-              </button>
-              <button 
-                className={`profile-page-tab ${activeTab === 'points' ? 'active' : ''}`}
-                onClick={() => setActiveTab('points')}
-              >
-                Points & History
-              </button>
               <button 
                 className={`profile-page-tab ${activeTab === 'security' ? 'active' : ''}`}
                 onClick={() => setActiveTab('security')}
               >
                 Security
               </button>
-            </div>
 
-            <div className="profile-page-tab-content">
-              {activeTab === 'profile' && renderProfileTab()}
-              {activeTab === 'points' && renderPointsTab()}
-              {activeTab === 'security' && renderSecurityTab()}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ProfilePage; 
+{activeTab === 'security' && renderSecurityTab()}
+*/

@@ -36,7 +36,6 @@ const Header = ({ user }) => {
         {isDropdownOpen && (
           <ul className="dropdown-menu">
             <li><Link to="/profile">Profile</Link></li>
-            <li><a href="#">User Guide</a></li>
             <li><a href="http://localhost/BradPoints/logout.php">Log Out</a></li>
           </ul>
         )}

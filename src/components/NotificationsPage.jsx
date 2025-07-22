@@ -75,7 +75,7 @@ const NotificationsPage = ({ user }) => {
                   onClick={() => markAsRead(notification.id)}
                 >
                   <div className="notification-icon">
-                    {notification.type === 'redemption' ? '🎉' : '🆕'}
+                    {notification.type === 'redemption' ? '🎉' : '🎊'}
                   </div>
                   <div className="notification-content">
                     <div className="notification-header">

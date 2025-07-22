@@ -49,6 +49,14 @@
                     $redeem_cash = "UPDATE redemption SET cashier_id = $cashier_id WHERE redemption_id = '$redeemvouch' AND user_id = $target_id";
                     mysqli_query($con, $redeem_cash);
                     $success_message = "Voucher $redeemvouch has been claimed by User ID $target_id.";
+                    $type = "claim";
+                    $title = "Reward Claimed!";
+
+
+                    $notif_query = "INSERT INTO notifications (message, customer_id, type, title) VALUES (?, ?, ?, ?)";
+                    $stmt2 = mysqli_prepare($con, $notif_query);
+                    mysqli_stmt_bind_param($stmt2, "siss", $success_message, $target_id, $type, $title);
+                    mysqli_stmt_execute($stmt2);
                 }
             }
         } else {
@@ -71,5 +79,16 @@
 </head>
 <body>
     <?php include("includes/cashierredeem.html"); ?>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModalRedeem" class="modalcash" style="display: none;">
+    <div class="modal-content">
+        <p>Are you sure you want to submit the order?</p>
+        <button id="confirmYesRedeem">Yes</button>
+        <button id="confirmNoRedeem">No</button>
+    </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

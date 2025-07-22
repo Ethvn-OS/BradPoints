@@ -31,8 +31,8 @@ export const PointsProvider = ({ children, points, updateUserPoints }) => {
 
         const formatted = data.map(n => ({
           id: n.id,
-          type: 'redemption',
-          title: 'Reward Redeemed!',
+          type: n.type,
+          title: n.title,
           message: n.message,
           timestamp: n.date_created,
           read: false

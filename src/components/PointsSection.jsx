@@ -13,24 +13,34 @@ const PointsSection = ({ user, rewards }) => {
   useEffect(() => {
     const getUnredeemed = async () => {
       setLoading(true);
-      const unredeemed = [];
+      const claimable = [];
+      const upcoming = [];
 
       for (const reward of rewards) {
         const redeemed = await isRewardRedeemed(reward.id);
-        if (!redeemed && currentPoints < reward.reward_points) {
-          unredeemed.push(reward);
+        if (!redeemed) {
+          if (currentPoints >= reward.reward_points) {
+            claimable.push(reward);
+          } else {
+            upcoming.push(reward);
+          }
         }
       }
 
-      //Sort by lowest points required
-      unredeemed.sort((a, b) => a.reward_points - b.reward_points);
+      // Sort each list
+      claimable.sort((a, b) => a.reward_points - b.reward_points);
+      upcoming.sort((a, b) => a.reward_points - b.reward_points);
 
-      setNextReward(unredeemed[0] || null);
+      // Decide what to show
+      setNextReward(upcoming[0] || claimable[0] || null);
       setLoading(false);
     }
 
+
     getUnredeemed();
   }, [rewards, isRewardRedeemed, currentPoints]);
+
+  console.log(nextReward);
 
   const pointsNeeded = nextReward ? nextReward.reward_points : currentPoints;
   const pointsRemaining = nextReward ? pointsNeeded - currentPoints : 0;
