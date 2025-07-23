@@ -16,9 +16,6 @@
     </div>
     <a href="cashier.php" class="goback-link">Go back</a>
 </header>
-<div class="username-container">
-    <p class="username-text">Welcome, <?php echo htmlspecialchars($user_data['user_name']); ?>!</p>
-</div>
 <script>
 function updateClock() {
     const now = new Date();
@@ -37,20 +34,24 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 </script>
-
-<form method="post" class="center-form" id="redeemForm">
-<p>ID Number: <?php echo $target_id ?></p>
-<br>
-    <p>Input voucher code:</p>
-    <input type="text" name="redeemvouch" class="redeem"><br><br>
-    <input type="submit" value="Submit" class="btn">
-    <?php if (!empty($success_message)): ?>
-        <span class="center-message" style="color: green;"><?php echo $success_message; ?></span><br><br>
-    <?php endif; ?>
-    <?php if (!empty($error_message)): ?>
-        <span class="center-message" style="color: red;"><?php echo $error_message; ?></span><br><br>
-    <?php endif; ?> 
-</form>
+<div class="centered-form-container">
+    <form method="post" class="center-form">
+        <div class="cashier-icon" style="text-align:center; margin-bottom: 10px;">
+            <i class="fa-solid fa-cash-register" style="font-size:2.2rem; color:#a22221;"></i>
+        </div>
+        <p>ID Number: <?php echo $target_id ?></p>
+        <br>
+        <p>Input voucher code:</p>
+        <input type="text" name="redeemvouch" class="redeem"><br><br>
+        <input type="submit" value="Submit" class="btn">
+        <?php if (!empty($success_message)): ?>
+            <span class="center-message" style="color: green;"><?php echo $success_message; ?></span><br><br>
+        <?php endif; ?>
+        <?php if (!empty($error_message)): ?>
+            <span class="center-message" style="color: red;"><?php echo $error_message; ?></span><br><br>
+        <?php endif; ?> 
+    </form>
+</div>
     </main>
     </div>
 <?php if (!empty($success_message)): ?>

@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="cashier.css">
     <link href="https://fonts.cdnfonts.com/css/coolvetica-2" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> 
 </head>
 <body>
     
