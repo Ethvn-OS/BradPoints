@@ -59,7 +59,7 @@
     <link href="https://fonts.cdnfonts.com/css/coolvetica-2" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="no-bg">
     <?php include "includes/cashierprod.html" ?>
 
     <script src="script.js"></script>

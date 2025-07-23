@@ -151,3 +151,48 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 })
+
+// Quantity and order logic for cashierprod.html
+if (document.getElementById('orderForm')) {
+    const orderData = {};
+    const addedOrdersDiv = document.querySelector('.addedOrders');
+    document.querySelectorAll('.plus-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const name = this.getAttribute('data-name');
+            const points = parseInt(this.getAttribute('data-points'));
+            if (!orderData[id]) {
+                orderData[id] = { qty: 0, name, points };
+            }
+            orderData[id].qty++;
+            document.getElementById('qty-' + id).textContent = orderData[id].qty;
+            updateOrders();
+        });
+    });
+    document.querySelectorAll('.minus-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            if (orderData[id] && orderData[id].qty > 0) {
+                orderData[id].qty--;
+                document.getElementById('qty-' + id).textContent = orderData[id].qty;
+                updateOrders();
+            }
+        });
+    });
+    function updateOrders() {
+        let html = '';
+        let total = 0;
+        Object.keys(orderData).forEach(id => {
+            if (orderData[id].qty > 0) {
+                html += `<div><b>${orderData[id].name}</b> x ${orderData[id].qty} = <span style='color:#a22221;'>${orderData[id].qty * orderData[id].points} pts</span></div>`;
+                total += orderData[id].qty * orderData[id].points;
+            }
+        });
+        addedOrdersDiv.innerHTML = html || '<span style="color:#aaa;">No items added yet.</span>';
+        document.getElementById('totalPoints').textContent = 'Total points: ' + total;
+        document.getElementById('orderData').value = JSON.stringify(Object.values(orderData).filter(o => o.qty > 0));
+    }
+    // Initialize all quantities to 0
+    document.querySelectorAll('.quantity-display').forEach(span => span.textContent = '0');
+    updateOrders();
+}

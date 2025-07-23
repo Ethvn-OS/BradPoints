@@ -17,13 +17,10 @@
     </div>    
     <a href="cashier.php" class="goback-link">Go back</a>
 </header>
-<div class="username-container">
+<div class="user-info-box">
     <p class="username-text">Welcome, <?php echo htmlspecialchars($user_data['user_name']); ?>!</p>
+    <p class="id-text">ID Number: <?php echo $target_id ?></p>
 </div>
-<br>
-
-<p>ID Number: <?php echo $target_id ?></p>
-<br>
 
 <form method="post" id="orderForm">
     <div class="prodcontainers">
@@ -34,15 +31,16 @@
                         <img src="<?php echo htmlspecialchars($product['prod_image']); ?>" alt="Product Image" class="product-image">
                     </div>
                     <div class="textcont">
-                        <p class="text"><?php echo htmlspecialchars($product['prod_name']); ?></p>
-                        <p class="text"><?php echo htmlspecialchars($product['category_name']); ?></p>
-                        <p class="text"><?php echo htmlspecialchars($product['points']); ?> Points</p>
+                        <div class="mini-row"><span class="mini-heading">MEAL:</span> <span class="text"><?php echo htmlspecialchars($product['prod_name']); ?></span></div>
+                        <div class="mini-row"><span class="mini-heading">CATEGORY:</span> <span class="text"><?php echo htmlspecialchars($product['category_name']); ?></span></div>
+                        <div class="mini-row"><span class="mini-heading">POINTS:</span> <span class="text"><?php echo htmlspecialchars($product['points']); ?> Points</span></div>
                     </div>
                     <div class="btn-container">
                         <button type="button" class="minus-btn" 
                                 data-id="<?php echo $product['id']; ?>" 
                                 data-name="<?php echo htmlspecialchars($product['prod_name']); ?>"
                                 data-points="<?php echo $product['points']; ?>">-</button>
+                        <span class="quantity-display" id="qty-<?php echo $product['id']; ?>">0</span>
                         <button type="button" class="plus-btn" 
                                 data-id="<?php echo $product['id']; ?>" 
                                 data-name="<?php echo htmlspecialchars($product['prod_name']); ?>"

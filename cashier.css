@@ -1,12 +1,26 @@
 .card {
     background-color: #ffca7a;
-    width: 12vw;
-    height: 24vh;
-    border-radius: 8px;
+    width: 23%;
+    min-width: 220px;
+    max-width: 300px;
+    height: 44vh;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 16px;
+    align-items: center;
+    padding: 24px 24px 24px 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    border-left: 8px solid #a22221 !important;
+    transition: box-shadow 0.25s, transform 0.18s;
+    margin-bottom: 24px;
+    gap: 18px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 24px rgba(162,34,33,0.18), 0 2px 8px rgba(0,0,0,0.12);
+    transform: translateY(-6px) scale(1.03);
+    z-index: 2;
 }
 
 .card .btn {
@@ -16,18 +30,38 @@
 }
 
 .imgcont {
-    height: 50%;
-    width: auto;
+    width: 100%;
+    height: 25%; /* 1/4th of the card height */
+    min-height: 80px;
+    max-height: 25%;
     background-color: red;
     padding: 4px;
     border-radius: 4px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.textcont {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .prodcontainers {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 25px;
+    justify-content: center;
+    gap: 32px 2%; /* row gap, column gap */
+    margin-bottom: 18px;
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+    padding-left: 2vw;
+    padding-right: 2vw;
 }
 
 .btn {
@@ -52,16 +86,109 @@
 
 .action-buttons {
     display: flex;
-    gap: 150px;
+    gap: 48px;
     margin-bottom: 20px;
     justify-content: center;
 }
 
-body{
-    background-color: #fcfaee;
+.btn.order-btn {
+    background-color: #a22221;
+    color: #fff;
+    font-size: 1.3rem;
+    padding: 18px 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 16px rgba(162,34,33,0.12);
+    border: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: bold;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn.order-btn:hover {
+    background-color: #7a1818;
+    transform: scale(1.06);
+}
+
+.btn.redeem-btn {
+    background-color: #ffca7a;
+    color: #a22221;
+    font-size: 1.3rem;
+    padding: 18px 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 16px rgba(255,202,122,0.12);
+    border: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: bold;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn.redeem-btn:hover {
+    background-color: #ffdca7;
+    color: #7a1818;
+    transform: scale(1.06);
+}
+
+.action-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+    color: #a22221;
+    font-weight: 600;
+}
+
+.btn .icon {
+    font-size: 1.5em;
+    display: inline-flex;
+    align-items: center;
+}
+
+body {
+    background-image: url('public/rectangle.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     margin: 0;
     overflow-x: hidden;
     height: 100vh;
+}
+
+body.no-bg {
+    background-image: none !important;
+    background-color: #ffe3ba;
+}
+
+.centered-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    margin-top: 40px;
+}
+
+.center-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    width: fit-content;
+    background-color: bisque;
+    border-radius: 18px;
+    padding: 16px 32px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.08);
+    transition: box-shadow 0.3s, transform 0.3s;
+    position: relative;
+    z-index: 2;
+}
+
+.center-form:hover {
+    box-shadow: 0 16px 48px rgba(0,0,0,0.22), 0 3px 12px rgba(0,0,0,0.12);
+    transform: translateY(-4px) scale(1.01);
 }
 
 .cashier-header{
@@ -106,17 +233,6 @@ h1{
     font-weight: 700;
 }
 
-.center-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 30px auto;
-    width: fit-content;
-    background-color: bisque; /* or any color you like */
-    border-radius: 18px;       /* optional: for curvy edges */
-    padding: 24px 32px;        /* optional: for spacing inside */
-}
-
 p {
     font-family: coolvetica, sans-serif;
     font-size: 1.2rem;
@@ -143,12 +259,18 @@ p {
     font-family: coolvetica, sans-serif;
     font-size: 1.2rem;
     color: #a22221;
-    text-align: left;
-    padding: 4px 8px; /* Reduced padding */
-    margin-top: 8px;
-    min-height: 60px;      /* Ensures space is always reserved */
-    max-height: 120px;     /* Optional: limits how tall it can get */
-    overflow-y: auto;      /* Adds scroll if content exceeds max-height */
+    background: #fff8e1;
+    border: 2px solid #ffca7a;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(255,202,122,0.18);
+    padding: 12px 18px;
+    margin-top: 18px;
+    min-height: 60px;
+    max-height: 140px;
+    overflow-y: auto;
+    margin-bottom: 18px;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 .id-input {
@@ -157,11 +279,16 @@ p {
     padding: 8px 14px;
     font-size: 1rem;
     font-family: coolvetica, sans-serif;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
     background-color: #fff8e1;
     color: #a22221;
+}
+
+.center-form .btn {
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 /* For Chrome, Safari, Edge, Opera */
@@ -263,16 +390,16 @@ input[type="number"] {
 .username-text {
     margin: 0;
     font-size: 1.1rem;
-    color: #28a745;
+    color: #a22221;
     font-weight: 500;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
 .product-image {
-    cursor:pointer;
     width: 100%;
     height: 100%;
     border-radius: 4px;
-    object-fit: cover; /* Ensures the image covers the container without distortion */
+    object-fit: cover;
 }
 
 .text{
@@ -286,7 +413,8 @@ input[type="number"] {
 .btn-container {
     display: flex;
     justify-content: center;
-    gap: 50px; /* Adjusts space between buttons */
+    align-items: center;
+    gap: 12px;
 }
 
 .minus-btn, .plus-btn {
@@ -342,7 +470,80 @@ input[type="number"] {
 }
 
 .datetime-display {
-    font-family: coolvetica, sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
     color: #a22221;
+    font-size: 1rem;
+}
+
+body, p, h1, h2, h3, h4, h5, h6, input, button, label {
+    font-family: 'Plus Jakarta Sans', 'coolvetica', sans-serif;
+}
+
+.quantity-display {
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 1.2rem;
+    color: #a22221;
+    margin: 0 10px;
+    min-width: 24px;
+    text-align: center;
+    display: inline-block;
+}
+
+.user-info-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 248, 225, 0.85);
+    border: 2px solid #ffca7a;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(255,202,122,0.12);
+    padding: 16px 32px 12px 32px;
+    margin: 24px auto 32px auto;
+    max-width: 340px;
+}
+
+.user-info-box .username-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.15rem;
+    color: #a22221;
+    font-weight: 600;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.user-info-box .id-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    color: #a22221;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+}
+
+.mini-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0;
+    background: #fff8e1;
+    border: 1.5px solid #ffca7a;
+    border-radius: 12px;
+    padding: 6px 14px;
+    box-shadow: 0 1px 4px rgba(255,202,122,0.10);
+}
+
+.mini-heading {
+    font-size: 0.78em;
+    font-weight: 700;
+    color: #a22221;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.mini-row .text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #a22221;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
