@@ -417,7 +417,7 @@ input[type="number"] {
     gap: 12px;
 }
 
-.minus-btn, .plus-btn {
+.minus-btn, .plus-btn, #confirmYes, #confirmNo {
     background-color: #a22221;
     color: white;
     border: none;
@@ -445,6 +445,25 @@ input[type="number"] {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(5px);
+}
+
+.modalcash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
 }
 
 .modal.show {

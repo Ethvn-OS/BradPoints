@@ -66,6 +66,7 @@
     <div id="confirmModal" class="modalcash" style="display: none;">
     <div class="modal-content">
         <p>Are you sure you want to submit the order?</p>
+        <br>
         <button id="confirmYes">Yes</button>
         <button id="confirmNo">No</button>
     </div>
