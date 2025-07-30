@@ -88,12 +88,10 @@ function renderTable(tableType) {
         var row = document.createElement('tr');
         if (tableType === 'voucher') {
             row.innerHTML = 
-                '<td>' + item.reward_id + '</td>' +
                 '<td>' + item.reward_name + '</td>' +
                 '<td>' + item.number_of_redemptions + '</td>';
         } else {
             row.innerHTML = 
-                '<td>' + item.id + '</td>' +
                 '<td>' + item.user_id + '</td>' +
                 '<td>' + item.cashier_id + '</td>' +
                 '<td>' + item.reward_id + '</td>' +
@@ -154,15 +152,11 @@ function sortTable(tableId, columnIndex) {
         if (tableType === 'voucher') {
             // Voucher table columns: reward_id, reward_name, number_of_redemptions
             switch(columnIndex) {
-                case 0: // reward_id
-                    aValue = String(a.reward_id || '');
-                    bValue = String(b.reward_id || '');
-                    break;
-                case 1: // reward_name
+                case 0: // reward_name
                     aValue = String(a.reward_name || '').toLowerCase();
                     bValue = String(b.reward_name || '').toLowerCase();
                     break;
-                case 2: // number_of_redemptions
+                case 1: // number_of_redemptions
                     aValue = parseInt(a.number_of_redemptions || 0);
                     bValue = parseInt(b.number_of_redemptions || 0);
                     break;
