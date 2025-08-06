@@ -42,6 +42,62 @@ session_start();
         }
     }
 
+    $all_customerdel = [];
+
+    $customerdel_query = "SELECT *
+                          FROM customers
+                          WHERE isDeleted = 1";
+
+    $customerdel_results = mysqli_query($con, $customerdel_query);
+
+    if ($customerdel_results) {
+        while ($row = mysqli_fetch_assoc($customerdel_results)) {
+            $all_customerdel[] = $row;
+        }
+    }
+
+    $all_cashierdel = [];
+
+    $cashierdel_query = "SELECT *
+                          FROM cashiers
+                          WHERE isDeleted = 1";
+
+    $cashierdel_results = mysqli_query($con, $cashierdel_query);
+
+    if ($cashierdel_results) {
+        while ($row = mysqli_fetch_assoc($cashierdel_results)) {
+            $all_cashierdel[] = $row;
+        }
+    }
+
+    $all_productdel = [];
+
+    $productdel_query = "SELECT *
+                         FROM products
+                         WHERE isDeleted = 1";
+
+    $productdel_results = mysqli_query($con, $productdel_query);
+
+    if ($productdel_results) {
+        while ($row = mysqli_fetch_assoc($productdel_results)) {
+            $all_productdel[] = $row;
+        }
+    }
+
+    $all_rewarddel = [];
+
+    $rewarddel_query = "SELECT *
+                        FROM rewards
+                        WHERE isDeleted = 1";
+
+    $rewarddel_results = mysqli_query($con, $rewarddel_query);
+
+    if ($rewarddel_results) {
+        while ($row = mysqli_fetch_assoc($rewarddel_results)) {
+            $all_rewarddel[] = $row;
+        }
+    }
+
 ?>
 
 
@@ -66,5 +122,20 @@ session_start();
             <?php include "includes/recentlydeleted.html" ?>
         </main>
     </div>
+    
+    <script src="script.js"></script>
+    <script src="admin-pagination.js"></script>
+    <script>
+        // Pass PHP data to JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            var voucherData = <?php echo json_encode(isset($all_vouchredem) ? $all_vouchredem : []); ?>;
+            var redemptionData = <?php echo json_encode(isset($all_redem) ? $all_redem : []); ?>;
+            
+            // Set the data in the pagination script
+            if (typeof setTableData === 'function') {
+                setTableData(voucherData, redemptionData);
+            }
+        });
+    </script>
 </body>
 </html>

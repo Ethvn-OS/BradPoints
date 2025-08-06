@@ -79,7 +79,7 @@ session_start();
         document.addEventListener('DOMContentLoaded', function() {
             var voucherData = <?php echo json_encode(isset($all_vouchredem) ? $all_vouchredem : []); ?>;
             var redemptionData = <?php echo json_encode(isset($all_redem) ? $all_redem : []); ?>;
-            
+
             // Set the data in the pagination script
             if (typeof setTableData === 'function') {
                 setTableData(voucherData, redemptionData);

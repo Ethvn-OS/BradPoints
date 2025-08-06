@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     } else {
         console.error('Canvas element #myChart not found in DOM!');
-        console.log('Available elements with IDs:', 
+        console.log('Available elements with IDs:',
             Array.from(document.querySelectorAll('[id]')).map(el => el.id)
         );
     }
@@ -75,13 +75,7 @@ function createChart(chartData, type) {
                 datasets: [{
                     label: 'Number of Ratings',
                     data: chartData.map(row => parseInt(row.num_rating)),
-                    backgroundColor: [
-                        '#FF6B6B', // 1 star - Red
-                        '#FFA726', // 2 stars - Orange
-                        '#FFEE58', // 3 stars - Yellow
-                        '#66BB6A', // 4 stars - Light Green
-                        '#42A5F5'  // 5 stars - Blue
-                    ].slice(0, chartData.length),
+                    backgroundColor: '#99201f',
                     borderColor: '#333',
                     borderWidth: 1,
                     borderRadius: 4,
@@ -412,3 +406,13 @@ if (document.getElementById('orderForm')) {
     document.querySelectorAll('.quantity-display').forEach(span => span.textContent = '0');
     updateOrders();
 }
+
+/*
+backgroundColor: [
+                        '#FF6B6B', // 1 star - Red
+                        '#FFA726', // 2 stars - Orange
+                        '#FFEE58', // 3 stars - Yellow
+                        '#66BB6A', // 4 stars - Light Green
+                        '#42A5F5'  // 5 stars - Blue
+                    ].slice(0, chartData.length),
+*/

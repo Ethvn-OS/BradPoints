@@ -4,11 +4,29 @@
         <div class="dashboard-stats">
             <div class="stat-card">
                 <div class="stat-icon">
-                    <i class="fas fa-chart-bar"></i>
+                    <i class="fas fa-users"></i>
                 </div>
                 <div class="stat-content">
-                    <h3><?php echo count($all_vouchredem); ?></h3>
-                    <p>Active Rewards</p>
+                    <h3><?php echo count($all_customerdel); ?></h3>
+                    <p>Deleted Customers</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="stat-content">
+                    <h3><?php echo count($all_cashierdel); ?></h3>
+                    <p>Deleted Cashiers</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="stat-content">
+                    <h3><?php echo count($all_productdel); ?></h3>
+                    <p>Deleted Products</p>
                 </div>
             </div>
             <div class="stat-card">
@@ -16,8 +34,8 @@
                     <i class="fas fa-gift"></i>
                 </div>
                 <div class="stat-content">
-                    <h3><?php echo count($all_redem); ?></h3>
-                    <p>Total Redemptions</p>
+                    <h3><?php echo count($all_rewarddel); ?></h3>
+                    <p>Deleted Rewards</p>
                 </div>
             </div>
         </div>
@@ -36,7 +54,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="table-container">
             <table class="admin-table" id="voucher-summary-table">
                 <thead>
