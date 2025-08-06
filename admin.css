@@ -987,8 +987,23 @@ textarea:focus {
 
 /* For the chart */
 
-.chart-container {
-  width: 400px;
-  height: 300px;
-  margin: 20px auto;
+.chart-section {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.chart-wrapper {
+  padding: 24px;
+  height: 400px;
+  position: relative;
+  background: #f8f9fa;
+}
+
+.chart-wrapper canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
 }

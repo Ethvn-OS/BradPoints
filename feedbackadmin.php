@@ -51,9 +51,6 @@ session_start();
             <h1>Customer Feedback</h1>
         </header>
         <main class="dashboard-content">
-            <div class="chart-container">
-                <canvas id="myChart"></canvas>
-            </div>
             <?php include "includes/feedbackadmin.html" ?>
         </main>
     </div>

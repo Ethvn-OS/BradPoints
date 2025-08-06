@@ -1,3 +1,200 @@
+// Check if Chart.js is loaded
+console.log('Chart.js check:', typeof Chart);
+console.log('Window object check:', typeof window.Chart);
+
+if (typeof Chart === 'undefined') {
+    console.error('❌ Chart.js is NOT loaded!');
+} else {
+    console.log('✅ Chart.js is loaded successfully');
+}
+
+// Chart.js Implementation - Fixed Version
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, checking for chart canvas...'); // Debug
+
+    const ctx = document.getElementById('myChart');
+
+    if (ctx) {
+        console.log('Canvas found! Dimensions:', ctx.offsetWidth, 'x', ctx.offsetHeight); // Debug
+
+        // Show loading state
+        const loadingCtx = ctx.getContext('2d');
+        loadingCtx.fillStyle = '#666';
+        loadingCtx.font = '16px Arial';
+        loadingCtx.textAlign = 'center';
+        loadingCtx.fillText('Loading chart...', ctx.width/2, ctx.height/2);
+
+        fetch("http://localhost/BradPoints/php-backend/script.php")
+        .then((response) => {
+            console.log('Fetch response status:', response.status); // Debug
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log('Chart data received:', data); // Debug
+
+            // Clear loading state
+            loadingCtx.clearRect(0, 0, ctx.width, ctx.height);
+
+            if (data && Array.isArray(data) && data.length > 0) {
+                createChart(data, 'bar');
+            } else {
+                console.warn('No valid chart data available');
+                showNoDataChart();
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching chart data:', error);
+            showErrorChart(error.message);
+        });
+    } else {
+        console.error('Canvas element #myChart not found in DOM!');
+        console.log('Available elements with IDs:', 
+            Array.from(document.querySelectorAll('[id]')).map(el => el.id)
+        );
+    }
+});
+
+function createChart(chartData, type) {
+    console.log('Creating chart with data:', chartData); // Debug
+
+    const ctx = document.getElementById('myChart');
+
+    // Destroy existing chart if it exists
+    if (window.myChartInstance) {
+        window.myChartInstance.destroy();
+    }
+
+    try {
+        window.myChartInstance = new Chart(ctx, {
+            type: type,
+            data: {
+                labels: chartData.map(row => `${row.rating} Star${row.rating != 1 ? 's' : ''}`),
+                datasets: [{
+                    label: 'Number of Ratings',
+                    data: chartData.map(row => parseInt(row.num_rating)),
+                    backgroundColor: [
+                        '#FF6B6B', // 1 star - Red
+                        '#FFA726', // 2 stars - Orange
+                        '#FFEE58', // 3 stars - Yellow
+                        '#66BB6A', // 4 stars - Light Green
+                        '#42A5F5'  // 5 stars - Blue
+                    ].slice(0, chartData.length),
+                    borderColor: '#333',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                            color: '#666',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#666',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            color: '#333',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Customer Rating Distribution',
+                        color: '#a22221',
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                        padding: 20
+                    }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
+
+        console.log('Chart created successfully!'); // Debug
+
+    } catch (error) {
+        console.error('Error creating chart:', error);
+        showErrorChart('Failed to create chart: ' + error.message);
+    }
+}
+
+function showNoDataChart() {
+    const ctx = document.getElementById('myChart');
+    const canvasCtx = ctx.getContext('2d');
+
+    // Clear canvas
+    canvasCtx.clearRect(0, 0, ctx.width, ctx.height);
+
+    // Draw no data message
+    canvasCtx.fillStyle = '#999';
+    canvasCtx.font = 'bold 18px Arial';
+    canvasCtx.textAlign = 'center';
+    canvasCtx.fillText('No rating data available yet', ctx.width/2, ctx.height/2 - 10);
+
+    canvasCtx.fillStyle = '#666';
+    canvasCtx.font = '14px Arial';
+    canvasCtx.fillText('Ratings will appear here once customers leave feedback', ctx.width/2, ctx.height/2 + 20);
+}
+
+function showErrorChart(message) {
+    const ctx = document.getElementById('myChart');
+    const canvasCtx = ctx.getContext('2d');
+
+    // Clear canvas
+    canvasCtx.clearRect(0, 0, ctx.width, ctx.height);
+
+    // Draw error message
+    canvasCtx.fillStyle = '#dc3545';
+    canvasCtx.font = 'bold 16px Arial';
+    canvasCtx.textAlign = 'center';
+    canvasCtx.fillText('Error loading chart', ctx.width/2, ctx.height/2 - 10);
+
+    canvasCtx.fillStyle = '#666';
+    canvasCtx.font = '12px Arial';
+    canvasCtx.fillText(message, ctx.width/2, ctx.height/2 + 15);
+}
+
 let userName = "<?php echo addslashes($user_data['user_name']); ?>";
 
 window.onload = function() {
@@ -215,28 +412,3 @@ if (document.getElementById('orderForm')) {
     document.querySelectorAll('.quantity-display').forEach(span => span.textContent = '0');
     updateOrders();
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    const ctx = document.getElementById('myChart');
-
-    if (ctx) {
-        new Chart(ctx, {
-        type: 'bar',
-        data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1
-        }]
-        },
-        options: {
-        scales: {
-            y: {
-            beginAtZero: true
-            }
-        }
-        }
-        });
-    }
-})
