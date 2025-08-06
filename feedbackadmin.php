@@ -18,7 +18,9 @@ session_start();
 
     $all_feedback = [];
 
-    $allfeedback_query = "SELECT * FROM feedback";
+    $allfeedback_query = "SELECT u.user_name, f.rating, f.content, f.created_at
+                          FROM feedback f
+                          JOIN users u ON u.id = f.user_id";
     $result_query = mysqli_query($con, $allfeedback_query);
 
     if ($result_query) {
@@ -49,10 +51,14 @@ session_start();
             <h1>Customer Feedback</h1>
         </header>
         <main class="dashboard-content">
+            <div class="chart-container">
+                <canvas id="myChart"></canvas>
+            </div>
             <?php include "includes/feedbackadmin.html" ?>
         </main>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

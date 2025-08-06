@@ -53,15 +53,12 @@
                 <thead>
                     <tr>
                         <th onclick="sortTable('reward-table', 0)">
-                            ID <i class="fas fa-sort"></i>
-                        </th>
-                        <th onclick="sortTable('reward-table', 1)">
                             Reward Name <i class="fas fa-sort"></i>
                         </th>
-                        <th onclick="sortTable('reward-table', 2)">
+                        <th onclick="sortTable('reward-table', 1)">
                             Description <i class="fas fa-sort"></i>
                         </th>
-                        <th onclick="sortTable('reward-table', 3)">
+                        <th onclick="sortTable('reward-table', 2)">
                             Points Required <i class="fas fa-sort"></i>
                         </th>
                         <th>Actions</th>
@@ -72,7 +69,6 @@
                         <?php foreach($all_rewards as $reward): ?>
                             <?php if ($reward['isDeleted'] == 0): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($reward['id']); ?></td>
                                     <td class="reward-name-cell">
                                         <?php if (isset($_GET['edit']) && $_GET['edit'] == $reward['id']): ?>
                                             <form method="post" class="edit-form" style="display:inline;">

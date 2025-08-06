@@ -105,9 +105,8 @@
         <table class="admin-table" id="product-table">
             <thead>
                 <tr>
-                    <th onclick="sortTable('product-table', 0)">ID <i class="fas fa-sort"></i></th>
-                    <th onclick="sortTable('product-table', 1)">Product Name <i class="fas fa-sort"></i></th>
-                    <th onclick="sortTable('product-table', 2)">Category <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable('product-table', 0)">Product Name <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable('product-table', 1)">Category <i class="fas fa-sort"></i></th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -116,7 +115,6 @@
                     <?php foreach($all_prod as $prod): ?>
                         <?php if ($prod['isDeleted'] == 0): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($prod['id']); ?></td>
                                 <td class="product-name-cell">
                                     <?php if (isset($_GET['edit']) && $_GET['edit'] == $prod['id']): ?>
                                         <form method="post" class="edit-form" style="display:inline;">

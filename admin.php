@@ -33,7 +33,10 @@ session_start();
 
     $all_redem = [];
 
-    $redem_query = "SELECT * FROM redemption";
+    $redem_query = "SELECT u.user_name, r.reward_name, red.redemption_id, red.status, red.cashier_id
+                    FROM redemption red
+                    JOIN users u ON u.id = red.user_id
+                    JOIN rewards r ON r.id = red.reward_id";
     $result_redem = mysqli_query($con, $redem_query);
 
     if ($result_redem) {
@@ -41,6 +44,8 @@ session_start();
             $all_redem[] = $row;
         }
     }
+
+    //$redem_query = "SELECT * FROM redemption";
 
 ?>
 

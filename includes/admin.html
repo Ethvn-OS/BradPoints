@@ -83,9 +83,9 @@
             <table class="admin-table" id="redemption-history-table">
                 <thead>
                     <tr>
-                        <th onclick="sortTable('redemption-history-table', 0)">User ID</th>
+                        <th onclick="sortTable('redemption-history-table', 0)">Username</th>
                         <th onclick="sortTable('redemption-history-table', 1)">Cashier ID</th>
-                        <th onclick="sortTable('redemption-history-table', 2)">Reward ID</th>
+                        <th onclick="sortTable('redemption-history-table', 2)">Reward Name</th>
                         <th onclick="sortTable('redemption-history-table', 3)">Redemption ID</th>
                         <th onclick="sortTable('redemption-history-table', 4)">Status</th>
                     </tr>
@@ -94,9 +94,9 @@
                     <?php if(!empty($all_redem)): ?>
                         <?php foreach($all_redem as $redem): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($redem['user_id']); ?></td>
+                                <td><?php echo htmlspecialchars($redem['user_name']); ?></td>
                                 <td><?php echo htmlspecialchars($redem['cashier_id']); ?></td>
-                                <td><?php echo htmlspecialchars($redem['reward_id']); ?></td>
+                                <td><?php echo htmlspecialchars($redem['reward_name']); ?></td>
                                 <td><?php echo htmlspecialchars($redem['redemption_id']); ?></td>
                                 <td>
                                     <span class="status-badge status-<?php echo strtolower($redem['status']); ?>">

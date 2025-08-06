@@ -102,15 +102,12 @@
             <thead>
                 <tr>
                     <th onclick="sortTable('customer-table', 0)">
-                        ID <i class="fas fa-sort"></i>
-                    </th>
-                    <th onclick="sortTable('customer-table', 1)">
                         Username <i class="fas fa-sort"></i>
                     </th>
-                    <th onclick="sortTable('customer-table', 2)">
+                    <th onclick="sortTable('customer-table', 1)">
                         Email <i class="fas fa-sort"></i>
                     </th>
-                    <th onclick="sortTable('customer-table', 3)">
+                    <th onclick="sortTable('customer-table', 2)">
                         Points <i class="fas fa-sort"></i>
                     </th>
                     <th>Actions</th>
@@ -121,7 +118,6 @@
                     <?php foreach($all_users as $user): ?>
                         <?php if ($user['isDeleted'] == 0): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($user['id']); ?></td>
                                 <td>
                                     <?php if (isset($_GET['edit']) && $_GET['edit'] == $user['id']): ?>
                                         <form method="post" class="edit-form" style="display:inline;">
@@ -247,12 +243,9 @@
             <thead>
                 <tr>
                     <th onclick="sortTable('cashier-table', 0)">
-                        ID <i class="fas fa-sort"></i>
-                    </th>
-                    <th onclick="sortTable('cashier-table', 1)">
                         Username <i class="fas fa-sort"></i>
                     </th>
-                    <th onclick="sortTable('cashier-table', 2)">
+                    <th onclick="sortTable('cashier-table', 1)">
                         Email <i class="fas fa-sort"></i>
                     </th>
                     <th>Actions</th>
@@ -263,7 +256,6 @@
                     <?php foreach($all_cashiers as $cashier): ?>
                         <?php if ($cashier['isDeleted'] == 0): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($cashier['id']); ?></td>
                                 <td>
                                     <?php if (isset($_GET['edit']) && $_GET['edit'] == $cashier['id']): ?>
                                         <form method="post" class="edit-form" style="display:inline;">

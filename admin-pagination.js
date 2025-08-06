@@ -92,9 +92,9 @@ function renderTable(tableType) {
                 '<td>' + item.number_of_redemptions + '</td>';
         } else {
             row.innerHTML = 
-                '<td>' + item.user_id + '</td>' +
+                '<td>' + item.user_name + '</td>' +
                 '<td>' + item.cashier_id + '</td>' +
-                '<td>' + item.reward_id + '</td>' +
+                '<td>' + item.reward_name + '</td>' +
                 '<td>' + item.redemption_id + '</td>' +
                 '<td><span class="status-badge status-' + item.status.toLowerCase() + '">' + item.status + '</span></td>';
         }
