@@ -122,7 +122,7 @@ session_start();
             <?php include "includes/recentlydeleted.html" ?>
         </main>
     </div>
-    
+
     <script src="script.js"></script>
     <script src="admin-pagination.js"></script>
     <script>
@@ -130,7 +130,7 @@ session_start();
         document.addEventListener('DOMContentLoaded', function() {
             var voucherData = <?php echo json_encode(isset($all_vouchredem) ? $all_vouchredem : []); ?>;
             var redemptionData = <?php echo json_encode(isset($all_redem) ? $all_redem : []); ?>;
-            
+
             // Set the data in the pagination script
             if (typeof setTableData === 'function') {
                 setTableData(voucherData, redemptionData);
